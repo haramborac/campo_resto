@@ -1,0 +1,78 @@
+section{
+    height: 100%;
+    width: 100%;
+}
+.invContent{
+    height: 100%;
+    width: 27%;
+    padding: 5% 3%;
+    text-align: center;
+}
+.addNewIng{
+    margin-top: 50px;
+    height: 300px;
+    padding: 5%;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 16px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+}
+.addNew{
+    margin-top: 20px;
+}
+.addNew div{
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+}
+.addNew div label{
+    position: absolute;
+    font-size: 12px;
+    margin-top: -18px;
+}
+.addNew div input{
+    height: 30px;
+    border-radius: 5px;
+    border: solid 1px;
+    padding: 0 5px;
+    text-transform: capitalize;
+    font-size: 20px;
+}
+.addNew div select{
+    width: 85px;
+    height: 30px;
+    border-radius: 5px;
+}
+.addNew div span{
+    font-size: 20px;
+    font-weight: 600;
+    margin: 0 10px;
+}
+.addNew div input#ingNameNew{
+    width: 70%;
+}
+.addNew div input#ingNewQuan{
+    width: 45%;
+}
+.addNew div input#ingNewPrice{
+    width: 35%;
+}
+.addNew div input#addIngSubmit{
+    width: 100px;
+    margin-top: 5px;
+    font-size: 12px;
+    cursor: pointer;
+}
+.totalNewInv{
+    margin-top: 10px;
+    height: 80px;
+    padding: 2%;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 16px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+}

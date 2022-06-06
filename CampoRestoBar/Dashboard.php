@@ -12,6 +12,7 @@
             <p>Serve Well and Enjoy!</p>
         </div>
         <div class="currentStats">
+            <h1>DASHBOARD</h1>
             <div class="campoCard">
                 <h1>Inventory</h1>
                 <p>Here you can see the current number of Ingredients listed on the system</p>
