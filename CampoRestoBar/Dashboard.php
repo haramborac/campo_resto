@@ -12,30 +12,31 @@
             <p>Serve Well and Enjoy!</p>
         </div>
         <div class="currentStats">
+            <h1>DASHBOARD</h1>
             <div class="campoCard">
                 <h1>Inventory</h1>
-                <p>Here you can see the current number of Ingridients listed on the system</p>
+                <p>Here you can see the current number of Ingredients listed on the system</p>
                 <div class="breakNumbers">
                     <div>
-                        <h3>Total Ingridients</h3>
+                        <h3>Total Ingredients</h3>
                         <h1>100 kinds</h1>
                     </div>
                     <hr>
                     <div>
-                        <h3>Ingridients Cost</h3>
+                        <h3>Ingredients Cost</h3>
                         <h1>₱ 999999.99</h1>
                     </div>
                 </div>
                 <div class="warningMessage">
-                    <h4><span>WARNING :</span> 3 Ingridients Low Level !!</h4>
+                    <h4><span>WARNING :</span> 3 Ingredients Low Level !!</h4>
                 </div>
             </div>
             <div class="campoCard">
                 <h1>Cook</h1>
-                <p>Here you can see the Ingridients used and Meal Sale</p>
+                <p>Here you can see the Ingredients used and Meal Sale</p>
                 <div class="breakNumbers">
                     <div>
-                        <h3>Ingridients Used</h3>
+                        <h3>Ingredients Used</h3>
                         <h1>100 kinds</h1>
                     </div>
                     <hr>

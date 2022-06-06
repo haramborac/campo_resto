@@ -19,10 +19,10 @@
     <div class="campoNav">
         <ul>
             <li><a href="Dashboard.php"><i class="fas fa-tachometer-alt"></i>Dashboard</a></li>
-            <li><a href=""><i class="fas fa-boxes"></i>Inventory</a></li>
-            <li><a href=""><i class="fas fa-utensils"></i>Cook</a></li>
-            <li><a href=""><i class="fas fa-file-invoice-dollar"></i>Cashier</a></li>
-            <li><a href=""><i class="fas fa-cogs"></i>Settings</a></li>
+            <li><a href="Inventory.php"><i class="fas fa-boxes"></i>Inventory</a></li>
+            <li><a href="Cook.php"><i class="fas fa-utensils"></i>Cook</a></li>
+            <li><a href="Cashier.php"><i class="fas fa-file-invoice-dollar"></i>Cashier</a></li>
+            <li><a href="Settings.php"><i class="fas fa-cogs"></i>Settings</a></li>
             <button>LOGOUT</button>
         </ul>
     </div>

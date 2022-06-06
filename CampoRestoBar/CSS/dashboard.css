@@ -1,7 +1,6 @@
 section{
     height: 100%;
     width: 100%;
-    background: lightgray;
     padding: 8% 10%;
 }
 .campoWelcome{
@@ -22,6 +21,10 @@ section{
 .welcome p{
     font-size: 15px;
     font-style: italic;
+}
+.currentStats h1{
+    font-size: 30px;
+    font-weight: 600;
 }
 .campoCard{
     height: 205px;
