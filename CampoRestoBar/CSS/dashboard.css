@@ -1,0 +1,64 @@
+section{
+    height: 100%;
+    width: 100%;
+    background: lightgray;
+    padding: 8% 10%;
+}
+.campoWelcome{
+    height: 100%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+.welcome img{
+    height: 600px;
+    width: auto;
+}
+.welcome h1{
+    font-size: 60px;
+}
+.welcome p{
+    font-size: 15px;
+    font-style: italic;
+}
+.campoCard{
+    height: 205px;
+    width: 100%;
+    padding: 2%;
+    margin: 20px 0;
+    border-radius: 20px;
+    border: solid 1px;
+}
+.campoCard h1{
+    font-size: 30px;
+}
+.campoCard p{
+    font-size: 10px;
+    font-style: italic;
+}
+.breakNumbers{
+    margin: 10px 0;
+    display: flex;
+    justify-content: center;
+}
+.breakNumbers div{
+    width: 250px;
+    margin: 0 10px;
+}
+.breakNumbers div h3{
+    font-size: 18px;
+}
+.warningMessage{
+    height: 30px;
+    width: 100%;
+    text-align: center;
+    align-items: center;
+    background: salmon;
+    border-bottom-left-radius: 15px;
+    border-bottom-right-radius: 15px;
+}
+.warningMessage h4{
+    color: red;
+}
