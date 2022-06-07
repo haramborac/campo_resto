@@ -89,10 +89,10 @@
 
                                 <option value="Pcs">Pcs</option>
                                 <option value="Kgs">Kgs</option>
-                                <option value="Grms">gms</option>
+                                <option value="Grms">Gms</option>
                                 <option value="Lts">Lts</option>
                                 <option value="mLts">mLs</option>
-                            </Select> -->
+                            </Select>
                         </div>
                     </div>
                     <div>
@@ -148,19 +148,21 @@
                         <th width="20%">Ingredient Name</th>
                         <th width="10%">Quantity</th>
                         <th width="10%">Unit</th>
-                        <th width="10%">Status</th>
                         <th width="10%">Cost</th>
-                        <th width="20%">Date Listed</th>
-                        <th width="20%">Date Updated</th>
+                        <th width="15%">Cost per Unit</th>
+                        <th width="10%">Status</th>
+                        <th width="14%">Date Listed</th>
+                        <th width="15%">Date Updated</th>
                     </tr>
                     <tr>
                         <td width="20%">Salt Papi</td>
                         <td width="10%">69</td>
                         <td width="10%">Kgs</td>
-                        <td width="10%" id="">High Level</td>
                         <td width="10%">₱ 99999.99</td>
-                        <td width="20%">January 24 1999</td>
-                        <td width="20%">June 07 2022</td>
+                        <td width="15%"></td>
+                        <td width="12%" id="">High Level</td>
+                        <td width="14%">January 24 1999</td>
+                        <td width="14%">June 07 2022</td>
                     </tr>
                 </table>
             </div>
