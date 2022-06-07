@@ -178,10 +178,9 @@
                     <select name="sortIngBy" id="sortIngBy" onchange="sorting();">
                         <option value="name">Name</option>
                         <option value="quantity">Quantity</option>
-                        <option value="unit">Unit</option>
                         <option value="price">Price</option>
                         <option value="status">Status</option>
-                        <option value="date">Date</option>
+                        <option value="date">Date Updated</option>
                     </select>
                 </div>
             </div>
@@ -200,14 +199,27 @@
                         $showingredients = "SELECT * FROM ingredients";
                         $showingredients_query = mysqli_query($connection, $showingredients);
                         while($row = mysqli_fetch_assoc($showingredients_query)){
-                            $costperunit = $row['ingCost']/$row['ingQuantity'];
+                            $row['ingQuantity'];
+                            $quantity = $row['ingQuantity'];
+                                if($quantity==0){
+                                    $level = "<td width='10%' id='highLight' style='background:black'>Out of Stock</td>";
+                                }
+                                elseif($quantity>0 && $quantity<=10){
+                                    $level = "<td width='10%' id='highLight' style='background:red'>Low Level</td>";
+                                }
+                                elseif($quantity>10 && $quantity<=50){
+                                    $level ="<td width='10%' id='highLight' style='background:yellow'>Average Level</td>";
+                                }
+                                elseif($quantity>50){
+                                    $level ="<td width='10%' id='highLight' style='background:lightgreen'>High Level</td>";
+                                }
                     ?>
                     <tr>
                         <td width="20%"><?php echo $row['ingName'] ?></td>
-                        <td width="15%"><?php echo $row['ingQuantity'] ?> <?php echo $row['ingUnit'].'/s' ?></td>
+                        <td width="15%"><?php echo $quantity?> <?php echo $row['ingUnit'].'/s' ?></td>
                         <td width="10%">₱ <?php echo number_format($row['ingCost'], 2) ?></td>
-                        <td width="15%">₱ <?php echo $costperunit ?>/<?php echo $row['ingUnit'] ?></td>
-                        <td width="10%" id="highLight">High Level</td>
+                        <td width="15%">₱ <?php echo number_format(($row['ingCost']/$row['ingQuantity']),2) ?>/<?php echo $row['ingUnit'] ?></td>
+                        <?php echo $level ?>
                         <td width="15%"><?php echo date('F m, Y', strtotime($row['ingListed'])) ?></td>
                         <td width="15%"><?php echo date('F m, Y', strtotime($row['ingUpdated'])) ?></td>
                     </tr>
