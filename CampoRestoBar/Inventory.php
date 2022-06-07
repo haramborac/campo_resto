@@ -9,7 +9,7 @@
 </script>
 <section class="campoInventory" id="campoInventory">
     <div class="invContent">
-        <h1>INGREDIENTS INVENTORY</h1>
+        <h1>INVENTORY SYSTEM</h1>
         <form action="" method="post">
             <div class="addNewIng">
                 <h1>Add New Ingredient</h1>
@@ -142,6 +142,28 @@
         </div>
     </div>
     <div class="invList">
+        <div class="invExtras">
+            <span><i class="fa fa-times"></i></span>
+            <div class="invExtPanel history">
+                <h1>Inventory History</h1>
+                <div class="invExtTable history">
+                    <table>
+                        <tr>
+                            <th width="25%">Ingredient</th>
+                            <th width="15%">Qnty</th>
+                            <th width="30%">Cost</th>
+                            <th width="30%">Date Listed</th>
+                        </tr>
+                        <tr>
+                            <td width="25%">Salt Papi</td>
+                            <td width="15%">3 Pc/s</td>
+                            <td width="30%">₱ 1,000.00</td>
+                            <td width="30%">January 24,1999</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
         <div class="invListContainer">
             <div class="sortIngredients">
                 <div>
@@ -164,8 +186,7 @@
                 <table id="tableTitle">
                     <tr>
                         <th width="20%">Ingredient Name</th>
-                        <th width="10%">Quantity</th>
-                        <th width="5%">Unit</th>
+                        <th width="15%">Quantity</th>
                         <th width="10%">Cost</th>
                         <th width="15%">Cost/Unit</th>
                         <th width="10%">Status</th>
@@ -180,8 +201,7 @@
                     ?>
                     <tr>
                         <td width="20%"><?php echo $row['ingName'] ?></td>
-                        <td width="10%"><?php echo $row['ingQuantity'] ?></td>
-                        <td width="5%"><?php echo $row['ingUnit'].'/s' ?></td>
+                        <td width="15%"><?php echo $row['ingQuantity'] ?> <?php echo $row['ingUnit'].'/s' ?></td>
                         <td width="10%">₱ <?php echo number_format($row['ingCost'], 2) ?></td>
                         <td width="15%">₱ <?php echo $costperunit ?>/<?php echo $row['ingUnit'] ?></td>
                         <td width="10%" id="highLight">High Level</td>
