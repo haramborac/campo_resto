@@ -26,7 +26,7 @@
 
                             <option value="Pc">Piece/s</option>
                             <option value="Kg">Kilogram/s</option>
-                            <option value="gm">Gram/s</option>
+                            <option value="g">Gram/s</option>
                             <option value="L">Liter/s</option>
                             <option value="ml">Milliliter/s</option>
 
@@ -97,7 +97,7 @@
                             <Select id="ingVolume" class="ingVolume" name="ingVolume">
                                 <option value="Pc">Piece/s</option>
                                 <option value="Kg">Kilogram/s</option>
-                                <option value="gm">Gram/s</option>
+                                <option value="g">Gram/s</option>
                                 <option value="L">Liter/s</option>
                                 <option value="ml">Milliliter/s</option>
                             </Select>
