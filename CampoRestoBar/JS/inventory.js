@@ -175,8 +175,7 @@ function enableAdd(){
 
         if(name.length>0&&quantity>0&&price>0){
             document.getElementById('addIngSubmit').removeAttribute('disabled');
-         }
-        else{
+        }else{
             document.getElementById('addIngSubmit').setAttribute('disabled',true);
         }
 }

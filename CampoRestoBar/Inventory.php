@@ -37,7 +37,7 @@
                         <span>₱</span><input type="text" id="ingNewPrice" class="ingNewPrice" name="ingPrice" placeholder="0.00">
                     </div>
                     <div>
-                        <button type="submit" id="addIngSubmit" name="addIngredients" disabled>Add Ingredient</button>
+                        <button type="submit" id="addIngSubmit" name="addIngredients" class="btnHover" disabled>Add Ingredient</button>
                     </div>
                 </div>
             </div>
@@ -109,7 +109,7 @@
                         <span>₱</span><input type="number" id="resPrice" class="resPrice" name="resPrice" placeholder="0.00">
                     </div>
                     <div>
-                        <button type="submit" id="restockIngSubmit" name="restockIngredients" disabled>Restock Ingredient</button>
+                        <button type="submit" id="restockIngSubmit" name="restockIngredients" class="btnHover" disabled>Restock Ingredient</button>
                     </div>
                 </div>
             </div>
@@ -140,14 +140,14 @@
             }
         ?>
         <div class="invModalButtons">
-            <button>History</button>
-            <button>Summary</button>
+            <button id="viewHistory" class="extrasBtn" onclick="viewHistory()">History</button>
+            <button id="viewSummary" class="extrasBtn" onclick="viewSummary()">Summary</button>
         </div>
     </div>
     <div class="invList">
-        <div class="invExtras">
-            <span><i class="fa fa-times"></i></span>
-            <div class="invExtPanel history">
+        <div class="invExtras" id="invExtrasHis" style="display: none;">
+            <span id="closeModal" class="closeModal" onclick="closeMod()"><i class="fa fa-times"></i></span>
+            <div class="invExtPanel history" id="invExtraHistory">
                 <h1>Inventory History</h1>
                 <div class="invExtTable history">
                     <table>
@@ -155,7 +155,7 @@
                             <th width="25%">Ingredient</th>
                             <th width="15%">Qnty</th>
                             <th width="30%">Cost</th>
-                            <th width="30%">Date Listed</th>
+                            <th width="30%">Date</th>
                         </tr>
                         <tr>
                             <td width="25%">Salt Papi</td>
@@ -166,6 +166,10 @@
                     </table>
                 </div>
             </div>
+        </div>
+        <div class="invExtras" id="invExtrasSum" style="display: none;">
+            <span id="closeModal" class="closeModal" onclick="closeMod()"><i class="fa fa-times"></i></span>
+            
         </div>
         <div class="invListContainer">
             <div class="sortIngredients">
@@ -244,4 +248,35 @@
     document.getElementById('ingNewPrice').addEventListener('keyup',enableAdd); 
     document.getElementById('resVol').addEventListener('keyup',enableRestock);
     document.getElementById('resPrice').addEventListener('keyup',enableRestock);
+</script>
+
+<script>
+    var hisModal    = document.getElementById("invExtrasHis");
+    var sumModal    = document.getElementById("invExtrasSum");
+    var sumBtn      = document.getElementById("viewSummary");
+    var hisBtn      = document.getElementById("viewHistory");
+    var extClose    = document.getElementById("closeModal");
+
+    function viewHistory() {
+        hisModal.style.display = "block";
+        hisBtn.setAttribute('disabled',true);
+        sumBtn.setAttribute('disabled',true);
+        hisBtn.classList.remove("extrasBtn");
+        sumBtn.classList.remove("extrasBtn");
+    }
+    function viewSummary() {
+        sumModal.style.display = "block";
+        hisBtn.setAttribute('disabled',true);
+        sumBtn.setAttribute('disabled',true);
+        hisBtn.classList.remove("extrasBtn");
+        sumBtn.classList.remove("extrasBtn");
+    }
+    function closeMod() {
+        hisModal.style.display = "none";
+        sumModal.style.display = "none";
+        hisBtn.removeAttribute('disabled');
+        sumBtn.removeAttribute('disabled');
+        hisBtn.classList.add("extrasBtn");
+        sumBtn.classList.add("extrasBtn");
+    }
 </script>
