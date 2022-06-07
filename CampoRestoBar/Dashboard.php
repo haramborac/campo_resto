@@ -21,7 +21,7 @@
                         <h3>Total Ingredients</h3>
                         <?php
                             
-                            $showingredients = "SELECT COUNT(ing_name) AS NumberOfIngredients FROM payment_history";
+                            $showingredients = "SELECT COUNT(ingName) AS NumberOfIngredients FROM ingredients";
                             $showingredients_query = mysqli_query($connection, $showingredients);
                             while($total_ing = mysqli_fetch_assoc($showingredients_query)){
                         
@@ -34,7 +34,7 @@
                         <h3>Ingredients Cost</h3>
                         <?php
                             
-                            $ingredientprices = "SELECT SUM(ing_price) AS ingredientCost FROM payment_history";
+                            $ingredientprices = "SELECT SUM(ingCost) AS ingredientCost FROM ingredients";
                             $ingredientprices_query = mysqli_query($connection, $ingredientprices);
                             while($ing_cost = mysqli_fetch_assoc($ingredientprices_query)){
                         
