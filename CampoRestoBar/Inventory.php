@@ -67,17 +67,17 @@
                             <label for="ingredientName">Restock</label>
                             <select name="restockIngredientName" id="ingredientName">
                                 <?php 
-                                    // $showingredients = "SELECT * FROM payment_history";
-                                    // $showingredients_query = mysqli_query($connection, $showingredients);
-                                    // while($row = mysqli_fetch_assoc($showingredients_query)){
-                                    //     $row['ing_name'];
-                                    //     $row['ing_quantity'];
-                                    //     $row['ing_unit'];
-                                    //     $row['ing_price'];
+                                    $showingredients = "SELECT * FROM payment_history";
+                                    $showingredients_query = mysqli_query($connection, $showingredients);
+                                    while($row = mysqli_fetch_assoc($showingredients_query)){
+                                        $row['ing_name'];
+                                        $row['ing_quantity'];
+                                        $row['ing_unit'];
+                                        $row['ing_price'];
                                     
                                 ?>
                                 <option value="<?php echo $row['ing_name'] ?>"><?php echo $row['ing_name'] ?></option>
-                                <?php //} ?>
+                                <?php } ?>
                             </select>
                         </div>
                         <div>
@@ -163,6 +163,27 @@
                         <td width="15%">January 24 1999</td>
                         <td width="15%">June 07 2022</td>
                     </tr>
+                    <?php 
+                        $showingredients = "SELECT * FROM payment_history";
+                        $showingredients_query = mysqli_query($connection, $showingredients);
+                        while($row = mysqli_fetch_assoc($showingredients_query)){
+                            $row['ing_name'];
+                            $row['ing_quantity'];
+                            $row['ing_unit'];
+                            $row['ing_price'];
+                        
+                    ?>
+                    <tr>
+                        <td width="20%"><?php echo $row['ing_name'] ?></td>
+                        <td width="10%"><?php echo $row['ing_quantity'] ?></td>
+                        <td width="5%"><?php echo $row['ing_unit'].'/s' ?></td>
+                        <td width="10%">₱ <?php echo number_format($row['ing_price'], 2) ?></td>
+                        <td width="15%">₱ 99.99/ <?php echo $row['ing_unit'] ?></td>
+                        <td width="10%" id="highLight">High Level</td>
+                        <td width="15%">January 24 1999</td>
+                        <td width="15%">June 07 2022</td>
+                    </tr>
+                    <?php } ?>
                 </table>
             </div>
         </div>
