@@ -117,7 +117,7 @@
                 $restockIng_name = $_POST['restockIngredientName'];
                 $restockIng_quantity = $_POST['resVol'];
 
-                $restockIng = "UPDATE payment_history SET ing_quantity = ing_quantity+$restockIng_quantity WHERE ing_name = '$restockIng_name' ";
+                $restockIng = "UPDATE ingredients SET ingQuantity = ingQuantity+$restockIng_quantity WHERE ingName = '$restockIng_name' ";
                 $restockIng_query = mysqli_query($connection, $restockIng);
                 header('location:Inventory.php');
             }
@@ -159,40 +159,10 @@
                         <th width="15%">Date Updated</th>
                     </tr>
                     <tr>
-                        <td width="20%">DSalt Papi</td>
-                        <td width="10%">612219</td>
-                        <td width="5%">Pcs</td>
-                        <td width="10%">₱ 9999.99</td>
-                        <td width="15%">₱ 99.99/Kg</td>
-                        <td width="10%" id="highLight">High Level</td>
-                        <td width="15%">January 24 1999</td>
-                        <td width="15%">June 07 2022</td>
-                    </tr>
-                    <tr>
                         <td width="20%">ASalt Papi</td>
                         <td width="10%">69449</td>
                         <td width="5%">Kgs</td>
                         <td width="10%">₱ 999.99</td>
-                        <td width="15%">₱ 99.99/Kg</td>
-                        <td width="10%" id="highLight">High Level</td>
-                        <td width="15%">January 24 1999</td>
-                        <td width="15%">June 07 2022</td>
-                    </tr>
-                    <tr>
-                        <td width="20%">BSalt Papi</td>
-                        <td width="10%">6999</td>
-                        <td width="5%">Gms</td>
-                        <td width="10%">₱ 99.99</td>
-                        <td width="15%">₱ 99.99/Kg</td>
-                        <td width="10%" id="highLight">High Level</td>
-                        <td width="15%">January 24 1999</td>
-                        <td width="15%">June 07 2022</td>
-                    </tr>
-                    <tr>
-                        <td width="20%">CSalt Papi</td>
-                        <td width="10%">69999</td>
-                        <td width="5%">Kgs</td>
-                        <td width="10%">₱ 9.99</td>
                         <td width="15%">₱ 99.99/Kg</td>
                         <td width="10%" id="highLight">High Level</td>
                         <td width="15%">January 24 1999</td>
