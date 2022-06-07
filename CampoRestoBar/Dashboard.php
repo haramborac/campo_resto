@@ -55,7 +55,7 @@
                 <div class="breakNumbers">
                     <div>
                         <h3>Total Meals</h3>
-                        <h1>100 kinds</h1>
+                        <h1>100</h1>
                     </div>
                     <hr>
                     <div>
