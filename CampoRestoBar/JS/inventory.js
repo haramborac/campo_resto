@@ -60,34 +60,6 @@ function sortName(){
         }
     }
 }
-function sortQuantity(){
-    console.log('sort by quantity');
-    var table, rows, switching, i, x, y, shouldSwitch;
-    table = document.getElementById("tableTitle");
-    switching = true;
-
-    while(switching){
-
-        switching = false;
-        rows = table.rows;
-
-        for(i=1;i<(rows.length -1);i++){
-            shouldSwitch = false;
-
-            x = rows[i].getElementsByTagName("td")[1];
-            y = rows[i+1].getElementsByTagName("td")[1];
-
-            if(parseInt(x.innerHTML)> parseInt(y.innerHTML)){
-                shouldSwitch = true;
-                break;
-            }
-        }
-        if(shouldSwitch){
-            rows[i].parentNode.insertBefore(rows[i+1],rows[i]);
-            switching = true;
-        }
-    }
-}
 function sortUnit(){
     console.log('sort by unit');
     var table, rows, switching, i, x, y, shouldSwitch;
@@ -125,10 +97,10 @@ function sortPrice(){
         for(i=1;i<(rows.length -1);i++){
             shouldSwitch = false;
 
-            x = rows[i].getElementsByTagName("td")[3];
-            y = rows[i+1].getElementsByTagName("td")[3];
+            x = rows[i].getElementsByTagName("td")[2];
+            y = rows[i+1].getElementsByTagName("td")[2];
 
-            if(parseInt(x.innerHTML.match(/\d+/))< parseInt(y.innerHTML.match(/\d+/))){
+            if(parseFloat(x.innerHTML.match(/\d+/))< parseFloat(y.innerHTML.match(/\d+/))){
                 shouldSwitch = true;
                 break;
             }
@@ -140,10 +112,60 @@ function sortPrice(){
     }
 }
 function sortStatus(){
-    console.log('sort by status (wala pa)');
+    console.log('sort by status');
+    var table, rows, switching, i, x, y, shouldSwitch;
+    table = document.getElementById("tableTitle");
+    switching = true;
+
+    while(switching){
+
+        switching = false;
+        rows = table.rows;
+
+        for(i=1;i<(rows.length -1);i++){
+            shouldSwitch = false;
+
+            x = rows[i].getElementsByTagName("td")[1];
+            y = rows[i+1].getElementsByTagName("td")[1];
+
+            if(parseInt(x.innerHTML)> parseInt(y.innerHTML)){
+                shouldSwitch = true;
+                break;
+            }
+        }
+        if(shouldSwitch){
+            rows[i].parentNode.insertBefore(rows[i+1],rows[i]);
+            switching = true;
+        }
+    }
 }
 function sortDate(){
-    console.log('sort by date (wala pa)');
+    console.log('sort by date');
+    var table, rows, switching, i, x, y, shouldSwitch;
+    table = document.getElementById("tableTitle");
+    switching = true;
+
+    while(switching){
+
+        switching = false;
+        rows = table.rows;
+
+        for(i=1;i<(rows.length -1);i++){
+            shouldSwitch = false;
+
+            x = rows[i].getElementsByTagName("td")[7];
+            y = rows[i+1].getElementsByTagName("td")[7];
+
+            if(Date.parse(x.innerHTML)<Date.parse(y.innerHTML)){
+                shouldSwitch = true;
+                break;
+            }
+        }
+        if(shouldSwitch){
+            rows[i].parentNode.insertBefore(rows[i+1],rows[i]);
+            switching = true;
+        }
+    }
 }
 
 function enableAdd(){
