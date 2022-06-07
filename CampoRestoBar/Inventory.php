@@ -69,7 +69,7 @@
                 <div class="ingRes">
                     <div id="ingResName" class="ingResName">
                         <div>
-                            <label for="ingredientName">Restock</label>
+                            <label for="ingredientName">Ingredient Name</label>
                             <select name="restockIngredientName" id="ingredientName">
                                 <?php 
                                     $showingredients = "SELECT * FROM ingredients";
