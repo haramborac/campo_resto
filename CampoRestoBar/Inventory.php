@@ -128,7 +128,10 @@
                 $restockIng_name = $_POST['restockIngredientName'];
                 $restockIng_quantity = $_POST['resVol'];
 
-                $restockIng = "UPDATE ingredients SET ingQuantity = ingQuantity+$restockIng_quantity WHERE ingName = '$restockIng_name' ";
+                $restockIng = "UPDATE ingredients SET 
+                ingQuantity = ingQuantity+$restockIng_quantity, 
+                ingUpdated = now() 
+                WHERE ingName = '$restockIng_name' ";
                 $restockIng_query = mysqli_query($connection, $restockIng);
                 header('location:Inventory.php');
             }
@@ -170,8 +173,8 @@
                         <th width="15%">Date Updated</th>
                     </tr>
                     <tr>
-                        <td width="20%">ASalt Papi</td>
-                        <td width="10%">69449</td>
+                        <td width="20%">Salt Papi</td>
+                        <td width="10%">99</td>
                         <td width="5%">Kgs</td>
                         <td width="10%">₱ 999.99</td>
                         <td width="15%">₱ 99.99/Kg</td>
@@ -192,8 +195,8 @@
                         <td width="10%">₱ <?php echo number_format($row['ingCost'], 2) ?></td>
                         <td width="15%">₱ <?php echo $costperunit ?>/<?php echo $row['ingUnit'] ?></td>
                         <td width="10%" id="highLight">High Level</td>
-                        <td width="15%"><?php echo date('m-d-y', strtotime($row['ingListed'])) ?></td>
-                        <td width="15%"><?php echo date('m-d-y', strtotime($row['ingUpdated'])) ?></td>
+                        <td width="15%"><?php echo date('F m, Y', strtotime($row['ingListed'])) ?></td>
+                        <td width="15%"><?php echo date('F m, Y', strtotime($row['ingUpdated'])) ?></td>
                     </tr>
                     <?php } ?>
                 </table>
