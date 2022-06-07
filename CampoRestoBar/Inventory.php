@@ -15,7 +15,7 @@
                 <h1>Add New Ingredient</h1>
                 <div class="addNew">
                     <div>
-                        <label for="ingNameNew">Ingredients Name</label>
+                        <label for="ingNameNew">Ingredient Name</label>
                         <input type="text" id="ingNameNew" class="ingNameNew" name="ingNameNew">
                     </div>
                     <div>
@@ -27,13 +27,13 @@
                             <option value="Kgs">Kilogram/s</option>
                             <option value="Grms">Gram/s</option>
                             <option value="Lts">Liter/s</option>
-                            <option value="mLts">Mililiter/s</option>
+                            <option value="mLts">Milliliter/s</option>
 
                         </Select>
                     </div>
                     <div>
                         <label for="ingNewPrice" id="labelForPrice">Price</label>
-                        <span>₱</span><input type="text" id="ingNewPrice" class="ingNewPrice" name="ingPrice" value="0000.00">
+                        <span>₱</span><input type="text" id="ingNewPrice" class="ingNewPrice" name="ingPrice" value="0.00">
                     </div>
                     <div>
                         <button type="submit" id="addIngSubmit" name="addIngredients">Add Ingredient</button>
@@ -100,7 +100,7 @@
                     </div>
                     <div>
                         <label for="">Price</label>
-                        <span>₱</span><input type="number" id="resPrice" class="resPrice" name="resPrice" value="0000.00">
+                        <span>₱</span><input type="number" id="resPrice" class="resPrice" name="resPrice" value="0.00">
                     </div>
                     <div>
                         <button type="submit" name="restockIngredients">Restock Ingredient</button>
@@ -158,46 +158,6 @@
                         <th width="15%">Date Listed</th>
                         <th width="15%">Date Updated</th>
                     </tr>
-                    <tr>
-                        <td width="20%">DSalt Papi</td>
-                        <td width="10%">612219</td>
-                        <td width="5%">Pcs</td>
-                        <td width="10%">₱ 9999.99</td>
-                        <td width="15%">₱ 99.99/Kg</td>
-                        <td width="10%" id="highLight">High Level</td>
-                        <td width="15%">January 24 1999</td>
-                        <td width="15%">June 07 2022</td>
-                    </tr>
-                    <tr>
-                        <td width="20%">ASalt Papi</td>
-                        <td width="10%">69449</td>
-                        <td width="5%">Kgs</td>
-                        <td width="10%">₱ 999.99</td>
-                        <td width="15%">₱ 99.99/Kg</td>
-                        <td width="10%" id="highLight">High Level</td>
-                        <td width="15%">January 24 1999</td>
-                        <td width="15%">June 07 2022</td>
-                    </tr>
-                    <tr>
-                        <td width="20%">BSalt Papi</td>
-                        <td width="10%">6999</td>
-                        <td width="5%">Gms</td>
-                        <td width="10%">₱ 99.99</td>
-                        <td width="15%">₱ 99.99/Kg</td>
-                        <td width="10%" id="highLight">High Level</td>
-                        <td width="15%">January 24 1999</td>
-                        <td width="15%">June 07 2022</td>
-                    </tr>
-                    <tr>
-                        <td width="20%">CSalt Papi</td>
-                        <td width="10%">69999</td>
-                        <td width="5%">Kgs</td>
-                        <td width="10%">₱ 9.99</td>
-                        <td width="15%">₱ 99.99/Kg</td>
-                        <td width="10%" id="highLight">High Level</td>
-                        <td width="15%">January 24 1999</td>
-                        <td width="15%">June 07 2022</td>
-                    </tr>
                     <?php 
                         $showingredients = "SELECT * FROM ingredients";
                         $showingredients_query = mysqli_query($connection, $showingredients);
@@ -208,10 +168,10 @@
                         <td width="10%"><?php echo $row['ingQuantity'] ?></td>
                         <td width="5%"><?php echo $row['ingUnit'].'/s' ?></td>
                         <td width="10%">₱ <?php echo number_format($row['ingCost'], 2) ?></td>
-                        <td width="15%">₱ 99.99/ <?php echo $row['ingUnit'] ?></td>
+                        <td width="15%">₱ <?php echo number_format(($row['ingCost']/$row['ingQuantity']),2). $row['ingUnit'] ?></td>
                         <td width="10%" id="highLight">High Level</td>
-                        <td width="15%">January 24 1999</td>
-                        <td width="15%">June 07 2022</td>
+                        <td width="15%"><?php echo $row['ingListed']?></td>
+                        <td width="15%"><?php echo $row['ingUpdated']?></td>
                     </tr>
                     <?php } ?>
                 </table>
