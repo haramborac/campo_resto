@@ -145,7 +145,7 @@
         </div>
     </div>
     <div class="invList">
-        <div class="invExtras" id="invExtrasHis" style="display: none;">
+        <div class="invExtras" id="invExtrasHis">
             <span id="closeModal" class="closeModal" onclick="closeMod()"><i class="fa fa-times"></i></span>
             <div class="invExtPanel history" id="invExtraHistory">
                 <h1>Inventory History</h1>
@@ -167,7 +167,7 @@
                 </div>
             </div>
         </div>
-        <div class="invExtras" id="invExtrasSum" style="display: none;">
+        <div class="invExtras" id="invExtrasSum">
             <span id="closeModal" class="closeModal" onclick="closeMod()"><i class="fa fa-times"></i></span>
             
         </div>
@@ -224,7 +224,7 @@
                                 }
                     ?>
                     <tr>
-                        <td width="20%"><?php echo $row['ingName'] ?></td>
+                        <td width="20%" id="ingNameCont"><?php echo $row['ingName'] ?></td>
                         <td width="15%"><?php echo $quantity?> <?php echo $row['ingUnit'].'/s' ?></td>
                         <td width="10%">₱ <?php echo number_format($row['ingCost'], 2) ?></td>
                         <td width="15%">₱ <?php echo number_format($cost,2) ?>/<?php echo $row['ingUnit'] ?></td>
@@ -256,12 +256,16 @@
     var hisBtn      = document.getElementById("viewHistory");
     var extClose    = document.getElementById("closeModal");
 
+    document.getElementById("invExtrasHis").style.display = "none";
+    document.getElementById("invExtrasSum").style.display = "none";
+
     function viewHistory() {
         hisModal.style.display = "block";
         hisBtn.setAttribute('disabled',true);
         sumBtn.setAttribute('disabled',true);
         hisBtn.classList.remove("extrasBtn");
         sumBtn.classList.remove("extrasBtn");
+        localStorage.setItem('showHis', 'true');
     }
     function viewSummary() {
         sumModal.style.display = "block";
@@ -269,13 +273,35 @@
         sumBtn.setAttribute('disabled',true);
         hisBtn.classList.remove("extrasBtn");
         sumBtn.classList.remove("extrasBtn");
+        localStorage.setItem('showSum', 'true');
     }
     function closeMod() {
         hisModal.style.display = "none";
         sumModal.style.display = "none";
+        localStorage.removeItem('showHis');
+        localStorage.removeItem('showSum');
         hisBtn.removeAttribute('disabled');
         sumBtn.removeAttribute('disabled');
         hisBtn.classList.add("extrasBtn");
         sumBtn.classList.add("extrasBtn");
     }
+    window.onload = function() {
+        var showHis = localStorage.getItem('showHis');
+        if(showHis === 'true'){
+            document.getElementById("invExtrasHis").style.display = "block";
+            hisBtn.setAttribute('disabled',true);
+            sumBtn.setAttribute('disabled',true);
+            hisBtn.classList.remove("extrasBtn");
+            sumBtn.classList.remove("extrasBtn");
+        }
+        var showSum = localStorage.getItem('showSum');
+        if(showSum === 'true'){
+            document.getElementById("invExtrasSum").style.display = "block";
+            hisBtn.setAttribute('disabled',true);
+            sumBtn.setAttribute('disabled',true);
+            hisBtn.classList.remove("extrasBtn");
+            sumBtn.classList.remove("extrasBtn");
+        }
+    }
 </script>
+

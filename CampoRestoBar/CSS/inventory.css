@@ -249,6 +249,9 @@ section{
     text-align: center;
     font-size: 12px;
 }
+.ingredientsList table#TableTitle tr td#ingNameCont{
+    text-transform: capitalize;
+}
 .ingredientsList table#TableTitle tr td#highLight{
     border-radius: 5px;
     font-weight: 600;
