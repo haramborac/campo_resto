@@ -31,7 +31,7 @@
                         <span>₱</span><input type="text" id="ingNewPrice" class="ingNewPrice" name="ingPrice" value="0000.00">
                     </div>
                     <div>
-                        <button id="addIngSubmit">Add Ingredient</button>
+                        <button type="submit" id="addIngSubmit" name="addIngredients">Add Ingredient</button>
                     </div>
                 </div>
             </div>
@@ -47,20 +47,24 @@
                 $ing_unit = $_POST['ingUnit'];
                 $ing_price = $_POST['ingPrice'];
 
-                $addIngredient = "INSERT INTO payment_history (ing_name, ing_quantity, ing_unit, ing_price) 
-                VALUES ('$ing_name', $ing_quantity, '$ing_unit', $ing_price ) ";
-                $adding_query = mysqli_query($connection, $addIngredient);
-                header('location:Inventory.php');
+                if(mysqli_num_rows(mysqli_query($connection, "SELECT * FROM payment_history WHERE ing_name = '$ing_name'"))>0){
+                    echo "ingredient already exists";
+                }else{
+                    $addIngredient = "INSERT INTO payment_history (ing_name, ing_quantity, ing_unit, ing_price) 
+                    VALUES ('$ing_name', $ing_quantity, '$ing_unit', $ing_price ) ";
+                    $adding_query = mysqli_query($connection, $addIngredient);
+                    header('location:Inventory.php');
+                } 
             }
         ?>
-        <form action="">
+        <form action="" method="post">
             <div class="ingRestock">
                 <h1>Restock Ingredient</h1>
                 <div class="ingRes">
                     <div id="ingResName" class="ingResName">
                         <div>
                             <label for="ingredientName">Restock</label>
-                            <select name="ingredientName" id="ingredientName">
+                            <select name="restockIngredientName" id="ingredientName">
                                 <?php 
                                     $showingredients = "SELECT * FROM payment_history";
                                     $showingredients_query = mysqli_query($connection, $showingredients);
@@ -88,8 +92,6 @@
                                 <option value="Lts">Lts</option>
                                 <option value="mLts">mLs</option>
                             </Select> -->
-                            <!-- <button type="submit">restock</button> -->
-                            <input type="submit" id="addIngSubmit" name="addIngredients" value="Restock">
                         </div>
                     </div>
                     <div>
@@ -97,11 +99,21 @@
                         <span>₱</span><input type="number" id="resPrice" class="resPrice" name="resPrice" value="0000.00">
                     </div>
                     <div>
-                        <button>Restock Ingredient</button>
+                        <button type="submit" name="restockIngredients">Restock Ingredient</button>
                     </div>
                 </div>
             </div>
         </form>
+        <?php 
+            if(isset($_POST['restockIngredients'])){
+                $restockIng_name = $_POST['restockIngredientName'];
+                $restockIng_quantity = $_POST['resVol'];
+
+                $restockIng = "UPDATE payment_history SET ing_quantity = ing_quantity+$restockIng_quantity WHERE ing_name = '$restockIng_name' ";
+                $restockIng_query = mysqli_query($connection, $restockIng);
+                header('location:Inventory.php');
+            }
+        ?>
         <div class="invModalButtons">
             
         </div>
