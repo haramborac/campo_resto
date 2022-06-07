@@ -76,7 +76,7 @@ section{
     border: solid 1px;
     cursor: pointer;
 }
-.addNew div button:hover{
+.addNew div .btnHover:hover{
     background: black;
     color: white;
     transition: 600ms ease-out;
@@ -136,7 +136,7 @@ section{
     border: solid 1px;
     cursor: pointer;
 }
-.ingRes div button:hover{
+.ingRes div .btnHover:hover{
     background: black;
     color: white;
     transition: 600ms ease-out;
@@ -177,7 +177,7 @@ section{
     margin: 0 10px;
     cursor: pointer;
 }
-.invModalButtons button:hover{
+.invModalButtons .extrasBtn:hover{
     background: black;
     color: white;
     transition: 600ms ease-out;
@@ -280,6 +280,11 @@ section{
     top: 0;
     right: 0;
     cursor: pointer;
+}
+.invExtras span:hover{
+    background: black;
+    color: white;
+    transition: 600ms ease-out;
 }
 .invextPanel{
     text-align: center;
