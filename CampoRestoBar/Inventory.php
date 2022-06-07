@@ -165,7 +165,7 @@
                         <td width="10%"><?php echo $row['ingQuantity'] ?></td>
                         <td width="5%"><?php echo $row['ingUnit'].'/s' ?></td>
                         <td width="10%">₱ <?php echo number_format($row['ingCost'], 2) ?></td>
-                        <td width="15%">₱ <?php echo number_format(($row['ingCost']/$row['ingQuantity']),2). $row['ingUnit'] ?></td>
+                        <td width="15%">₱ <?php echo number_format(($row['ingCost']/$row['ingQuantity']),2).'/' $row['ingUnit'] ?></td>
                         <td width="10%" id="highLight">High Level</td>
                         <td width="15%"><?php echo $row['ingListed']?></td>
                         <td width="15%"><?php echo $row['ingUpdated']?></td>
