@@ -1,3 +1,5 @@
+<?php ob_start() ?>
+<?php include 'Db.php' ?>
 <style>
     <?php include 'CSS/header.css';?>
 </style>
