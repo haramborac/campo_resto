@@ -15,7 +15,7 @@
                 <h1>Add New Ingredient</h1>
                 <div class="addNew">
                     <div>
-                        <label for="ingNameNew">Ingredients Name</label>
+                        <label for="ingNameNew">Ingredient Name</label>
                         <input type="text" id="ingNameNew" class="ingNameNew" name="ingNameNew">
                     </div>
                     <div>
@@ -23,16 +23,18 @@
                         <input type="number" id="ingNewQuan" class="ingNewQuan" name="ingNewQuan" style="text-align: right;">
 
                         <Select id="ingNewVolume" class="ingNewVolume" name="ingNewVolume">
+
                             <option value="Pc">Piece/s</option>
                             <option value="Kg">Kilogram/s</option>
                             <option value="g">Gram/s</option>
                             <option value="L">Liter/s</option>
                             <option value="ml">Mililiter/s</option>
+
                         </Select>
                     </div>
                     <div>
                         <label for="ingNewPrice" id="labelForPrice">Price</label>
-                        <span>₱</span><input type="text" id="ingNewPrice" class="ingNewPrice" name="ingPrice" value="0000.00">
+                        <span>₱</span><input type="text" id="ingNewPrice" class="ingNewPrice" name="ingPrice" value="0.00">
                     </div>
                     <div>
                         <button type="submit" id="addIngSubmit" name="addIngredients">Add Ingredient</button>
@@ -75,7 +77,7 @@
                 <div class="ingRes">
                     <div id="ingResName" class="ingResName">
                         <div>
-                            <label for="ingredientName">Restock</label>
+                            <label for="ingredientName">Ingredient Name</label>
                             <select name="restockIngredientName" id="ingredientName">
                                 <?php 
                                     $showingredients = "SELECT * FROM ingredients";
@@ -168,16 +170,6 @@
                         <th width="10%">Status</th>
                         <th width="15%">Date Listed</th>
                         <th width="15%">Date Updated</th>
-                    </tr>
-                    <tr>
-                        <td width="20%">ASalt Papi</td>
-                        <td width="10%">69449</td>
-                        <td width="5%">Kgs</td>
-                        <td width="10%">₱ 999.99</td>
-                        <td width="15%">₱ 99.99/Kg</td>
-                        <td width="10%" id="highLight">High Level</td>
-                        <td width="15%">January 24 1999</td>
-                        <td width="15%">June 07 2022</td>
                     </tr>
                     <?php 
                         $showingredients = "SELECT * FROM ingredients";
