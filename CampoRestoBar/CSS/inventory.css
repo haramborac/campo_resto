@@ -185,7 +185,10 @@ section{
 .invList{
     height: 100%;
     width: 100%;
-    padding: 5%;
+    padding: 5% 0;
+    padding-right: 5%;
+    display: flex;
+    justify-content: space-between;
 }
 .invListContainer{
     margin-top: 30px;
@@ -244,11 +247,57 @@ section{
 }
 .ingredientsList table#TableTitle tr td{
     text-align: center;
-    font-size: 15px;
+    font-size: 12px;
     text-transform: capitalize;
 }
 .ingredientsList table#TableTitle tr td#highLight{
     background: lightgreen;
     border-radius: 5px;
     font-weight: 600;
+}
+.invExtras{
+    margin-top: 30px;
+    margin-right: 1%;
+    height: 100%;
+    width: 45%;
+    padding: 2%;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 16px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+}
+.invExtras span{
+    height: 25px;
+    width: 25px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    background: gray;
+    position: absolute;
+    top: 0;
+    right: 0;
+    cursor: pointer;
+}
+.invextPanel{
+    text-align: center;
+}
+.invExtTable{
+    margin-top: 20px;
+}
+.invExtTable table{
+    width: 100%;
+}
+.invExtTable table tr th{
+    font-size: 12px;
+    font-weight: 600;
+    border-radius: 5px;
+    border: solid 1px;
+}
+.invExtTable table tr td{
+    font-size: 12px;
+    text-transform: capitalize;
+    text-align: center;
 }
