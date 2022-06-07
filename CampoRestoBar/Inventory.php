@@ -28,7 +28,7 @@
                             <option value="Kg">Kilogram/s</option>
                             <option value="gm">Gram/s</option>
                             <option value="L">Liter/s</option>
-                            <option value="ml">Mililiter/s</option>
+                            <option value="ml">Milliliter/s</option>
 
                         </Select>
                     </div>
@@ -43,7 +43,15 @@
             </div>
             <div class="totalCostInv new">
                 <p>New Ingredients Total Cost</p>
-                <h1>₱ 99999.99</h1>
+                <?php
+                            
+                    $ingredientprices = "SELECT SUM(ingCost) AS ingredientCost FROM ingredients /*WHERE ingListed = now()*/";
+                    $ingredientprices_query = mysqli_query($connection, $ingredientprices);
+                    while($ing_cost = mysqli_fetch_assoc($ingredientprices_query)){
+                
+                ?>
+                <h1>₱ <?php echo number_format($ing_cost['ingredientCost'], 2) ?></h1>
+                <?php } ?>
             </div>
         </form>
         <?php 
@@ -91,11 +99,12 @@
                                 <option value="Kg">Kilogram/s</option>
                                 <option value="gm">Gram/s</option>
                                 <option value="L">Liter/s</option>
-                                <option value="ml">Mililiter/s</option>
+                                <option value="ml">Milliliter/s</option>
                             </Select>
                         </div>
                     </div>
                     <div>
+
                         <label for="">Price</label>
                         <span>₱</span><input type="number" id="resPrice" class="resPrice" name="resPrice" placeholder="0.00">
                     </div>
@@ -106,7 +115,15 @@
             </div>
             <div class="totalCostInv old">
                 <p>Overall Ingredients Total Cost</p>
-                <h1>₱ 99999.99</h1>
+                <?php
+                            
+                    $ingredientprices1 = "SELECT SUM(ingCost) AS ingredientCost FROM ingredients";
+                    $ingredientprices_query1 = mysqli_query($connection, $ingredientprices1);
+                    while($ing_cost1 = mysqli_fetch_assoc($ingredientprices_query1)){
+                
+                ?>
+                <h1>₱ <?php echo number_format($ing_cost1['ingredientCost'], 2) ?></h1>
+                <?php } ?>
             </div>
         </form>
         <?php 
@@ -159,16 +176,17 @@
                         $showingredients = "SELECT * FROM ingredients";
                         $showingredients_query = mysqli_query($connection, $showingredients);
                         while($row = mysqli_fetch_assoc($showingredients_query)){
+                            $costperunit = $row['ingCost']/100;
                     ?>
                     <tr>
                         <td width="20%"><?php echo $row['ingName'] ?></td>
                         <td width="10%"><?php echo $row['ingQuantity'] ?></td>
                         <td width="5%"><?php echo $row['ingUnit'].'/s' ?></td>
                         <td width="10%">₱ <?php echo number_format($row['ingCost'], 2) ?></td>
-                        <td width="15%">₱ <?php echo number_format(($row['ingCost']/$row['ingQuantity']),2).'/'. $row['ingUnit'] ?></td>
+                        <td width="15%">₱ <?php echo $costperunit ?>/<?php echo $row['ingUnit'] ?></td>
                         <td width="10%" id="highLight">High Level</td>
-                        <td width="15%"><?php echo $row['ingListed']?></td>
-                        <td width="15%"><?php echo $row['ingUpdated']?></td>
+                        <td width="15%"><?php echo date('m-d-y', strtotime($row['ingListed'])) ?></td>
+                        <td width="15%"><?php echo date('m-d-y', strtotime($row['ingUpdated'])) ?></td>
                     </tr>
                     <?php } ?>
                 </table>
