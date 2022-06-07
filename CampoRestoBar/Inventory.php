@@ -15,7 +15,7 @@
                 <h1>Add New Ingredient</h1>
                 <div class="addNew">
                     <div>
-                        <label for="ingNameNew">Ingredients Name</label>
+                        <label for="ingNameNew">Ingredient Name</label>
                         <input type="text" id="ingNameNew" class="ingNameNew" name="ingNameNew">
                     </div>
                     <div>
@@ -23,16 +23,18 @@
                         <input type="number" id="ingNewQuan" class="ingNewQuan" name="ingNewQuan" style="text-align: right;">
 
                         <Select id="ingNewVolume" class="ingNewVolume" name="ingNewVolume">
+
                             <option value="Pc">Piece/s</option>
                             <option value="Kg">Kilogram/s</option>
                             <option value="gm">Gram/s</option>
                             <option value="L">Liter/s</option>
                             <option value="ml">Mililiter/s</option>
+
                         </Select>
                     </div>
                     <div>
                         <label for="ingNewPrice" id="labelForPrice">Price</label>
-                        <span>₱</span><input type="text" id="ingNewPrice" class="ingNewPrice" name="ingPrice" value="0000.00">
+                        <span>₱</span><input type="text" id="ingNewPrice" class="ingNewPrice" name="ingPrice" value="0.00">
                     </div>
                     <div>
                         <button type="submit" id="addIngSubmit" name="addIngredients">Add Ingredient</button>
@@ -85,17 +87,17 @@
                         </div>
                         <div>
                             <Select id="ingVolume" class="ingVolume" name="ingVolume">
-                                <option value="Pcs">Pcs</option>
-                                <option value="Kgs">Kgs</option>
-                                <option value="Grms">Gms</option>
-                                <option value="Lts">Lts</option>
-                                <option value="mLts">mLs</option>
+                                <option value="Pc">Piece/s</option>
+                                <option value="Kg">Kilogram/s</option>
+                                <option value="gm">Gram/s</option>
+                                <option value="L">Liter/s</option>
+                                <option value="ml">Mililiter/s</option>
                             </Select>
                         </div>
                     </div>
                     <div>
                         <label for="">Price</label>
-                        <span>₱</span><input type="number" id="resPrice" class="resPrice" name="resPrice" value="0000.00">
+                        <span>₱</span><input type="number" id="resPrice" class="resPrice" name="resPrice" value="0.00">
                     </div>
                     <div>
                         <button type="submit" name="restockIngredients">Restock Ingredient</button>
@@ -163,10 +165,10 @@
                         <td width="10%"><?php echo $row['ingQuantity'] ?></td>
                         <td width="5%"><?php echo $row['ingUnit'].'/s' ?></td>
                         <td width="10%">₱ <?php echo number_format($row['ingCost'], 2) ?></td>
-                        <td width="15%">₱ 99.99/ <?php echo $row['ingUnit'] ?></td>
+                        <td width="15%">₱ <?php echo number_format(($row['ingCost']/$row['ingQuantity']),2). $row['ingUnit'] ?></td>
                         <td width="10%" id="highLight">High Level</td>
-                        <td width="15%">January 24 1999</td>
-                        <td width="15%">June 07 2022</td>
+                        <td width="15%"><?php echo $row['ingListed']?></td>
+                        <td width="15%"><?php echo $row['ingUpdated']?></td>
                     </tr>
                     <?php } ?>
                 </table>
