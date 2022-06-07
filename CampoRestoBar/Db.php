@@ -1,5 +1,5 @@
 <?php 
-    $connection = mysqli_connect('localhost', 'root', '', 'lt&g');
+    $connection = mysqli_connect('localhost', 'root', '', 'campo');
     // if(!$connection){
     //     echo "not connected";
     // }else{
