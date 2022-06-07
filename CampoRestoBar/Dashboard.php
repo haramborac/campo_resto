@@ -28,8 +28,8 @@
 
                         
                         ?>
-                        <h1><?php //echo $total_ing['NumberOfIngredients'] ?> kinds</h1>
-                        <?php //} ?>
+                        <h1><?php echo $total_ing['NumberOfIngredients'] ?> kinds</h1>
+                        <?php } ?>
                     </div>
                     <hr>
                     <div>
@@ -43,8 +43,8 @@
 
                         
                         ?>
-                        <h1>₱ <?php //echo number_format($ing_cost['ingredientCost'], 2) ?></h1>
-                        <?php //} ?>
+                        <h1>₱ <?php echo number_format($ing_cost['ingredientCost'], 2) ?></h1>
+                        <?php } ?>
                     </div>
                 </div>
                 <div class="warningMessage">

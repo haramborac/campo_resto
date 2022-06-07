@@ -153,16 +153,6 @@
                         <th width="15%">Date Listed</th>
                         <th width="15%">Date Updated</th>
                     </tr>
-                    <tr>
-                        <td width="20%">ASalt Papi</td>
-                        <td width="10%">69449</td>
-                        <td width="5%">Kgs</td>
-                        <td width="10%">₱ 999.99</td>
-                        <td width="15%">₱ 99.99/Kg</td>
-                        <td width="10%" id="highLight">High Level</td>
-                        <td width="15%">January 24 1999</td>
-                        <td width="15%">June 07 2022</td>
-                    </tr>
                     <?php 
                         $showingredients = "SELECT * FROM ingredients";
                         $showingredients_query = mysqli_query($connection, $showingredients);
