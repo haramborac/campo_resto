@@ -245,6 +245,7 @@ section{
 .ingredientsList table#TableTitle tr td{
     text-align: center;
     font-size: 15px;
+    text-transform: capitalize;
 }
 .ingredientsList table#TableTitle tr td#highLight{
     background: lightgreen;
