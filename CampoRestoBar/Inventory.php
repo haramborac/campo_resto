@@ -207,19 +207,18 @@
                             $cost;
                                 if($quantity==0){
                                     $cost = 0;
-                                    $level = "<td width='10%' id='highLight' style='background:black; color:white'>Out of Stock</td>";
+                                    $level = "<td width='10%' id='highLight' style='background:black; color:white'>EMPTY</td>";
                                 }
                                 if($quantity>0 && $quantity<=10){
-                                    $level = "<td width='10%' id='highLight' style='background:red'>Low Level</td>";
+                                    $level = "<td width='10%' id='highLight' style='background:salmon'>LOW</td>";
                                     $cost=$row['ingCost']/$row['ingQuantity'];
                                 }
                                 if($quantity>10 && $quantity<=50){
-                                    $level ="<td width='10%' id='highLight' style='background:yellow'>Average Level</td>";
+                                    $level ="<td width='10%' id='highLight' style='background:lightgreen'>AVERAGE</td>";
                                     $cost=$row['ingCost']/$row['ingQuantity'];
-
                                 }
                                 if($quantity>50){
-                                    $level ="<td width='10%' id='highLight' style='background:lightgreen'>High Level</td>";
+                                    $level ="<td width='10%' id='highLight' style='background:skyblue'>HIGH</td>";
                                     $cost=$row['ingCost']/$row['ingQuantity'];
 
                                 }
