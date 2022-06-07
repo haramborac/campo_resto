@@ -6,7 +6,7 @@
 <section class="campoInventory" id="campoInventory">
     <div class="invContent">
         <h1>INGREDIENTS INVENTORY</h1>
-        <form action="">
+        <form action="" method="post">
             <div class="addNewIng">
                 <h1>Add New Ingredient</h1>
                 <div class="addNew">
@@ -17,18 +17,18 @@
                     <div>
                         <label for="ingNewQuan">Quantity</label>
                         <input type="number" id="ingNewQuan" class="ingNewQuan" name="ingNewQuan" style="text-align: right;">
-                        <Select id="ingNewVolume" class="ingNewVolume" name="ingNewVolume">
-                            <option value="Trys">Tray/s</option>
-                            <option value="Pcs">Piece/s</option>
-                            <option value="Kgs">Kilogram/s</option>
-                            <option value="Grms">Gram/s</option>
-                            <option value="Lts">Liter/s</option>
-                            <option value="mLts">Mililiter/s</option>
+                        <Select id="ingNewVolume" class="ingNewVolume" name="ingUnit">
+                            <option value="Try">Tray/s</option>
+                            <option value="Pc">Piece/s</option>
+                            <option value="Kg">Kilogram/s</option>
+                            <option value="gm">Gram/s</option>
+                            <option value="L">Liter/s</option>
+                            <option value="ml">Mililiter/s</option>
                         </Select>
                     </div>
                     <div>
                         <label for="ingNewPrice" id="labelForPrice">Price</label>
-                        <span>₱</span><input type="text" id="ingNewPrice" class="ingNewPrice" name="ingNewPrice" value="0000.00">
+                        <span>₱</span><input type="text" id="ingNewPrice" class="ingNewPrice" name="ingPrice" value="0000.00">
                     </div>
                     <div>
                         <button id="addIngSubmit">Add Ingredient</button>
@@ -40,6 +40,19 @@
                 <h1>₱ 99999.99</h1>
             </div>
         </form>
+        <?php 
+            if(isset($_POST['addIngredients'])){
+                $ing_name = $_POST['ingNameNew'];
+                $ing_quantity = $_POST['ingNewQuan'];
+                $ing_unit = $_POST['ingUnit'];
+                $ing_price = $_POST['ingPrice'];
+
+                $addIngredient = "INSERT INTO payment_history (ing_name, ing_quantity, ing_unit, ing_price) 
+                VALUES ('$ing_name', $ing_quantity, '$ing_unit', $ing_price ) ";
+                $adding_query = mysqli_query($connection, $addIngredient);
+                header('location:Inventory.php');
+            }
+        ?>
         <form action="">
             <div class="ingRestock">
                 <h1>Restock Ingredient</h1>
@@ -48,10 +61,18 @@
                         <div>
                             <label for="ingredientName">Restock</label>
                             <select name="ingredientName" id="ingredientName">
-                                <option value="">Salt Papi</option>
-                                <option value="">Salt Papi</option>
-                                <option value="">Salt Papi</option>
-                                <option value="">Salt Papi</option>
+                                <?php 
+                                    $showingredients = "SELECT * FROM payment_history";
+                                    $showingredients_query = mysqli_query($connection, $showingredients);
+                                    while($row = mysqli_fetch_assoc($showingredients_query)){
+                                        $row['ing_name'];
+                                        $row['ing_quantity'];
+                                        $row['ing_unit'];
+                                        $row['ing_price'];
+                                    
+                                ?>
+                                <option value="<?php echo $row['ing_name'] ?>"><?php echo $row['ing_name'] ?></option>
+                                <?php } ?>
                             </select>
                         </div>
                         <div>
@@ -59,14 +80,16 @@
                             <input type="number" id="resVol" class="resVol" name="resVol">
                         </div>
                         <div>
-                            <Select id="ingVolume" class="ingVolume" name="ingVolume">
+                            <!-- <Select id="ingVolume" class="ingVolume" name="ingVolume">
                                 <option value="Trys">Trys</option>
                                 <option value="Pcs">Pcs</option>
                                 <option value="Kgs">Kgs</option>
                                 <option value="Grms">gms</option>
                                 <option value="Lts">Lts</option>
                                 <option value="mLts">mLs</option>
-                            </Select>
+                            </Select> -->
+                            <!-- <button type="submit">restock</button> -->
+                            <input type="submit" id="addIngSubmit" name="addIngredients" value="Restock">
                         </div>
                     </div>
                     <div>
@@ -83,4 +106,5 @@
             
         </div>
     </div>
+    
 </section>
