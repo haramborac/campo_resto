@@ -87,11 +87,11 @@
                         </div>
                         <div>
                             <Select id="ingVolume" class="ingVolume" name="ingVolume">
-                                <option value="Pcs">Pcs</option>
-                                <option value="Kgs">Kgs</option>
-                                <option value="Grms">Gms</option>
-                                <option value="Lts">Lts</option>
-                                <option value="mLts">mLs</option>
+                                <option value="Pc">Piece/s</option>
+                                <option value="Kg">Kilogram/s</option>
+                                <option value="gm">Gram/s</option>
+                                <option value="L">Liter/s</option>
+                                <option value="ml">Mililiter/s</option>
                             </Select>
                         </div>
                     </div>
