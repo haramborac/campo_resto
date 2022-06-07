@@ -248,10 +248,8 @@ section{
 .ingredientsList table#TableTitle tr td{
     text-align: center;
     font-size: 12px;
-    text-transform: capitalize;
 }
 .ingredientsList table#TableTitle tr td#highLight{
-    background: lightgreen;
     border-radius: 5px;
     font-weight: 600;
 }
