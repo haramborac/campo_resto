@@ -31,7 +31,7 @@
                         <span>₱</span><input type="text" id="ingNewPrice" class="ingNewPrice" name="ingPrice" value="0000.00">
                     </div>
                     <div>
-                        <input type="submit" id="addIngSubmit" name="addIngredients" value="Add Ingredient">
+                        <button id="addIngSubmit">Add Ingredient</button>
                     </div>
                 </div>
             </div>
@@ -57,7 +57,7 @@
             <div class="ingRestock">
                 <h1>Restock Ingredient</h1>
                 <div class="ingRes">
-                    <div id="ingResName">
+                    <div id="ingResName" class="ingResName">
                         <div>
                             <label for="ingredientName">Restock</label>
                             <select name="ingredientName" id="ingredientName">
@@ -92,9 +92,19 @@
                             <input type="submit" id="addIngSubmit" name="addIngredients" value="Restock">
                         </div>
                     </div>
+                    <div>
+                        <label for="">Price</label>
+                        <span>₱</span><input type="number" id="resPrice" class="resPrice" name="resPrice" value="0000.00">
+                    </div>
+                    <div>
+                        <button>Restock Ingredient</button>
+                    </div>
                 </div>
             </div>
         </form>
+        <div class="invModalButtons">
+            
+        </div>
     </div>
     
 </section>
