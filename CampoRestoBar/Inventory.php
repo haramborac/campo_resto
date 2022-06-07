@@ -34,10 +34,10 @@
                     </div>
                     <div>
                         <label for="ingNewPrice" id="labelForPrice">Price</label>
-                        <span>₱</span><input type="text" id="ingNewPrice" class="ingNewPrice" name="ingPrice" value="0.00">
+                        <span>₱</span><input type="text" id="ingNewPrice" class="ingNewPrice" name="ingPrice" placeholder="0.00">
                     </div>
                     <div>
-                        <button type="submit" id="addIngSubmit" name="addIngredients">Add Ingredient</button>
+                        <button type="submit" id="addIngSubmit" name="addIngredients" disabled>Add Ingredient</button>
                     </div>
                 </div>
             </div>
@@ -97,10 +97,10 @@
                     </div>
                     <div>
                         <label for="">Price</label>
-                        <span>₱</span><input type="number" id="resPrice" class="resPrice" name="resPrice" value="0.00">
+                        <span>₱</span><input type="number" id="resPrice" class="resPrice" name="resPrice" placeholder="0.00">
                     </div>
                     <div>
-                        <button type="submit" name="restockIngredients">Restock Ingredient</button>
+                        <button type="submit" id="restockIngSubmit" name="restockIngredients" disabled>Restock Ingredient</button>
                     </div>
                 </div>
             </div>
@@ -177,3 +177,12 @@
     </div>
     
 </section>
+
+ <script>
+    document.getElementById('ingNameNew').addEventListener('keyup',enableAdd);
+    document.getElementById('ingNewQuan').addEventListener('keyup',enableAdd);
+    document.getElementById('ingNewPrice').addEventListener('keyup',enableAdd); 
+    document.getElementById('resVol').addEventListener('keyup',enableRestock);
+    document.getElementById('resPrice').addEventListener('keyup',enableRestock);
+
+</script>
