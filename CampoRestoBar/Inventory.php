@@ -23,12 +23,11 @@
                         <input type="number" id="ingNewQuan" class="ingNewQuan" name="ingNewQuan" style="text-align: right;">
 
                         <Select id="ingNewVolume" class="ingNewVolume" name="ingNewVolume">
-                            <option value="Pcs">Piece/s</option>
-                            <option value="Kgs">Kilogram/s</option>
-                            <option value="Grms">Gram/s</option>
-                            <option value="Lts">Liter/s</option>
-                            <option value="mLts">Mililiter/s</option>
-
+                            <option value="Pc">Piece/s</option>
+                            <option value="Kg">Kilogram/s</option>
+                            <option value="gm">Gram/s</option>
+                            <option value="L">Liter/s</option>
+                            <option value="ml">Mililiter/s</option>
                         </Select>
                     </div>
                     <div>
@@ -74,10 +73,6 @@
                                     $showingredients = "SELECT * FROM ingredients";
                                     $showingredients_query = mysqli_query($connection, $showingredients);
                                     while($row = mysqli_fetch_assoc($showingredients_query)){
-                                        $row['ing_name'];
-                                        $row['ing_quantity'];
-                                        $row['ing_unit'];
-                                        $row['ing_price'];
                                     
                                 ?>
                                 <option value="<?php echo $row['ingName'] ?>"><?php echo $row['ingName'] ?></option>
