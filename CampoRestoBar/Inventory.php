@@ -213,7 +213,6 @@
                                 elseif($quantity>50){
                                     $level ="<td width='10%' id='highLight' style='background:lightgreen'>High Level</td>";
                                 }
-                            
                     ?>
                     <tr>
                         <td width="20%"><?php echo $row['ingName'] ?></td>
@@ -232,11 +231,10 @@
     
 </section>
 
- <script>
+<script>
     document.getElementById('ingNameNew').addEventListener('keyup',enableAdd);
     document.getElementById('ingNewQuan').addEventListener('keyup',enableAdd);
     document.getElementById('ingNewPrice').addEventListener('keyup',enableAdd); 
     document.getElementById('resVol').addEventListener('keyup',enableRestock);
     document.getElementById('resPrice').addEventListener('keyup',enableRestock);
-
 </script>
