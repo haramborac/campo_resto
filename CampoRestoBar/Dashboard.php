@@ -21,26 +21,26 @@
                         <h3>Total Ingredients</h3>
                         <?php
                             
-                            $showingredients = "SELECT COUNT(ing_name) AS NumberOfIngredients FROM payment_history";
-                            $showingredients_query = mysqli_query($connection, $showingredients);
-                            while($total_ing = mysqli_fetch_assoc($showingredients_query)){
+                            // $showingredients = "SELECT COUNT(ing_name) AS NumberOfIngredients FROM payment_history";
+                            // $showingredients_query = mysqli_query($connection, $showingredients);
+                            // while($total_ing = mysqli_fetch_assoc($showingredients_query)){
                         
                         ?>
-                        <h1><?php echo $total_ing['NumberOfIngredients'] ?> kinds</h1>
-                        <?php } ?>
+                        <h1><?php //echo $total_ing['NumberOfIngredients'] ?> kinds</h1>
+                        <?php //} ?>
                     </div>
                     <hr>
                     <div>
                         <h3>Ingredients Cost</h3>
                         <?php
                             
-                            $ingredientprices = "SELECT SUM(ing_price) AS ingredientCost FROM payment_history";
-                            $ingredientprices_query = mysqli_query($connection, $ingredientprices);
-                            while($ing_cost = mysqli_fetch_assoc($ingredientprices_query)){
+                            // $ingredientprices = "SELECT SUM(ing_price) AS ingredientCost FROM payment_history";
+                            // $ingredientprices_query = mysqli_query($connection, $ingredientprices);
+                            // while($ing_cost = mysqli_fetch_assoc($ingredientprices_query)){
                         
                         ?>
-                        <h1>₱ <?php echo number_format($ing_cost['ingredientCost'], 2) ?></h1>
-                        <?php } ?>
+                        <h1>₱ <?php //echo number_format($ing_cost['ingredientCost'], 2) ?></h1>
+                        <?php //} ?>
                     </div>
                 </div>
                 <div class="warningMessage">
