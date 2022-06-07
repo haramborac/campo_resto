@@ -17,13 +17,14 @@
                     <div>
                         <label for="ingNewQuan">Quantity</label>
                         <input type="number" id="ingNewQuan" class="ingNewQuan" name="ingNewQuan" style="text-align: right;">
-                        <Select id="ingNewVolume" class="ingNewVolume" name="ingUnit">
-                            <option value="Try">Tray/s</option>
-                            <option value="Pc">Piece/s</option>
-                            <option value="Kg">Kilogram/s</option>
-                            <option value="gm">Gram/s</option>
-                            <option value="L">Liter/s</option>
-                            <option value="ml">Mililiter/s</option>
+
+                        <Select id="ingNewVolume" class="ingNewVolume" name="ingNewVolume">
+                            <option value="Pcs">Piece/s</option>
+                            <option value="Kgs">Kilogram/s</option>
+                            <option value="Grms">Gram/s</option>
+                            <option value="Lts">Liter/s</option>
+                            <option value="mLts">Mililiter/s</option>
+
                         </Select>
                     </div>
                     <div>
@@ -35,7 +36,7 @@
                     </div>
                 </div>
             </div>
-            <div class="totalNewInv">
+            <div class="totalCostInv new">
                 <p>New Ingredients Total Cost</p>
                 <h1>₱ 99999.99</h1>
             </div>
@@ -84,8 +85,8 @@
                             <input type="number" id="resVol" class="resVol" name="resVol">
                         </div>
                         <div>
-                            <!-- <Select id="ingVolume" class="ingVolume" name="ingVolume">
-                                <option value="Trys">Trys</option>
+                            <Select id="ingVolume" class="ingVolume" name="ingVolume">
+
                                 <option value="Pcs">Pcs</option>
                                 <option value="Kgs">Kgs</option>
                                 <option value="Grms">gms</option>
@@ -103,6 +104,10 @@
                     </div>
                 </div>
             </div>
+            <div class="totalCostInv old">
+                <p>Overall Ingredients Total Cost</p>
+                <h1>₱ 99999.99</h1>
+            </div>
         </form>
         <?php 
             if(isset($_POST['restockIngredients'])){
@@ -115,7 +120,50 @@
             }
         ?>
         <div class="invModalButtons">
-            
+            <button>History</button>
+            <button>Summary</button>
+        </div>
+    </div>
+    <div class="invList">
+        <div class="invListContainer">
+            <div class="sortIngredients">
+                <div>
+                    <label for="searchIng">Search Ingredient</label>
+                    <input type="text" id="searchIng" class="searchIng" name="searchIng">
+                </div>
+                <div>
+                    <label for="sortIngBy">Sort</label>
+                    <select name="sortIngBy" id="sortIngBy">
+                        <option value="name">Name</option>
+                        <option value="volume">Volume</option>
+                        <option value="price">Price</option>
+                        <option value="status">Status</option>
+                        <option value="dateListed">Date</option>
+                    </select>
+                </div>
+            </div>
+            <div class="ingredientsList">
+                <table id="tableTitle">
+                    <tr>
+                        <th width="20%">Ingredient Name</th>
+                        <th width="10%">Quantity</th>
+                        <th width="10%">Unit</th>
+                        <th width="10%">Status</th>
+                        <th width="10%">Cost</th>
+                        <th width="20%">Date Listed</th>
+                        <th width="20%">Date Updated</th>
+                    </tr>
+                    <tr>
+                        <td width="20%">Salt Papi</td>
+                        <td width="10%">69</td>
+                        <td width="10%">Kgs</td>
+                        <td width="10%" id="">High Level</td>
+                        <td width="10%">₱ 99999.99</td>
+                        <td width="20%">January 24 1999</td>
+                        <td width="20%">June 07 2022</td>
+                    </tr>
+                </table>
+            </div>
         </div>
     </div>
     
