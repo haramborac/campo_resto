@@ -246,3 +246,8 @@ section{
     text-align: center;
     font-size: 15px;
 }
+.ingredientsList table#TableTitle tr td#highLight{
+    background: lightgreen;
+    border-radius: 5px;
+    font-weight: 600;
+}

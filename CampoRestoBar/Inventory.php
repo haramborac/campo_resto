@@ -67,17 +67,17 @@
                             <label for="ingredientName">Restock</label>
                             <select name="restockIngredientName" id="ingredientName">
                                 <?php 
-                                    $showingredients = "SELECT * FROM payment_history";
-                                    $showingredients_query = mysqli_query($connection, $showingredients);
-                                    while($row = mysqli_fetch_assoc($showingredients_query)){
-                                        $row['ing_name'];
-                                        $row['ing_quantity'];
-                                        $row['ing_unit'];
-                                        $row['ing_price'];
+                                    // $showingredients = "SELECT * FROM payment_history";
+                                    // $showingredients_query = mysqli_query($connection, $showingredients);
+                                    // while($row = mysqli_fetch_assoc($showingredients_query)){
+                                    //     $row['ing_name'];
+                                    //     $row['ing_quantity'];
+                                    //     $row['ing_unit'];
+                                    //     $row['ing_price'];
                                     
                                 ?>
                                 <option value="<?php echo $row['ing_name'] ?>"><?php echo $row['ing_name'] ?></option>
-                                <?php } ?>
+                                <?php //} ?>
                             </select>
                         </div>
                         <div>
@@ -86,7 +86,6 @@
                         </div>
                         <div>
                             <Select id="ingVolume" class="ingVolume" name="ingVolume">
-
                                 <option value="Pcs">Pcs</option>
                                 <option value="Kgs">Kgs</option>
                                 <option value="Grms">Gms</option>
@@ -147,22 +146,23 @@
                     <tr>
                         <th width="20%">Ingredient Name</th>
                         <th width="10%">Quantity</th>
-                        <th width="10%">Unit</th>
+
+                        <th width="5%">Unit</th>
                         <th width="10%">Cost</th>
-                        <th width="15%">Cost per Unit</th>
+                        <th width="15%">Cost/Unit</th>
                         <th width="10%">Status</th>
-                        <th width="14%">Date Listed</th>
+                        <th width="15%">Date Listed</th>
                         <th width="15%">Date Updated</th>
                     </tr>
                     <tr>
                         <td width="20%">Salt Papi</td>
                         <td width="10%">69</td>
-                        <td width="10%">Kgs</td>
+                        <td width="5%">Kgs</td>
                         <td width="10%">₱ 99999.99</td>
-                        <td width="15%"></td>
-                        <td width="12%" id="">High Level</td>
-                        <td width="14%">January 24 1999</td>
-                        <td width="14%">June 07 2022</td>
+                        <td width="15%">₱ 99.99/Kg</td>
+                        <td width="10%" id="highLight">High Level</td>
+                        <td width="15%">January 24 1999</td>
+                        <td width="15%">June 07 2022</td>
                     </tr>
                 </table>
             </div>
