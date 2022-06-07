@@ -49,14 +49,14 @@
             if(isset($_POST['addIngredients'])){
                 $ing_name = $_POST['ingNameNew'];
                 $ing_quantity = $_POST['ingNewQuan'];
-                $ing_unit = $_POST['ingUnit'];
+                $ing_unit = $_POST['ingNewVolume'];
                 $ing_price = $_POST['ingPrice'];
 
-                if(mysqli_num_rows(mysqli_query($connection, "SELECT * FROM payment_history WHERE ing_name = '$ing_name'"))>0){
+                if(mysqli_num_rows(mysqli_query($connection, "SELECT * FROM ingredients WHERE ingName = '$ing_name'"))>0){
                     echo "ingredient already exists";
                 }else{
-                    $addIngredient = "INSERT INTO payment_history (ing_name, ing_quantity, ing_unit, ing_price) 
-                    VALUES ('$ing_name', $ing_quantity, '$ing_unit', $ing_price ) ";
+                    $addIngredient = "INSERT INTO ingredients (ingName, ingQuantity, ingUnit, ingCost, ingListed, ingUpdated) 
+                    VALUES ('$ing_name', $ing_quantity, '$ing_unit', $ing_price, now(), now() ) ";
                     $adding_query = mysqli_query($connection, $addIngredient);
                     header('location:Inventory.php');
                 } 
@@ -71,7 +71,7 @@
                             <label for="ingredientName">Restock</label>
                             <select name="restockIngredientName" id="ingredientName">
                                 <?php 
-                                    $showingredients = "SELECT * FROM payment_history";
+                                    $showingredients = "SELECT * FROM ingredients";
                                     $showingredients_query = mysqli_query($connection, $showingredients);
                                     while($row = mysqli_fetch_assoc($showingredients_query)){
                                         $row['ing_name'];
@@ -80,7 +80,7 @@
                                         $row['ing_price'];
                                     
                                 ?>
-                                <option value="<?php echo $row['ing_name'] ?>"><?php echo $row['ing_name'] ?></option>
+                                <option value="<?php echo $row['ingName'] ?>"><?php echo $row['ingName'] ?></option>
                                 <?php } ?>
                             </select>
                         </div>
@@ -199,21 +199,16 @@
                         <td width="15%">June 07 2022</td>
                     </tr>
                     <?php 
-                        $showingredients = "SELECT * FROM payment_history";
+                        $showingredients = "SELECT * FROM ingredients";
                         $showingredients_query = mysqli_query($connection, $showingredients);
                         while($row = mysqli_fetch_assoc($showingredients_query)){
-                            $row['ing_name'];
-                            $row['ing_quantity'];
-                            $row['ing_unit'];
-                            $row['ing_price'];
-                        
                     ?>
                     <tr>
-                        <td width="20%"><?php echo $row['ing_name'] ?></td>
-                        <td width="10%"><?php echo $row['ing_quantity'] ?></td>
-                        <td width="5%"><?php echo $row['ing_unit'].'/s' ?></td>
-                        <td width="10%">₱ <?php echo number_format($row['ing_price'], 2) ?></td>
-                        <td width="15%">₱ 99.99/ <?php echo $row['ing_unit'] ?></td>
+                        <td width="20%"><?php echo $row['ingName'] ?></td>
+                        <td width="10%"><?php echo $row['ingQuantity'] ?></td>
+                        <td width="5%"><?php echo $row['ingUnit'].'/s' ?></td>
+                        <td width="10%">₱ <?php echo number_format($row['ingCost'], 2) ?></td>
+                        <td width="15%">₱ 99.99/ <?php echo $row['ingUnit'] ?></td>
                         <td width="10%" id="highLight">High Level</td>
                         <td width="15%">January 24 1999</td>
                         <td width="15%">June 07 2022</td>
