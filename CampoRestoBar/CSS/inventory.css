@@ -307,8 +307,7 @@ section{
     border: solid 1px;
 }
 .invExtTable table tr td{
-    font-size: 12px;
-    text-transform: capitalize;
+    font-size: 12px;    
     text-align: center;
 }
 .invESContent{
