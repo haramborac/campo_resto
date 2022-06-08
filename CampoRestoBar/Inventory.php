@@ -90,13 +90,7 @@
                             <input type="number" id="resVol" class="resVol" name="resVol">
                         </div>
                         <div>
-                            <Select id="ingVolume" class="ingVolume" name="ingVolume">
-                                <option value="Pc">Piece/s</option>
-                                <option value="Kg">Kilogram/s</option>
-                                <option value="g">Gram/s</option>
-                                <option value="L">Liter/s</option>
-                                <option value="ml">Milliliter/s</option>
-                            </Select>
+                            <p>Kg/s</p>
                         </div>
                     </div>
                    
@@ -141,8 +135,8 @@
             }
         ?>
         <div class="invModalButtons">
-            <button id="viewHistory" class="extrasBtn" onclick="viewHistory()">History</button>
-            <button id="viewSummary" class="extrasBtn" onclick="viewSummary()">Summary</button>
+            <button id="viewHistory" class="extrasBtn" onclick="viewHistory()">HISTORY</button>
+            <button id="viewSummary" class="extrasBtn" onclick="viewSummary()">SUMMARY</button>
         </div>
     </div>
     <div class="invList">
