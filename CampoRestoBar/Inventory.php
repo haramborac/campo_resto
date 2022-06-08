@@ -215,32 +215,82 @@
                     <h1>Stock Level</h1>
                     <div class="statusCard highLevel">
                         <div style="background: skyblue;">
+                            <?php $highlevel = "Select count(ingQuantity) as high from ingredients where ingQuantity > 50";
+                                        $highquery = mysqli_query($connection,$highlevel);
+                                        if(mysqli_num_rows($highquery)>0){
+                                            while($rowHigh = mysqli_fetch_assoc($highquery)){
+                                            $rowH = $rowHigh['high'];
+                                            }
+                                        }else{
+                                            $rowH = 0;
+                                        }
+                                ?>
                             <p>High Level Ingredients</p>
-                            <h2>100</h2>
+                            <h2><?php echo $rowH?></h2>
                         </div>
                     </div>
                     <div class="statusCard averageLevel">
                         <div style="background: lightgreen;">
+                            <?php $averagelevel = "Select count(ingQuantity) as average from ingredients where ingQuantity between 10 and 51";
+                                        $averagequery = mysqli_query($connection,$averagelevel);
+                                        if(mysqli_num_rows($averagequery)>0){
+                                            while($rowAve = mysqli_fetch_assoc($averagequery)){
+                                            $rowA = $rowAve['average'];
+                                            }
+                                        }else{
+                                            $rowA = 0;
+                                        }
+                                ?>
                             <p>Average Level Ingredients</p>
-                            <h2>100</h2>
+                            <h2><?php echo $rowA?></h2>
                         </div>
                     </div>
                     <div class="statusCard lowLevel">
                         <div style="background: salmon;">
+                        <?php $lowlevel = "Select count(ingQuantity) as low from ingredients where ingQuantity between 0 and 11";
+                                        $lowquery = mysqli_query($connection,$lowlevel);
+                                        if(mysqli_num_rows($lowquery)>0){
+                                            while($rowLow = mysqli_fetch_assoc($lowquery)){
+                                            $rowL = $rowLow['low'];
+                                            }
+                                        }else{
+                                            $rowL = 0;
+                                        }
+                                ?>
                             <p>Low Level Ingredients</p>
-                            <h2>100</h2>
+                            <h2><?php echo $rowL?></h2>
                         </div>
                     </div>
                     <div class="statusCard empty">
                         <div style="background: darkgray;">
+                        <?php $emptylevel = "Select count(ingQuantity) as empty from ingredients where ingQuantity = 0";
+                                        $emptyquery = mysqli_query($connection,$emptylevel);
+                                        if(mysqli_num_rows($emptyquery)>0){
+                                            while($rowEmpty = mysqli_fetch_assoc($emptyquery)){
+                                            $rowE = $rowEmpty['empty'];
+                                            }
+                                        }else{
+                                            $rowE = 0;
+                                        }
+                                ?>
                             <p>Out of Stock</p>
-                            <h2>100</h2>
+                            <h2><?php echo $rowE?></h2>
                         </div>
                     </div>
                     <div class="statusCard total">
                         <div>
+                        <?php $totalIng = "Select count(ingQuantity) as total from ingredients";
+                                        $totalquery = mysqli_query($connection,$totalIng);
+                                        if(mysqli_num_rows($totalquery)>0){
+                                            while($rowTotal = mysqli_fetch_assoc($totalquery)){
+                                            $rowT = $rowTotal['total'];
+                                            }
+                                        }else{
+                                            $rowT = 0;
+                                        }
+                                ?>
                             <p>Total Number of Ingredients</p>
-                            <h2>100</h2>
+                            <h2><?php echo $rowT?></h2>
                         </div>
                     </div>
                 </div>
