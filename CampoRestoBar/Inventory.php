@@ -145,7 +145,7 @@
         </div>
     </div>
     <div class="invList">
-        <div class="invExtras" id="invExtrasHis">
+        <div class="invExtras" id="invExtrasHis" style="display:none">
             <span id="closeModal" class="closeModal" onclick="closeMod()"><i class="fa fa-times"></i></span>
             <div class="invExtPanel history" id="invExtraHistory">
                 <h1>Inventory History</h1>
@@ -167,7 +167,7 @@
                 </div>
             </div>
         </div>
-        <div class="invExtras" id="invExtrasSum">
+        <div class="invExtras" id="invExtrasSum" style="display:none">
             <span id="closeModal" class="closeModal" onclick="closeMod()"><i class="fa fa-times"></i></span>
             
         </div>
@@ -247,61 +247,7 @@
     document.getElementById('ingNewPrice').addEventListener('keyup',enableAdd); 
     document.getElementById('resVol').addEventListener('keyup',enableRestock);
     document.getElementById('resPrice').addEventListener('keyup',enableRestock);
+    document.getElementById('viewHistory').addEventListener('click',viewHistory);
+    document.getElementById('viewSummary').addEventListener('click',viewSummary);
+    document.getElementById('closeModal').addEventListener('click',closeMod);
 </script>
-
-<script>
-    var hisModal    = document.getElementById("invExtrasHis");
-    var sumModal    = document.getElementById("invExtrasSum");
-    var sumBtn      = document.getElementById("viewSummary");
-    var hisBtn      = document.getElementById("viewHistory");
-    var extClose    = document.getElementById("closeModal");
-
-    document.getElementById("invExtrasHis").style.display = "none";
-    document.getElementById("invExtrasSum").style.display = "none";
-
-    function viewHistory() {
-        hisModal.style.display = "block";
-        hisBtn.setAttribute('disabled',true);
-        sumBtn.setAttribute('disabled',true);
-        hisBtn.classList.remove("extrasBtn");
-        sumBtn.classList.remove("extrasBtn");
-        localStorage.setItem('showHis', 'true');
-    }
-    function viewSummary() {
-        sumModal.style.display = "block";
-        hisBtn.setAttribute('disabled',true);
-        sumBtn.setAttribute('disabled',true);
-        hisBtn.classList.remove("extrasBtn");
-        sumBtn.classList.remove("extrasBtn");
-        localStorage.setItem('showSum', 'true');
-    }
-    function closeMod() {
-        hisModal.style.display = "none";
-        sumModal.style.display = "none";
-        localStorage.removeItem('showHis');
-        localStorage.removeItem('showSum');
-        hisBtn.removeAttribute('disabled');
-        sumBtn.removeAttribute('disabled');
-        hisBtn.classList.add("extrasBtn");
-        sumBtn.classList.add("extrasBtn");
-    }
-    window.onload = function() {
-        var showHis = localStorage.getItem('showHis');
-        if(showHis === 'true'){
-            document.getElementById("invExtrasHis").style.display = "block";
-            hisBtn.setAttribute('disabled',true);
-            sumBtn.setAttribute('disabled',true);
-            hisBtn.classList.remove("extrasBtn");
-            sumBtn.classList.remove("extrasBtn");
-        }
-        var showSum = localStorage.getItem('showSum');
-        if(showSum === 'true'){
-            document.getElementById("invExtrasSum").style.display = "block";
-            hisBtn.setAttribute('disabled',true);
-            sumBtn.setAttribute('disabled',true);
-            hisBtn.classList.remove("extrasBtn");
-            sumBtn.classList.remove("extrasBtn");
-        }
-    }
-</script>
-

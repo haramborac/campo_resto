@@ -190,6 +190,106 @@ function enableRestock(){
         }
 }
 
+function viewHistory() {
+    var hisModal    = document.getElementById("invExtrasHis");
+    var sumBtn      = document.getElementById("viewSummary");
+    var hisBtn      = document.getElementById("viewHistory");
+        hisModal.style.display = "block";
+        hisBtn.setAttribute('disabled',true);
+        sumBtn.setAttribute('disabled',true);
+        hisBtn.classList.remove("extrasBtn");
+        sumBtn.classList.remove("extrasBtn");
+        localStorage.setItem('showHis', 'true');
+}
+function viewSummary() {
+    var sumModal    = document.getElementById("invExtrasSum");
+    var sumBtn      = document.getElementById("viewSummary");
+    var hisBtn      = document.getElementById("viewHistory");
+        sumModal.style.display = "block";
+        hisBtn.setAttribute('disabled',true);
+        sumBtn.setAttribute('disabled',true);
+        hisBtn.classList.remove("extrasBtn");
+        sumBtn.classList.remove("extrasBtn");
+        localStorage.setItem('showSum', 'true');
+}
+function closeMod() {
+    var hisModal    = document.getElementById("invExtrasHis");
+    var sumModal    = document.getElementById("invExtrasSum");
+    var sumBtn      = document.getElementById("viewSummary");
+    var hisBtn      = document.getElementById("viewHistory");
+        hisModal.style.display = "none";
+        sumModal.style.display = "none";
+        localStorage.removeItem('showHis');
+        localStorage.removeItem('showSum');
+        hisBtn.removeAttribute('disabled');
+        sumBtn.removeAttribute('disabled');
+        hisBtn.classList.add("extrasBtn");
+        sumBtn.classList.add("extrasBtn");
+}
+window.onload = function() {
+    var sumBtn      = document.getElementById("viewSummary");
+    var hisBtn      = document.getElementById("viewHistory");
+    var showHis = localStorage.getItem('showHis');
+        if(showHis === 'true'){
+            document.getElementById("invExtrasHis").style.display = "block";
+            hisBtn.setAttribute('disabled',true);
+            sumBtn.setAttribute('disabled',true);
+            hisBtn.classList.remove("extrasBtn");
+            sumBtn.classList.remove("extrasBtn");
+        }
+        var showSum = localStorage.getItem('showSum');
+        if(showSum === 'true'){
+            document.getElementById("invExtrasSum").style.display = "block";
+            hisBtn.setAttribute('disabled',true);
+            sumBtn.setAttribute('disabled',true);
+            hisBtn.classList.remove("extrasBtn");
+            sumBtn.classList.remove("extrasBtn");
+        }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 // Disable Inspect element
 // document.addEventListener('contextmenu',(e)=>{
 //     e.preventDefault();
