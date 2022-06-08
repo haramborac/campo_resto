@@ -69,7 +69,8 @@
                     $adding_query = mysqli_query($connection, $addIngredient);
                     header('location:Inventory.php');
 
-                    $inventoryhistory = "INSERT INTO inventory_history (ingredient, cost, date) VALUE ('$ing_name', $ing_price, now() )";
+                    $inventoryhistory = "INSERT INTO inventory_history (ingredient, quantity, cost, date) 
+                    VALUES ('$ing_name', '$ing_quantity $ing_unit', $ing_price, now() )";
                     $invhistory_query = mysqli_query($connection, $inventoryhistory);
                     header('location:Inventory.php');
                 } 
@@ -127,14 +128,25 @@
                 $restockIng_name = mysqli_real_escape_string($connection, $_POST['restockIngredientName']);
                 $restockIng_quantity = mysqli_real_escape_string($connection, $_POST['resVol']);
                 $restockIng_price = mysqli_real_escape_string($connection, $_POST['resPrice']);
+
+                $z = mysqli_query($connection, "SELECT * FROM ingredients WHERE ingName = '$restockIng_name'");
+
                 if(mysqli_num_rows(mysqli_query($connection, "SELECT * FROM ingredients WHERE ingName = '$restockIng_name'"))>0){
-                    $restockIng = "UPDATE ingredients SET 
-                    ingQuantity = ingQuantity+$restockIng_quantity,
-                    ingCost = ingCost+$restockIng_price,  
-                    ingUpdated = now() 
-                    WHERE ingName = '$restockIng_name' ";
-                    $restockIng_query = mysqli_query($connection, $restockIng);
-                    header('location:Inventory.php');
+                    while($asd = mysqli_fetch_assoc($z)){
+                        $rstckUnit = $asd['ingUnit'];
+                    
+                        $restockIng = "UPDATE ingredients SET 
+                        ingQuantity = ingQuantity+$restockIng_quantity,
+                        ingCost = ingCost+$restockIng_price,  
+                        ingUpdated = now() 
+                        WHERE ingName = '$restockIng_name' ";
+                        $restockIng_query = mysqli_query($connection, $restockIng);
+
+                        $inventoryhistory = "INSERT INTO inventory_history (ingredient, quantity, cost, date) 
+                        VALUES ('$restockIng_name', '$restockIng_quantity $rstckUnit', $restockIng_price, now() )";
+                        $invhistory_query = mysqli_query($connection, $inventoryhistory);
+                        header('location:Inventory.php');
+                    }
                 }else{
                     echo "Ingredient dosen't exist";
                 }
@@ -158,12 +170,18 @@
                             <th width="30%">Cost</th>
                             <th width="30%">Date</th>
                         </tr>
+                        <?php 
+                            $showingredients1 = "SELECT * FROM inventory_history";
+                            $showingredients_query1 = mysqli_query($connection, $showingredients1);
+                            while($row1 = mysqli_fetch_assoc($showingredients_query1)){
+                        ?>
                         <tr>
-                            <td width="25%">Salt Papi</td>
-                            <td width="15%">3 Pc/s</td>
-                            <td width="30%">₱ 1,000.00</td>
-                            <td width="30%">January 24,1999</td>
+                            <td width="25%"><?php echo $row1['ingredient'] ?></td>
+                            <td width="15%"><?php echo $row1['quantity'] ?>/s</td>
+                            <td width="30%">₱ <?php echo number_format($row1['cost'], 2)  ?></td>
+                            <td width="30%"><?php echo date('F d, Y', strtotime($row1['date'])) ?></td>
                         </tr>
+                        <?php } ?>
                     </table>
                 </div>
             </div>
@@ -302,8 +320,8 @@
                         <td width="10%">₱ <?php echo number_format($row['ingCost'], 2) ?></td>
                         <td width="15%">₱ <?php echo number_format($cost,2) ?>/<?php echo $row['ingUnit'] ?></td>
                         <?php echo $level ?>
-                        <td width="15%"><?php echo date('F m, Y', strtotime($row['ingListed'])) ?></td>
-                        <td width="15%"><?php echo date('F m, Y', strtotime($row['ingUpdated'])) ?></td>
+                        <td width="15%"><?php echo date('F d, Y', strtotime($row['ingListed'])) ?></td>
+                        <td width="15%"><?php echo date('F d, Y', strtotime($row['ingUpdated'])) ?></td>
 
                     </tr>
                     <?php } ?>
