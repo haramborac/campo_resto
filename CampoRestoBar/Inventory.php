@@ -79,19 +79,19 @@
             <div class="ingRestock">
                 <h1>Restock Ingredient</h1>
                 <div class="ingRes">
-                    <?php 
-                        $showingredients = "SELECT * FROM ingredients";
-                        $showingredients_query = mysqli_query($connection, $showingredients);
-                        while($row = mysqli_fetch_assoc($showingredients_query)){
-                        
-                    ?>
+                    
                     <div id="ingResName" class="ingResName">
                         <div>
                             <label for="ingredientName">Ingredient Name</label>
                             <select name="restockIngredientName" id="ingredientName">
-                                
+                                <?php 
+                                    $showingredients = "SELECT * FROM ingredients";
+                                    $showingredients_query = mysqli_query($connection, $showingredients);
+                                    while($row = mysqli_fetch_assoc($showingredients_query)){
+                                    
+                                ?>
                                 <option value="<?php echo $row['ingName'] ?>"><?php echo $row['ingName'] ?></option>
-                                
+                                <?php } ?>
                             </select>
                         </div>
                         <div>
@@ -100,7 +100,7 @@
                         </div>
                         <div>
                             <Select id="ingVolume" class="ingVolume" name="ingVolume">
-                                <option value="<?php echo $row['ingUnit'] ?>"><?php echo $row['ingUnit'] ?></option>
+                                <option value="<?php //echo $row['ingUnit'] ?>"><?php //echo $row['ingUnit'] ?></option>
                                 <option value="Pc">Piece/s</option>
                                 <option value="Kg">Kilogram/s</option>
                                 <option value="g">Gram/s</option>
@@ -109,9 +109,8 @@
                             </Select>
                         </div>
                     </div>
-                    <?php } ?>
+                   
                     <div>
-
                         <label for="">Price</label>
                         <span>₱</span><input type="number" id="resPrice" class="resPrice" name="resPrice" placeholder="0.00">
                     </div>
@@ -247,7 +246,16 @@
     </div>
     
 </section>
+<script>
+    let restockName = document.getElementById('ingredientName');
+    let unitName = document.getElementById('ingVolume');
 
+    restockName.onchange = function(){
+
+        console.log(restockName.value);
+        console.log(unitName.value);
+    }
+</script>
 <script>
     document.getElementById('ingNameNew').addEventListener('keyup',enableAdd);
     document.getElementById('ingNewQuan').addEventListener('keyup',enableAdd);
