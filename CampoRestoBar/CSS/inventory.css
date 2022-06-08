@@ -237,23 +237,26 @@ section{
     margin-top: 10px;
     width: 100%;
 }
-.ingredientsList table#TableTitle{
+.ingredientsList table#tableTitle{
     width: 100%;
 }
-.ingredientsList table#TableTitle tr th{
+.ingredientsList{
+    overflow-y: auto;
+}
+.ingredientsList table#tableTitle tr th{
     font-size: 15px;
     border-radius: 5px;
     border: solid 1px;
     text-transform: uppercase;
 }
-.ingredientsList table#TableTitle tr td{
+.ingredientsList table#tableTitle tr td{
     text-align: center;
     font-size: 12px;
 }
-.ingredientsList table#TableTitle tr td#ingNameCont{
+.ingredientsList table#tableTitle tr td#ingNameCont{
     text-transform: capitalize;
 }
-.ingredientsList table#TableTitle tr td#highLight{
+.ingredientsList table#tableTitle tr td#highLight{
     border-radius: 5px;
     font-weight: 600;
 }
