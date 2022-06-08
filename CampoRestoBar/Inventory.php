@@ -78,16 +78,7 @@
                     <div id="ingResName" class="ingResName">
                         <div>
                             <label for="ingredientName">Ingredient Name</label>
-                            <select name="restockIngredientName" id="ingredientName">
-                                <?php 
-                                    $showingredients = "SELECT * FROM ingredients";
-                                    $showingredients_query = mysqli_query($connection, $showingredients);
-                                    while($row = mysqli_fetch_assoc($showingredients_query)){
-                                    
-                                ?>
-                                <option value="<?php echo $row['ingName'] ?>"><?php echo $row['ingName'] ?></option>
-                                <?php } ?>
-                            </select>
+                            <input type="text" id="ingredientName" class="ingredientName" name="ingredientName">
                         </div>
                         <div>
                             <label for="resVol">Quantity</label>
@@ -167,9 +158,38 @@
                 </div>
             </div>
         </div>
-        <div class="invExtras" id="invExtrasSum" style="display:none">
+        <div class="invExtras" id="invExtrasSum" style="display: none;">
             <span id="closeModal" class="closeModal" onclick="closeMod()"><i class="fa fa-times"></i></span>
-            
+            <div class="invExtPanel summary" id="invExtraSummary">
+                <h1>Inventory Summary</h1>
+                <div class="invESContent">
+                    <h2>Inventory Rules</h2>
+                    <h3>FIFO</h3>
+                    <div class="invESCDetails">
+                        <p><i class="fa fa-info-circle"></i> First-In, First-Out. It is an asset management and valuation system 
+                            which helps us in selling out the commodities delivered first at the earliest.
+                        </p>
+                    </div>
+                    <h3>Search free</h3>
+                    <div class="invESCDetails">
+                        <p><i class="fa fa-info-circle"></i> There should be proper segmentation for every different type of 
+                            ingredient/stocks to have an organized inventory.
+                        </p>
+                    </div>
+                    <h3>Heavy Stocks on Ground</h3>
+                    <div class="invESCDetails">
+                        <p><i class="fa fa-info-circle"></i> Heavy sticks should be kept on ground since keeping it at height 
+                            will make it difficult to access them and might result in accidents and mishaps.
+                        </p>
+                    </div>
+                    <h3>Fast Consumables NEAR the Entrance</h3>
+                    <div class="invESCDetails">
+                        <p><i class="fa fa-info-circle"></i> Stocks should be arranged in the inventories as per the rate of 
+                            their consumption.
+                        </p>
+                    </div>
+                </div>
+            </div>
         </div>
         <div class="invListContainer">
             <div class="sortIngredients">
