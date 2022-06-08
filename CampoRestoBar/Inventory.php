@@ -45,7 +45,7 @@
                 <p>New Ingredients Total Cost</p>
                 <?php
                             
-                    $ingredientprices = "SELECT SUM(ingCost) AS ingredientCost FROM ingredients /*WHERE ingListed = now()*/";
+                    $ingredientprices = "SELECT SUM(ingCost) AS ingredientCost FROM ingredients WHERE date(ingListed) = curdate()";
                     $ingredientprices_query = mysqli_query($connection, $ingredientprices);
                     while($ing_cost = mysqli_fetch_assoc($ingredientprices_query)){
                 
