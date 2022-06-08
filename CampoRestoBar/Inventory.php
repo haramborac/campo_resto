@@ -215,16 +215,17 @@
                     <h1>Stock Level</h1>
                     <div class="statusCard highLevel">
                         <div style="background: skyblue;">
-                            <?php $highlevel = "Select count(ingQuantity) as high from ingredients where ingQuantity > 50";
-                                        $highquery = mysqli_query($connection,$highlevel);
-                                        if(mysqli_num_rows($highquery)>0){
-                                            while($rowHigh = mysqli_fetch_assoc($highquery)){
-                                            $rowH = $rowHigh['high'];
-                                            }
-                                        }else{
-                                            $rowH = 0;
-                                        }
-                                ?>
+                            <?php 
+                                $highlevel = "Select count(ingQuantity) as high from ingredients where ingQuantity > 50";
+                                $highquery = mysqli_query($connection,$highlevel);
+                                if(mysqli_num_rows($highquery)>0){
+                                    while($rowHigh = mysqli_fetch_assoc($highquery)){
+                                        $rowH = $rowHigh['high'];
+                                    }
+                                }else{
+                                    $rowH = 0;
+                                }
+                            ?>
                             <p>High Level Ingredients</p>
                             <h2><?php echo $rowH?></h2>
                         </div>
