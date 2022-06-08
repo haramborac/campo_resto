@@ -336,3 +336,16 @@ section{
     font-size: 12px;
     font-weight: 400;
 }
+.invStatusContainers{
+    padding: 3% 1%;
+}
+.statusCard{
+    margin: 2% 0;
+}
+.statusCard div{
+    border: solid 1px;
+    border-radius: 10px;
+}
+.statusCard div p{
+    font-size: 12px;
+}

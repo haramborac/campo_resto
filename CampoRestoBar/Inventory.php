@@ -69,7 +69,8 @@
                     $adding_query = mysqli_query($connection, $addIngredient);
                     header('location:Inventory.php');
 
-                    $inventoryhistory = "INSERT INTO inventory_history (ingredient, cost, date) VALUE ('$ing_name', $ing_price, now() )";
+                    $inventoryhistory = "INSERT INTO inventory_history (ingredient, quantity, cost, date) 
+                    VALUES ('$ing_name', '$ing_quantity $ing_unit', $ing_price, now() )";
                     $invhistory_query = mysqli_query($connection, $inventoryhistory);
                     header('location:Inventory.php');
                 } 
@@ -90,13 +91,7 @@
                             <input type="number" id="resVol" class="resVol" name="resVol">
                         </div>
                         <div>
-                            <Select id="ingVolume" class="ingVolume" name="ingVolume">
-                                <option value="Pc">Piece/s</option>
-                                <option value="Kg">Kilogram/s</option>
-                                <option value="g">Gram/s</option>
-                                <option value="L">Liter/s</option>
-                                <option value="ml">Milliliter/s</option>
-                            </Select>
+                            <p>Kg/s</p>
                         </div>
                     </div>
                    
@@ -107,6 +102,35 @@
                     <div>
                         <button type="submit" id="restockIngSubmit" name="restockIngredients" class="btnHover" disabled>Restock Ingredient</button>
                     </div>
+                    <?php 
+                        if(isset($_POST['restockIngredients'])){
+                            $restockIng_name = mysqli_real_escape_string($connection, $_POST['restockIngredientName']);
+                            $restockIng_quantity = mysqli_real_escape_string($connection, $_POST['resVol']);
+                            $restockIng_price = mysqli_real_escape_string($connection, $_POST['resPrice']);
+
+                            $z = mysqli_query($connection, "SELECT * FROM ingredients WHERE ingName = '$restockIng_name'");
+
+                            if(mysqli_num_rows(mysqli_query($connection, "SELECT * FROM ingredients WHERE ingName = '$restockIng_name'"))>0){
+                                while($asd = mysqli_fetch_assoc($z)){
+                                    $rstckUnit = $asd['ingUnit'];
+                                
+                                    $restockIng = "UPDATE ingredients SET 
+                                    ingQuantity = ingQuantity+$restockIng_quantity,
+                                    ingCost = ingCost+$restockIng_price,  
+                                    ingUpdated = now() 
+                                    WHERE ingName = '$restockIng_name' ";
+                                    $restockIng_query = mysqli_query($connection, $restockIng);
+
+                                    $inventoryhistory = "INSERT INTO inventory_history (ingredient, quantity, cost, date) 
+                                    VALUES ('$restockIng_name', '$restockIng_quantity $rstckUnit', $restockIng_price, now() )";
+                                    $invhistory_query = mysqli_query($connection, $inventoryhistory);
+                                    header('location:Inventory.php');
+                                }
+                            }else{
+                                echo "<p style='color: red; font-style: italic;'>Ingredient doesn't exist</p>";
+                            }
+                        }
+                    ?>
                 </div>
             </div>
             <div class="totalCostInv old">
@@ -122,27 +146,9 @@
                 <?php } ?>
             </div>
         </form>
-        <?php 
-            if(isset($_POST['restockIngredients'])){
-                $restockIng_name = mysqli_real_escape_string($connection, $_POST['restockIngredientName']);
-                $restockIng_quantity = mysqli_real_escape_string($connection, $_POST['resVol']);
-                $restockIng_price = mysqli_real_escape_string($connection, $_POST['resPrice']);
-                if(mysqli_num_rows(mysqli_query($connection, "SELECT * FROM ingredients WHERE ingName = '$restockIng_name'"))>0){
-                    $restockIng = "UPDATE ingredients SET 
-                    ingQuantity = ingQuantity+$restockIng_quantity,
-                    ingCost = ingCost+$restockIng_price,  
-                    ingUpdated = now() 
-                    WHERE ingName = '$restockIng_name' ";
-                    $restockIng_query = mysqli_query($connection, $restockIng);
-                    header('location:Inventory.php');
-                }else{
-                    echo "Ingredient dosen't exist";
-                }
-            }
-        ?>
         <div class="invModalButtons">
-            <button id="viewHistory" class="extrasBtn" onclick="viewHistory()">History</button>
-            <button id="viewSummary" class="extrasBtn" onclick="viewSummary()">Summary</button>
+            <button id="viewHistory" class="extrasBtn" onclick="viewHistory()">HISTORY</button>
+            <button id="viewSummary" class="extrasBtn" onclick="viewSummary()">SUMMARY</button>
         </div>
     </div>
     <div class="invList">
@@ -158,12 +164,18 @@
                             <th width="30%">Cost</th>
                             <th width="30%">Date</th>
                         </tr>
+                        <?php 
+                            $showingredients1 = "SELECT * FROM inventory_history";
+                            $showingredients_query1 = mysqli_query($connection, $showingredients1);
+                            while($row1 = mysqli_fetch_assoc($showingredients_query1)){
+                        ?>
                         <tr>
-                            <td width="25%">Salt Papi</td>
-                            <td width="15%">3 Pc/s</td>
-                            <td width="30%">₱ 1,000.00</td>
-                            <td width="30%">January 24,1999</td>
+                            <td width="25%"><?php echo $row1['ingredient'] ?></td>
+                            <td width="15%"><?php echo $row1['quantity'] ?>/s</td>
+                            <td width="30%">₱ <?php echo number_format($row1['cost'], 2)  ?></td>
+                            <td width="30%"><?php echo date('F d, Y', strtotime($row1['date'])) ?></td>
                         </tr>
+                        <?php } ?>
                     </table>
                 </div>
             </div>
@@ -197,6 +209,39 @@
                         <p><i class="fa fa-info-circle"></i> Stocks should be arranged in the inventories as per the rate of 
                             their consumption.
                         </p>
+                    </div>
+                </div>
+                <div class="invStatusContainers">
+                    <h1>Stock Level</h1>
+                    <div class="statusCard highLevel">
+                        <div style="background: skyblue;">
+                            <p>High Level Ingredients</p>
+                            <h2>100</h2>
+                        </div>
+                    </div>
+                    <div class="statusCard averageLevel">
+                        <div style="background: lightgreen;">
+                            <p>Average Level Ingredients</p>
+                            <h2>100</h2>
+                        </div>
+                    </div>
+                    <div class="statusCard lowLevel">
+                        <div style="background: salmon;">
+                            <p>Low Level Ingredients</p>
+                            <h2>100</h2>
+                        </div>
+                    </div>
+                    <div class="statusCard empty">
+                        <div style="background: darkgray;">
+                            <p>Out of Stock</p>
+                            <h2>100</h2>
+                        </div>
+                    </div>
+                    <div class="statusCard total">
+                        <div>
+                            <p>Total Number of Ingredients</p>
+                            <h2>100</h2>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -268,9 +313,10 @@
                         <td width="10%">₱ <?php echo number_format($row['ingCost'], 2) ?></td>
                         <td width="15%">₱ <?php echo number_format($cost,2) ?>/<?php echo $row['ingUnit'] ?></td>
                         <?php echo $level ?>
-                        <td width="15%"><?php echo date('F m, Y', strtotime($row['ingListed'])) ?></td>
-                        <td width="15%"><?php echo date('F m, Y', strtotime($row['ingUpdated'])) ?></td>
-                   
+                        <td width="15%"><?php echo date('F d, Y', strtotime($row['ingListed'])) ?></td>
+                        <td width="15%"><?php echo date('F d, Y', strtotime($row['ingUpdated'])) ?></td>
+
+
                     </tr>
                     <?php } ?>
                 </table>
