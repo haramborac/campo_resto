@@ -3,7 +3,6 @@
     <?php include 'CSS/dashboard.css'; ?>
 </style>
 
-
 <section class="campoDashboard" id="campoDashboard">
     <div class="campoWelcome">
         <div class="welcome">
@@ -20,35 +19,48 @@
                     <div>
                         <h3>Total Ingredients</h3>
                         <?php
-                            
-
                             $showingredients = "SELECT COUNT(ingName) AS NumberOfIngredients FROM ingredients";
                             $showingredients_query = mysqli_query($connection, $showingredients);
-                            while($total_ing = mysqli_fetch_assoc($showingredients_query)){
-
-                        
+                            if(mysqli_num_rows($showingredients_query)>0){
+                                while($total_ing = mysqli_fetch_assoc($showingredients_query)){
+                                    $total_ingredients = $total_ing['NumberOfIngredients'];
+                                }
+                            }else{
+                                $total_ingredients = 0;
+                            }
                         ?>
-                        <h1><?php echo $total_ing['NumberOfIngredients'] ?> kinds</h1>
-                        <?php } ?>
+                        <h1><?php echo $total_ingredients ?> kinds</h1>
                     </div>
                     <hr>
                     <div>
                         <h3>Ingredients Cost</h3>
                         <?php
-                            
-
                             $ingredientprices = "SELECT SUM(ingCost) AS ingredientCost FROM ingredients";
                             $ingredientprices_query = mysqli_query($connection, $ingredientprices);
-                            while($ing_cost = mysqli_fetch_assoc($ingredientprices_query)){
-
-                        
+                            if(mysqli_num_rows($showingredients_query)>0){
+                                while($ing_cost = mysqli_fetch_assoc($ingredientprices_query)){
+                                    $ingredient_cost = $ing_cost['ingredientCost'];
+                                }
+                            }else{
+                                $ingredient_cost = 0;
+                            }   
                         ?>
-                        <h1>₱ <?php echo number_format($ing_cost['ingredientCost'], 2) ?></h1>
-                        <?php } ?>
+                        <h1>₱ <?php echo number_format($ingredient_cost, 2) ?></h1>
                     </div>
                 </div>
                 <div class="warningMessage">
-                    <h4><span>WARNING :</span> 3 Ingredients Low Level !!</h4>
+                    <?php
+                        $lowIngredients = "SELECT COUNT(ingQuantity) AS lowingredients FROM ingredients WHERE ingQuantity <= 10 ";
+                        $lowIngredients_query = mysqli_query($connection, $lowIngredients);
+                        if(mysqli_num_rows($lowIngredients_query)>0){
+                            while($lowing = mysqli_fetch_assoc($lowIngredients_query)){
+                                $low_ingredients = $lowing['lowingredients'];
+                            }
+                        }else{
+                            $low_ingredients = 0;
+                        }   
+                    ?>
+                    <h4><span>WARNING :</span> <?php echo $low_ingredients ?> Ingredients Low Level !!</h4>
                 </div>
             </div>
             <div class="campoCard">
