@@ -83,7 +83,7 @@
                     <div id="ingResName" class="ingResName">
                         <div>
                             <label for="ingredientName">Ingredient Name</label>
-                            <input type="text" id="ingredientName" class="ingredientName" name="ingredientName">
+                            <input type="text" id="ingredientName" class="ingredientName" name="restockIngredientName">
                         </div>
                         <div>
                             <label for="resVol">Quantity</label>
@@ -91,13 +91,6 @@
                         </div>
                         <div>
                             <Select id="ingVolume" class="ingVolume" name="ingVolume">
-                                <?php 
-                                    $showingredients1 = "SELECT ingUnit FROM ingredients WHERE ingName = '$ingname' ";
-                                    $showingredients_query1 = mysqli_query($connection, $showingredients1);
-                                    while($row1 = mysqli_fetch_assoc($showingredients_query1)){
-                                    
-                                ?>
-                                <option value="<?php echo $row1['ingUnit'] ?>"><?php echo $row1['ingUnit'] ?></option>
                                 <option value="Pc">Piece/s</option>
                                 <option value="Kg">Kilogram/s</option>
                                 <option value="g">Gram/s</option>
@@ -105,7 +98,6 @@
                                 <option value="ml">Milliliter/s</option>
                             </Select>
                         </div>
-                        <?php }} ?>
                     </div>
                    
                     <div>
@@ -134,13 +126,18 @@
             if(isset($_POST['restockIngredients'])){
                 $restockIng_name = mysqli_real_escape_string($connection, $_POST['restockIngredientName']);
                 $restockIng_quantity = mysqli_real_escape_string($connection, $_POST['resVol']);
-
-                $restockIng = "UPDATE ingredients SET 
-                ingQuantity = ingQuantity+$restockIng_quantity, 
-                ingUpdated = now() 
-                WHERE ingName = '$restockIng_name' ";
-                $restockIng_query = mysqli_query($connection, $restockIng);
-                header('location:Inventory.php');
+                $restockIng_price = mysqli_real_escape_string($connection, $_POST['resPrice']);
+                if(mysqli_num_rows(mysqli_query($connection, "SELECT * FROM ingredients WHERE ingName = '$restockIng_name'"))>0){
+                    $restockIng = "UPDATE ingredients SET 
+                    ingQuantity = ingQuantity+$restockIng_quantity,
+                    ingCost = ingCost+$restockIng_price,  
+                    ingUpdated = now() 
+                    WHERE ingName = '$restockIng_name' ";
+                    $restockIng_query = mysqli_query($connection, $restockIng);
+                    header('location:Inventory.php');
+                }else{
+                    echo "Ingredient dosen't exist";
+                }
             }
         ?>
         <div class="invModalButtons">
