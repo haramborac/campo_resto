@@ -88,10 +88,10 @@
                                     $showingredients = "SELECT * FROM ingredients";
                                     $showingredients_query = mysqli_query($connection, $showingredients);
                                     while($row = mysqli_fetch_assoc($showingredients_query)){
-                                    
+                                        $ingname = $row['ingName'];
                                 ?>
                                 <option value="<?php echo $row['ingName'] ?>"><?php echo $row['ingName'] ?></option>
-                                <?php } ?>
+                                
                             </select>
                         </div>
                         <div>
@@ -100,7 +100,13 @@
                         </div>
                         <div>
                             <Select id="ingVolume" class="ingVolume" name="ingVolume">
-                                <option value="<?php //echo $row['ingUnit'] ?>"><?php //echo $row['ingUnit'] ?></option>
+                                <?php 
+                                    $showingredients1 = "SELECT ingUnit FROM ingredients WHERE ingName = '$ingname' ";
+                                    $showingredients_query1 = mysqli_query($connection, $showingredients1);
+                                    while($row1 = mysqli_fetch_assoc($showingredients_query1)){
+                                    
+                                ?>
+                                <option value="<?php echo $row1['ingUnit'] ?>"><?php echo $row1['ingUnit'] ?></option>
                                 <option value="Pc">Piece/s</option>
                                 <option value="Kg">Kilogram/s</option>
                                 <option value="g">Gram/s</option>
@@ -108,6 +114,7 @@
                                 <option value="ml">Milliliter/s</option>
                             </Select>
                         </div>
+                        <?php }} ?>
                     </div>
                    
                     <div>
