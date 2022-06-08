@@ -1,6 +1,6 @@
 <?php ob_start() ?>
 <?php include 'Db.php';?>
-<script type="text/javascript" src="JS/app.js"></script>
+<script type="text/javascript" src="JS/inventory.js"></script>
 <style>
     <?php include 'CSS/header.css';?>
 </style>
