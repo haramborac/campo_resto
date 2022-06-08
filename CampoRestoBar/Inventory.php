@@ -92,12 +92,12 @@
                         <div>
                             <Select id="ingVolume" class="ingVolume" name="ingVolume">
                                 <?php 
-                                    $showingredients1 = "SELECT ingUnit FROM ingredients WHERE ingName = '$ingname' ";
-                                    $showingredients_query1 = mysqli_query($connection, $showingredients1);
-                                    while($row1 = mysqli_fetch_assoc($showingredients_query1)){
+                                    // $showingredients1 = "SELECT ingUnit FROM ingredients WHERE ingName = '$ingname' ";
+                                    // $showingredients_query1 = mysqli_query($connection, $showingredients1);
+                                    // while($row1 = mysqli_fetch_assoc($showingredients_query1)){
                                     
                                 ?>
-                                <option value="<?php echo $row1['ingUnit'] ?>"><?php echo $row1['ingUnit'] ?></option>
+                                <!-- <option value="<?php echo $row1['ingUnit'] ?>"><?php echo $row1['ingUnit'] ?></option> -->
                                 <option value="Pc">Piece/s</option>
                                 <option value="Kg">Kilogram/s</option>
                                 <option value="g">Gram/s</option>
@@ -105,7 +105,7 @@
                                 <option value="ml">Milliliter/s</option>
                             </Select>
                         </div>
-                        <?php }} ?>
+                        <?php //} ?>
                     </div>
                    
                     <div>
@@ -200,6 +200,39 @@
                         <p><i class="fa fa-info-circle"></i> Stocks should be arranged in the inventories as per the rate of 
                             their consumption.
                         </p>
+                    </div>
+                </div>
+                <div class="invStatusContainers">
+                    <h1>Stock Level</h1>
+                    <div class="statusCard highLevel">
+                        <div style="background: skyblue;">
+                            <p>High Level Ingredients</p>
+                            <h2>100</h2>
+                        </div>
+                    </div>
+                    <div class="statusCard averageLevel">
+                        <div style="background: lightgreen;">
+                            <p>Average Level Ingredients</p>
+                            <h2>100</h2>
+                        </div>
+                    </div>
+                    <div class="statusCard lowLevel">
+                        <div style="background: salmon;">
+                            <p>Low Level Ingredients</p>
+                            <h2>100</h2>
+                        </div>
+                    </div>
+                    <div class="statusCard empty">
+                        <div style="background: darkgray;">
+                            <p>Out of Stock</p>
+                            <h2>100</h2>
+                        </div>
+                    </div>
+                    <div class="statusCard total">
+                        <div>
+                            <p>Total Number of Ingredients</p>
+                            <h2>100</h2>
+                        </div>
                     </div>
                 </div>
             </div>
