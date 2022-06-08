@@ -141,7 +141,7 @@ function sortStatus(){
     }
 }
 function sortDate(){
-    console.log('sort by date');
+    console.log('sort by date updated');
     var table, rows, switching, i, x, y, shouldSwitch;
     table = document.getElementById("tableTitle");
     switching = true;

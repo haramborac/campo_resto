@@ -255,23 +255,22 @@
                                     $cost=$row['ingCost']/$row['ingQuantity'];
                                     
                                     if($quantity!=1){
-                                        $text = $unit."/s";
+                                        $text = $unit."s";
                                     }else{
                                         $text = $unit;
                                     }
                                 }
-                               
-
                     ?>
                     <tr>
                         <td width="20%" id="ingNameCont"><?php echo $row['ingName'] ?></td>
                         <td width="15%"><?php echo $quantity?> <?php echo $text ?></td>
+                        <td style ="display:none"><?php echo $row['ingCost'] ?></td>
                         <td width="10%">₱ <?php echo number_format($row['ingCost'], 2) ?></td>
                         <td width="15%">₱ <?php echo number_format($cost,2) ?>/<?php echo $row['ingUnit'] ?></td>
                         <?php echo $level ?>
                         <td width="15%"><?php echo date('F m, Y', strtotime($row['ingListed'])) ?></td>
                         <td width="15%"><?php echo date('F m, Y', strtotime($row['ingUpdated'])) ?></td>
-
+                   
                     </tr>
                     <?php } ?>
                 </table>
