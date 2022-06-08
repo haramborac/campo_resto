@@ -271,19 +271,10 @@
     
 </section>
 <script>
-    let restockName = document.getElementById('ingredientName');
-    let unitName = document.getElementById('ingVolume');
-
-    restockName.onchange = function(){
-
-        console.log(restockName.value);
-        console.log(unitName.value);
-    }
-</script>
-<script>
     document.getElementById('ingNameNew').addEventListener('keyup',enableAdd);
     document.getElementById('ingNewQuan').addEventListener('keyup',enableAdd);
     document.getElementById('ingNewPrice').addEventListener('keyup',enableAdd); 
+    document.getElementById('ingredientName').addEventListener('keyup',enableRestock);
     document.getElementById('resVol').addEventListener('keyup',enableRestock);
     document.getElementById('resPrice').addEventListener('keyup',enableRestock);
     document.getElementById('viewHistory').addEventListener('click',viewHistory);
