@@ -174,16 +174,17 @@ function enableAdd(){
     let quantity = document.getElementById('ingNewQuan').value;
     let price = document.getElementById('ingNewPrice').value;
 
-        if(name.length>0&&quantity>0&&price>0){
+        if(name.length>0 && quantity>0 && price>0){
             document.getElementById('addIngSubmit').removeAttribute('disabled');
         }else{
             document.getElementById('addIngSubmit').setAttribute('disabled',true);
         }
 }
 function enableRestock(){
+    let name = document.getElementById('ingredientName').value;
     let quantity = document.getElementById('resVol').value;
     let price = document.getElementById('resPrice').value;
-        if(quantity>0&&price>0){
+        if(name.length>0 && quantity>0 && price>0){
             document.getElementById('restockIngSubmit').removeAttribute('disabled');
         }else{
             document.getElementById('restockIngSubmit').setAttribute('disabled',true);
