@@ -145,7 +145,7 @@
         </div>
     </div>
     <div class="invList">
-        <div class="invExtras" id="invExtrasHis">
+        <div class="invExtras" id="invExtrasHis" style="display: none;">
             <span id="closeModal" class="closeModal" onclick="closeMod()"><i class="fa fa-times"></i></span>
             <div class="invExtPanel history" id="invExtraHistory">
                 <h1>Inventory History</h1>
@@ -167,7 +167,7 @@
                 </div>
             </div>
         </div>
-        <div class="invExtras" id="invExtrasSum">
+        <div class="invExtras" id="invExtrasSum" style="display: none;">
             <span id="closeModal" class="closeModal" onclick="closeMod()"><i class="fa fa-times"></i></span>
             
         </div>
@@ -247,17 +247,12 @@
     document.getElementById('ingNewPrice').addEventListener('keyup',enableAdd); 
     document.getElementById('resVol').addEventListener('keyup',enableRestock);
     document.getElementById('resPrice').addEventListener('keyup',enableRestock);
-</script>
 
-<script>
     var hisModal    = document.getElementById("invExtrasHis");
     var sumModal    = document.getElementById("invExtrasSum");
     var sumBtn      = document.getElementById("viewSummary");
     var hisBtn      = document.getElementById("viewHistory");
     var extClose    = document.getElementById("closeModal");
-
-    document.getElementById("invExtrasHis").style.display = "none";
-    document.getElementById("invExtrasSum").style.display = "none";
 
     function viewHistory() {
         hisModal.style.display = "block";
@@ -303,5 +298,6 @@
             sumBtn.classList.remove("extrasBtn");
         }
     }
+    
 </script>
 
