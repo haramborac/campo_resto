@@ -163,7 +163,8 @@ section{
     font-size: 12px;
     margin-top: -20px;
 }
-.ingResName select#ingredientName{
+.ingResName input#ingredientName{
+    text-transform: capitalize;
     width: 150px;
 }
 .invModalButtons{
@@ -306,4 +307,29 @@ section{
     font-size: 12px;
     text-transform: capitalize;
     text-align: center;
+}
+.invESContent{
+    padding: 3%;
+    padding-bottom: 7%;
+    border-radius: 10px;
+    border: solid 1px;
+}
+.invESContent h2{
+    font-size: 20px;
+}
+.invESContent h3{
+    font-size: 17px;
+    font-weight: 400;
+    margin: 1% 0;
+}
+.invESCDetails{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    line-height: 12px;
+    text-align: justify;
+}
+.invESCDetails p{
+    font-size: 12px;
+    font-weight: 400;
 }
