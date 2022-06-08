@@ -199,6 +199,39 @@
                         </p>
                     </div>
                 </div>
+                <div class="invStatusContainers">
+                    <h1>Stock Level</h1>
+                    <div class="statusCard highLevel">
+                        <div style="background: skyblue;">
+                            <p>High Level Ingredients</p>
+                            <h2>100</h2>
+                        </div>
+                    </div>
+                    <div class="statusCard averageLevel">
+                        <div style="background: lightgreen;">
+                            <p>Average Level Ingredients</p>
+                            <h2>100</h2>
+                        </div>
+                    </div>
+                    <div class="statusCard lowLevel">
+                        <div style="background: salmon;">
+                            <p>Low Level Ingredients</p>
+                            <h2>100</h2>
+                        </div>
+                    </div>
+                    <div class="statusCard empty">
+                        <div style="background: darkgray;">
+                            <p>Out of Stock</p>
+                            <h2>100</h2>
+                        </div>
+                    </div>
+                    <div class="statusCard total">
+                        <div>
+                            <p>Total Number of Ingredients</p>
+                            <h2>100</h2>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
         <div class="invListContainer">
