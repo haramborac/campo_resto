@@ -102,6 +102,35 @@
                     <div>
                         <button type="submit" id="restockIngSubmit" name="restockIngredients" class="btnHover" disabled>Restock Ingredient</button>
                     </div>
+                    <?php 
+                        if(isset($_POST['restockIngredients'])){
+                            $restockIng_name = mysqli_real_escape_string($connection, $_POST['restockIngredientName']);
+                            $restockIng_quantity = mysqli_real_escape_string($connection, $_POST['resVol']);
+                            $restockIng_price = mysqli_real_escape_string($connection, $_POST['resPrice']);
+
+                            $z = mysqli_query($connection, "SELECT * FROM ingredients WHERE ingName = '$restockIng_name'");
+
+                            if(mysqli_num_rows(mysqli_query($connection, "SELECT * FROM ingredients WHERE ingName = '$restockIng_name'"))>0){
+                                while($asd = mysqli_fetch_assoc($z)){
+                                    $rstckUnit = $asd['ingUnit'];
+                                
+                                    $restockIng = "UPDATE ingredients SET 
+                                    ingQuantity = ingQuantity+$restockIng_quantity,
+                                    ingCost = ingCost+$restockIng_price,  
+                                    ingUpdated = now() 
+                                    WHERE ingName = '$restockIng_name' ";
+                                    $restockIng_query = mysqli_query($connection, $restockIng);
+
+                                    $inventoryhistory = "INSERT INTO inventory_history (ingredient, quantity, cost, date) 
+                                    VALUES ('$restockIng_name', '$restockIng_quantity $rstckUnit', $restockIng_price, now() )";
+                                    $invhistory_query = mysqli_query($connection, $inventoryhistory);
+                                    header('location:Inventory.php');
+                                }
+                            }else{
+                                echo "<p style='color: red; font-style: italic;'>Ingredient doesn't exist</p>";
+                            }
+                        }
+                    ?>
                 </div>
             </div>
             <div class="totalCostInv old">
@@ -117,35 +146,6 @@
                 <?php } ?>
             </div>
         </form>
-        <?php 
-            if(isset($_POST['restockIngredients'])){
-                $restockIng_name = mysqli_real_escape_string($connection, $_POST['restockIngredientName']);
-                $restockIng_quantity = mysqli_real_escape_string($connection, $_POST['resVol']);
-                $restockIng_price = mysqli_real_escape_string($connection, $_POST['resPrice']);
-
-                $z = mysqli_query($connection, "SELECT * FROM ingredients WHERE ingName = '$restockIng_name'");
-
-                if(mysqli_num_rows(mysqli_query($connection, "SELECT * FROM ingredients WHERE ingName = '$restockIng_name'"))>0){
-                    while($asd = mysqli_fetch_assoc($z)){
-                        $rstckUnit = $asd['ingUnit'];
-                    
-                        $restockIng = "UPDATE ingredients SET 
-                        ingQuantity = ingQuantity+$restockIng_quantity,
-                        ingCost = ingCost+$restockIng_price,  
-                        ingUpdated = now() 
-                        WHERE ingName = '$restockIng_name' ";
-                        $restockIng_query = mysqli_query($connection, $restockIng);
-
-                        $inventoryhistory = "INSERT INTO inventory_history (ingredient, quantity, cost, date) 
-                        VALUES ('$restockIng_name', '$restockIng_quantity $rstckUnit', $restockIng_price, now() )";
-                        $invhistory_query = mysqli_query($connection, $inventoryhistory);
-                        header('location:Inventory.php');
-                    }
-                }else{
-                    echo "Ingredient dosen't exist";
-                }
-            }
-        ?>
         <div class="invModalButtons">
             <button id="viewHistory" class="extrasBtn" onclick="viewHistory()">HISTORY</button>
             <button id="viewSummary" class="extrasBtn" onclick="viewSummary()">SUMMARY</button>
