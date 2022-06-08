@@ -90,14 +90,7 @@
                             <input type="number" id="resVol" class="resVol" name="resVol">
                         </div>
                         <div>
-                            <Select id="ingVolume" class="ingVolume" name="ingVolume">
-                                <?php 
-                                    $showingredients1 = "SELECT ingUnit FROM ingredients WHERE ingName = '$ingname' ";
-                                    $showingredients_query1 = mysqli_query($connection, $showingredients1);
-                                    while($row1 = mysqli_fetch_assoc($showingredients_query1)){
-                                    
-                                ?>
-                                <option value="<?php echo $row1['ingUnit'] ?>"><?php echo $row1['ingUnit'] ?></option>
+                            <Select id="ingVolume" class="ingVolume" name="ingVolume">  
                                 <option value="Pc">Piece/s</option>
                                 <option value="Kg">Kilogram/s</option>
                                 <option value="g">Gram/s</option>
@@ -105,7 +98,6 @@
                                 <option value="ml">Milliliter/s</option>
                             </Select>
                         </div>
-                        <?php }} ?>
                     </div>
                    
                     <div>
@@ -274,19 +266,10 @@
     
 </section>
 <script>
-    let restockName = document.getElementById('ingredientName');
-    let unitName = document.getElementById('ingVolume');
-
-    restockName.onchange = function(){
-
-        console.log(restockName.value);
-        console.log(unitName.value);
-    }
-</script>
-<script>
     document.getElementById('ingNameNew').addEventListener('keyup',enableAdd);
     document.getElementById('ingNewQuan').addEventListener('keyup',enableAdd);
     document.getElementById('ingNewPrice').addEventListener('keyup',enableAdd); 
+    document.getElementById('ingredientName').addEventListener('keyup',enableRestock);
     document.getElementById('resVol').addEventListener('keyup',enableRestock);
     document.getElementById('resPrice').addEventListener('keyup',enableRestock);
     document.getElementById('viewHistory').addEventListener('click',viewHistory);
