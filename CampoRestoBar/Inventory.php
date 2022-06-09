@@ -49,8 +49,9 @@
                             if(mysqli_num_rows(mysqli_query($connection, "SELECT * FROM ingredients WHERE ingName = '$ing_name'"))>0){
                                 echo "<p style='color: red; font-style: italic;'>Ingredient Already Exists</p>";
                             }else{
-                                $addIngredient = "INSERT INTO ingredients (ingName, ingQuantity, ingUnit, ingCost, ingListed, ingUpdated) 
-                                VALUES ('$ing_name', $ing_quantity, '$ing_unit', $ing_price, now(), now() ) ";
+                                $addIngredient = "INSERT INTO ingredients 
+                                (ingName, ingQuantity, ingUnit, ingCost, ingCostperUnit, ingListed, ingUpdated) 
+                                VALUES ('$ing_name', $ing_quantity, '$ing_unit', $ing_price, $ing_price/$ing_quantity, now(), now() ) ";
                                 $adding_query = mysqli_query($connection, $addIngredient);
                                 header('location:Inventory.php');
 
@@ -108,16 +109,17 @@
                             $restockIng_name = mysqli_real_escape_string($connection, $_POST['restockIngredientName']);
                             $restockIng_quantity = mysqli_real_escape_string($connection, $_POST['resVol']);
                             $restockIng_price = mysqli_real_escape_string($connection, $_POST['resPrice']);
-
+                            
                             $z = mysqli_query($connection, "SELECT * FROM ingredients WHERE ingName = '$restockIng_name'");
 
                             if(mysqli_num_rows(mysqli_query($connection, "SELECT * FROM ingredients WHERE ingName = '$restockIng_name'"))>0){
                                 while($asd = mysqli_fetch_assoc($z)){
                                     $rstckUnit = $asd['ingUnit'];
-                                
+                                    
                                     $restockIng = "UPDATE ingredients SET 
                                     ingQuantity = ingQuantity+$restockIng_quantity,
-                                    ingCost = ingCost+$restockIng_price,  
+                                    ingCost = ingCost+$restockIng_price,
+                                    ingCostperUnit = ((ingCost+$restockIng_price)/(ingQuantity+$restockIng_quantity))+ingCostperUnit,
                                     ingUpdated = now() 
                                     WHERE ingName = '$restockIng_name' ";
                                     $restockIng_query = mysqli_query($connection, $restockIng);
@@ -356,7 +358,7 @@
                                     if($quantity>50){
                                         $level ="<td width='10%' id='highLight' style='background:skyblue'>HIGH</td>";
                                     }
-                                    $cost=$row['ingCost']/$row['ingQuantity'];
+                                    $cost=$row['ingCostperUnit'];
                                     
                                     if($quantity!=1){
                                         $text = $unit."s";
