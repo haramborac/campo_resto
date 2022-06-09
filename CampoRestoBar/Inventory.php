@@ -285,8 +285,8 @@
                     </div>
                     <div class="statusCard total">
                         <div>
-                        <?php $totalIng = "Select count(ingQuantity) as total from ingredients";
-                                        $totalquery = mysqli_query($connection,$totalIng);
+                        <?php $totalIng = "Select count(ingName) as total from ingredients";
+                                        $totalquery = mysqli_query($connection, $totalIng);
                                         if(mysqli_num_rows($totalquery)>0){
                                             while($rowTotal = mysqli_fetch_assoc($totalquery)){
                                             $rowT = $rowTotal['total'];
@@ -383,7 +383,17 @@
             </div>
         </div>
     </div>
-    
+    <script>
+        document.getElementById('ingNameNew').addEventListener('keyup',enableAdd);
+        document.getElementById('ingNewQuan').addEventListener('keyup',enableAdd);
+        document.getElementById('ingNewPrice').addEventListener('keyup',enableAdd); 
+        document.getElementById('ingredientName').addEventListener('keyup',enableRestock);
+        document.getElementById('resVol').addEventListener('keyup',enableRestock);
+        document.getElementById('resPrice').addEventListener('keyup',enableRestock);
+        document.getElementById('viewHistory').addEventListener('click',viewHistory);
+        document.getElementById('viewSummary').addEventListener('click',viewSummary);
+        document.getElementById('closeModal').addEventListener('click',closeMod);
+    </script>   
 </section>
 <script>
     document.getElementById('ingNameNew').addEventListener('keyup',enableAdd);
