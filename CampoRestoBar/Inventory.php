@@ -39,6 +39,28 @@
                     <div>
                         <button type="submit" id="addIngSubmit" name="addIngredients" class="btnHover" disabled>Add Ingredient</button>
                     </div>
+                    <?php 
+                        if(isset($_POST['addIngredients'])){
+                            $ing_name = mysqli_real_escape_string($connection, $_POST['ingNameNew']);
+                            $ing_quantity = mysqli_real_escape_string($connection, $_POST['ingNewQuan']);
+                            $ing_unit = mysqli_real_escape_string($connection, $_POST['ingNewVolume']);
+                            $ing_price = mysqli_real_escape_string($connection, $_POST['ingPrice']);
+                            
+                            if(mysqli_num_rows(mysqli_query($connection, "SELECT * FROM ingredients WHERE ingName = '$ing_name'"))>0){
+                                echo "<p style='color: red; font-style: italic;'>Ingredient Already Exists</p>";
+                            }else{
+                                $addIngredient = "INSERT INTO ingredients (ingName, ingQuantity, ingUnit, ingCost, ingListed, ingUpdated) 
+                                VALUES ('$ing_name', $ing_quantity, '$ing_unit', $ing_price, now(), now() ) ";
+                                $adding_query = mysqli_query($connection, $addIngredient);
+                                header('location:Inventory.php');
+
+                                $inventoryhistory = "INSERT INTO inventory_history (ingredient, quantity, cost, date) 
+                                VALUES ('$ing_name', '$ing_quantity $ing_unit', $ing_price, now() )";
+                                $invhistory_query = mysqli_query($connection, $inventoryhistory);
+                                header('location:Inventory.php');
+                            } 
+                        }
+                    ?>
                 </div>
             </div>
             <div class="totalCostInv new">
@@ -54,28 +76,6 @@
                 <?php } ?>
             </div>
         </form>
-        <?php 
-            if(isset($_POST['addIngredients'])){
-                $ing_name = mysqli_real_escape_string($connection, $_POST['ingNameNew']);
-                $ing_quantity = mysqli_real_escape_string($connection, $_POST['ingNewQuan']);
-                $ing_unit = mysqli_real_escape_string($connection, $_POST['ingNewVolume']);
-                $ing_price = mysqli_real_escape_string($connection, $_POST['ingPrice']);
-                
-                if(mysqli_num_rows(mysqli_query($connection, "SELECT * FROM ingredients WHERE ingName = '$ing_name'"))>0){
-                    echo "ingredient already exists";
-                }else{
-                    $addIngredient = "INSERT INTO ingredients (ingName, ingQuantity, ingUnit, ingCost, ingListed, ingUpdated) 
-                    VALUES ('$ing_name', $ing_quantity, '$ing_unit', $ing_price, now(), now() ) ";
-                    $adding_query = mysqli_query($connection, $addIngredient);
-                    header('location:Inventory.php');
-
-                    $inventoryhistory = "INSERT INTO inventory_history (ingredient, quantity, cost, date) 
-                    VALUES ('$ing_name', '$ing_quantity $ing_unit', $ing_price, now() )";
-                    $invhistory_query = mysqli_query($connection, $inventoryhistory);
-                    header('location:Inventory.php');
-                } 
-            }
-        ?>
         <form action="" method="post">
             <div class="ingRestock">
                 <h1>Restock Ingredient</h1>
@@ -158,24 +158,28 @@
                 <h1>Inventory History</h1>
                 <div class="invExtTable history">
                     <table>
-                        <tr>
-                            <th width="25%">Ingredient</th>
-                            <th width="15%">Qnty</th>
-                            <th width="30%">Cost</th>
-                            <th width="30%">Date</th>
-                        </tr>
-                        <?php 
-                            $showingredients1 = "SELECT * FROM inventory_history";
-                            $showingredients_query1 = mysqli_query($connection, $showingredients1);
-                            while($row1 = mysqli_fetch_assoc($showingredients_query1)){
-                        ?>
-                        <tr>
-                            <td width="25%"><?php echo $row1['ingredient'] ?></td>
-                            <td width="15%"><?php echo $row1['quantity'] ?>/s</td>
-                            <td width="30%">₱ <?php echo number_format($row1['cost'], 2)  ?></td>
-                            <td width="30%"><?php echo date('F d, Y', strtotime($row1['date'])) ?></td>
-                        </tr>
-                        <?php } ?>
+                        <thead>
+                            <tr>
+                                <th width="25%">INGREDIENT</th>
+                                <th width="15%">QNTY</th>
+                                <th width="30%">COST</th>
+                                <th width="30%">DATE</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php 
+                                $showingredients1 = "SELECT * FROM inventory_history";
+                                $showingredients_query1 = mysqli_query($connection, $showingredients1);
+                                while($row1 = mysqli_fetch_assoc($showingredients_query1)){
+                            ?>
+                            <tr>
+                                <td width="25%"><?php echo $row1['ingredient'] ?></td>
+                                <td width="15%"><?php echo $row1['quantity'] ?>/s</td>
+                                <td width="30%">₱ <?php echo number_format($row1['cost'], 2)  ?></td>
+                                <td width="30%"><?php echo date('F d, Y', strtotime($row1['date'])) ?></td>
+                            </tr>
+                            <?php } ?>
+                        </tbody>
                     </table>
                 </div>
             </div>
@@ -200,7 +204,7 @@
                     </div>
                     <h3>Heavy Stocks on Ground</h3>
                     <div class="invESCDetails">
-                        <p><i class="fa fa-info-circle"></i> Heavy sticks should be kept on ground since keeping it at height 
+                        <p><i class="fa fa-info-circle"></i> Heavy stocks should be kept on ground since keeping it at height 
                             will make it difficult to access them and might result in accidents and mishaps.
                         </p>
                     </div>
@@ -315,15 +319,18 @@
             </div>
             <div class="ingredientsList">
                 <table id="tableTitle">
-                    <tr>
-                        <th width="20%">Ingredient Name</th>
-                        <th width="15%">Quantity</th>
-                        <th width="10%">Cost</th>
-                        <th width="15%">Cost/Unit</th>
-                        <th width="10%">Status</th>
-                        <th width="15%">Date Listed</th>
-                        <th width="15%">Date Updated</th>
-                    </tr>
+                    <thead>
+                        <tr>
+                            <th width="20%">Ingredient Name</th>
+                            <th width="15%">Quantity</th>
+                            <th width="10%">Cost</th>
+                            <th width="15%">Cost/Unit</th>
+                            <th width="10%">Status</th>
+                            <th width="15%">Date Listed</th>
+                            <th width="15%">Date Updated</th>
+                        </tr>
+                    </thead>
+                    <tbody>
                     <?php 
                         $showingredients = "SELECT * FROM ingredients";
                         $showingredients_query = mysqli_query($connection, $showingredients);
@@ -357,19 +364,20 @@
                                     }
                                 }
                     ?>
-                    <tr>
-                        <td width="20%" id="ingNameCont"><?php echo $row['ingName'] ?></td>
-                        <td width="15%"><?php echo $quantity?> <?php echo $text ?></td>
-                        <td style ="display:none"><?php echo $row['ingCost'] ?></td>
-                        <td width="10%">₱ <?php echo number_format($row['ingCost'], 2) ?></td>
-                        <td width="15%">₱ <?php echo number_format($cost,2) ?>/<?php echo $row['ingUnit'] ?></td>
-                        <?php echo $level ?>
-                        <td width="15%"><?php echo date('F d, Y', strtotime($row['ingListed'])) ?></td>
-                        <td width="15%"><?php echo date('F d, Y', strtotime($row['ingUpdated'])) ?></td>
-
-
-                    </tr>
-                    <?php } ?>
+                    
+                        <tr>
+                            <td width="20%" id="ingNameCont"><?php echo $row['ingName'] ?></td>
+                            <td width="15%"><?php echo $quantity?> <?php echo $text ?></td>
+                            <td style ="display:none"><?php echo $row['ingCost'] ?></td>
+                            <td width="10%">₱ <?php echo number_format($row['ingCost'], 2) ?></td>
+                            <td width="15%">₱ <?php echo number_format($cost,2) ?>/<?php echo $row['ingUnit'] ?></td>
+                            <?php echo $level ?>
+                            <td width="15%"><?php echo date('F d, Y', strtotime($row['ingListed'])) ?></td>
+                            <td width="15%"><?php echo date('F d, Y', strtotime($row['ingUpdated'])) ?></td>
+                        </tr>
+                        <?php } ?>
+                    </tbody>
+                    
                 </table>
             </div>
         </div>

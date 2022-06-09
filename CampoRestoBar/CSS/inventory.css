@@ -238,28 +238,39 @@ section{
     width: 100%;
 }
 .ingredientsList table#tableTitle{
+    display: flex;
+    flex-flow: column;
+    text-align: center;
+    text-transform: capitalize;
+    height: 90%;
     width: 100%;
 }
-.ingredientsList{
-    overflow-y: auto;
+table#tableTitle thead{
+    flex: 0 0 auto;
+    width: calc(100% - 0.9em);
 }
-.ingredientsList table#tableTitle tr th{
-    font-size: 15px;
+table#tableTitle thead tr th{
     border-radius: 5px;
     border: solid 1px;
-    text-transform: uppercase;
-}
-.ingredientsList table#tableTitle tr td{
-    text-align: center;
-    font-size: 12px;
-}
-.ingredientsList table#tableTitle tr td#ingNameCont{
-    text-transform: capitalize;
-}
-.ingredientsList table#tableTitle tr td#highLight{
-    border-radius: 5px;
+    font-size: 15px;
     font-weight: 600;
 }
+table#tableTitle tbody{
+    flex: 1 1 auto;
+    display: block;
+    overflow-y: scroll;
+}
+table#tableTitle tbody tr {
+    width: 100%;
+    font-size: 12px;
+}
+table#tableTitle thead, table#tableTitle tbody tr {
+    display: table;
+    table-layout: fixed;
+}
+
+
+
 .invExtras{
     margin-top: 30px;
     margin-right: 1%;
@@ -298,17 +309,37 @@ section{
     margin-top: 20px;
 }
 .invExtTable table{
+    display: flex;
+    flex-flow: column;
+    text-align: center;
+    text-transform: capitalize;
+    height: 90%;
     width: 100%;
 }
-.invExtTable table tr th{
-    font-size: 12px;
-    font-weight: 600;
+.invExtTable table thead{
+    flex: 0 0 auto;
+    width: calc(100% - 0.9em);
+}
+.invExtTable table thead tr th{
     border-radius: 5px;
     border: solid 1px;
+    font-size: 12px;
+    font-weight: 600;
 }
-.invExtTable table tr td{
-    font-size: 12px;    
-    text-align: center;
+.invExtTable table tbody{
+    flex: 1 1 auto;
+    display: block;
+    overflow-y: scroll;
+}
+.invExtTable table tbody tr{
+    width: 100%;
+    font-size: 12px;
+    border-bottom: solid 1px;
+}
+.invExtTable table thead,
+.invExtTable table tbody tr{
+    display: table;
+    table-layout: fixed;
 }
 .invESContent{
     padding: 3%;
