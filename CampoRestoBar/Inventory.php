@@ -85,6 +85,8 @@
                         <div>
                             <label for="ingredientName">Ingredient Name</label>
                             <input type="text" id="ingredientName" class="ingredientName" name="restockIngredientName">
+                            <div class="suggestions">
+                                </div>
                         </div>
                         <div>
                             <label for="resVol">Quantity</label>
@@ -94,7 +96,6 @@
                             <p>Kg/s</p>
                         </div>
                     </div>
-                   
                     <div>
                         <label for="">Price</label>
                         <span>₱</span><input type="number" id="resPrice" class="resPrice" name="resPrice" placeholder="0.00">
@@ -394,4 +395,44 @@
     document.getElementById('viewHistory').addEventListener('click',viewHistory);
     document.getElementById('viewSummary').addEventListener('click',viewSummary);
     document.getElementById('closeModal').addEventListener('click',closeMod);
+</script>
+
+<script>
+  const name = [
+    <?php
+  $query = "select * from ingredients";
+  $myQuery = mysqli_query($connection,$query);
+  while($row = mysqli_fetch_assoc($myQuery)){
+?>
+  {name: '<?php echo $row['ingName'] ?>', unit:'<?php echo $row['ingUnit'] ?>'},
+  <?php }?>
+  {name: '',unit:''}
+];
+
+  const searchInput = document.querySelector('#ingredientName');
+  const suggestionsPanel = document.querySelector('.suggestions');
+  searchInput.addEventListener('keyup', function() {
+    const input = searchInput.value;
+    suggestionsPanel.innerHTML = '';
+    const suggestions = name.filter(function(ingName) {
+      return ingName.name.toLowerCase().startsWith(input);
+    });
+    suggestions.forEach(function(suggested) {
+      const div = document.createElement('div');
+      div.className = "suggest";
+      div.innerHTML = suggested.name;
+      suggestionsPanel.appendChild(div);
+    });
+    if (input === '') {
+      suggestionsPanel.innerHTML = '';  
+    }
+    let suggest = document.getElementsByClassName('suggest');
+    for(let i = 0; i< suggest.length; i++){
+      suggest[i].onclick = function(){
+        console.log();
+        document.getElementById('ingredientName').value = suggest[i].innerHTML;
+        suggestionsPanel.innerHTML = '';
+      }
+    }
+  });
 </script>
