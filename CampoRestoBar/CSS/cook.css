@@ -1,0 +1,131 @@
+section{
+    height: 100%;
+    width: 100%;
+    padding: 5%;
+    text-align: center;
+}
+.campoCookContent{
+    height: 100%;
+    width: 100%;
+    margin-top: 1%;
+    display: flex;
+    justify-content: space-between;
+}
+.campoCookContent .cookDetails{
+    height: 100%;
+    width: 100%;
+    border-radius: 10px;
+    padding: 2%;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 16px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+}
+.cookDetails.cookAddIngredient{
+    width: 25%;
+}
+.cookDetails.cookFoodDetails{
+    width: 45%;
+}
+.cookDetails.cookServeToCustomer{
+    width: 25%;
+}
+
+.addIngredient{
+    margin-top: 20px;
+}
+.addIngredient .addContent{
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    margin: 1% 0;
+}
+.addContent div{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.addContent div input{
+    height: 25px;
+    border-radius: 5px;
+    border: solid 1px;
+    padding: 0 5px;
+    font-size: 15px;
+    text-transform: capitalize;
+}
+.addContent div button{
+    height: 25px;
+    width: 100%;
+    border-radius: 5px;
+    border: solid 1px;
+    cursor: pointer;
+}
+.addContent div p{
+    margin: 0 5px;
+    font-size: 12px;
+}
+div input#ingName{
+    width: 100%;
+}
+div input#ingQuantity{
+    width: 100%;
+}
+.ingAddedList{
+    margin: 2% 0;
+}
+.ingAddedList table{
+    display: flex;
+    flex-flow: column;
+    text-align: center;
+    text-transform: capitalize;
+    height: 50%;
+    width: 100%;
+    border-radius: 5px;
+    border: solid 1px;
+}
+.ingAddedList table thead tr th{
+    border-radius: 5px;
+    border: solid 1px;
+    font-size: 12px;
+    font-weight: 600;
+}
+.ingAddedList table tbody{
+    flex: 1 1 auto;
+    display: block;
+    overflow-y: scroll;
+}
+.ingAddedList table tbody tr{
+    width: 100%;
+    font-size: 12px;
+    font-size: 10px;
+}
+.ingAddedList table thead,
+.ingAddedList table tbody tr{
+    display: table;
+    table-layout: fixed;
+}
+.ingAddedList table tbody tr td button{
+    height: 25px;
+    width: 100%;
+    cursor: pointer;
+}
+.addIngSummary{
+    margin: 5% 0;
+}
+.addIngSummary div p{
+    font-size: 15px;
+}
+.addSumBtn{
+    display: flex;
+    justify-content: space-evenly;
+}
+.addSumBtn button{
+    height: 30px;
+    width: 70%;
+    margin: 0 2%;
+    border-radius: 5px;
+    border: solid 1px;
+    cursor: pointer;
+}
