@@ -85,16 +85,17 @@
                         <div>
                             <label for="ingredientName">Ingredient Name</label>
                             <input type="text" id="ingredientName" class="ingredientName" name="restockIngredientName">
+                            <div class="suggestions">
+                                </div>
                         </div>
                         <div>
                             <label for="resVol">Quantity</label>
                             <input type="number" id="resVol" class="resVol" name="resVol">
                         </div>
                         <div>
-                            <p>Kg/s</p>
+                            <p id="yunit"></p>
                         </div>
                     </div>
-                   
                     <div>
                         <label for="">Price</label>
                         <span>₱</span><input type="number" id="resPrice" class="resPrice" name="resPrice" placeholder="0.00">
@@ -220,7 +221,7 @@
                     <div class="statusCard highLevel">
                         <div style="background: skyblue;">
                             <?php 
-                                $highlevel = "Select count(ingQuantity) as high from ingredients where ingQuantity > 50";
+                                $highlevel = "Select count(ingName) as high from ingredients where ingQuantity > 50";
                                 $highquery = mysqli_query($connection,$highlevel);
                                 if(mysqli_num_rows($highquery)>0){
                                     while($rowHigh = mysqli_fetch_assoc($highquery)){
@@ -236,7 +237,7 @@
                     </div>
                     <div class="statusCard averageLevel">
                         <div style="background: lightgreen;">
-                            <?php $averagelevel = "Select count(ingQuantity) as average from ingredients where ingQuantity between 10 and 51";
+                            <?php $averagelevel = "Select count(ingName) as average from ingredients where ingQuantity between 10 and 51";
                                         $averagequery = mysqli_query($connection,$averagelevel);
                                         if(mysqli_num_rows($averagequery)>0){
                                             while($rowAve = mysqli_fetch_assoc($averagequery)){
@@ -252,7 +253,7 @@
                     </div>
                     <div class="statusCard lowLevel">
                         <div style="background: salmon;">
-                        <?php $lowlevel = "Select count(ingQuantity) as low from ingredients where ingQuantity between 0 and 11";
+                        <?php $lowlevel = "Select count(ingName) as low from ingredients where ingQuantity between 0 and 11";
                                         $lowquery = mysqli_query($connection,$lowlevel);
                                         if(mysqli_num_rows($lowquery)>0){
                                             while($rowLow = mysqli_fetch_assoc($lowquery)){
@@ -394,3 +395,65 @@
         document.getElementById('closeModal').addEventListener('click',closeMod);
     </script>   
 </section>
+<script>
+    document.getElementById('ingNameNew').addEventListener('keyup',enableAdd);
+    document.getElementById('ingNewQuan').addEventListener('keyup',enableAdd);
+    document.getElementById('ingNewPrice').addEventListener('keyup',enableAdd); 
+    document.getElementById('ingredientName').addEventListener('keyup',enableRestock);
+    document.getElementById('resVol').addEventListener('keyup',enableRestock);
+    document.getElementById('resPrice').addEventListener('keyup',enableRestock);
+    document.getElementById('viewHistory').addEventListener('click',viewHistory);
+    document.getElementById('viewSummary').addEventListener('click',viewSummary);
+    document.getElementById('closeModal').addEventListener('click',closeMod);
+</script>
+
+<script>
+  const name = [
+    <?php
+  $query = "select * from ingredients";
+  $myQuery = mysqli_query($connection,$query);
+  while($row = mysqli_fetch_assoc($myQuery)){
+?>
+  {name: '<?php echo $row['ingName'] ?>', unit:'<?php echo $row['ingUnit'] ?>'},
+  <?php }?>
+  {name: '',unit:''}
+];
+
+  const searchInput = document.querySelector('#ingredientName');
+  const suggestionsPanel = document.querySelector('.suggestions');
+  searchInput.addEventListener('keyup', function() {
+    const input = searchInput.value;
+    suggestionsPanel.innerHTML = '';
+    const suggestions = name.filter(function(ingName) {
+      return ingName.name.toLowerCase().startsWith(input);
+    });
+    suggestions.forEach(function(suggested) {
+      const div = document.createElement('div');
+      div.className = "suggest";
+      div.innerHTML = suggested.name;
+      suggestionsPanel.appendChild(div);
+    });
+    if (input === '') {
+      suggestionsPanel.innerHTML = '';  
+    }
+    let suggest = document.getElementsByClassName('suggest');
+    for(let i = 0; i< suggest.length; i++){
+      suggest[i].onclick = function(){
+        document.getElementById('ingredientName').value = suggest[i].innerHTML;
+        suggestionsPanel.innerHTML = '';
+      }
+    }
+  });
+//   searchInput.addEventListener('mouseleave',function(){
+//     suggestionsPanel.innerHTML = '';
+//   });
+</script>
+<script>
+    const forUnit = document.getElementById('ingredientName');
+    const forName = forUnit.value;
+    forUnit.onkeyup = function(){
+        console.log("keydown");
+        console.log(forUnit.value);
+    }
+
+</script>
