@@ -93,7 +93,7 @@
                             <input type="number" id="resVol" class="resVol" name="resVol">
                         </div>
                         <div>
-                            <p>Kg/s</p>
+                            <p id="yunit"></p>
                         </div>
                     </div>
                     <div>
@@ -221,7 +221,7 @@
                     <div class="statusCard highLevel">
                         <div style="background: skyblue;">
                             <?php 
-                                $highlevel = "Select count(ingQuantity) as high from ingredients where ingQuantity > 50";
+                                $highlevel = "Select count(ingName) as high from ingredients where ingQuantity > 50";
                                 $highquery = mysqli_query($connection,$highlevel);
                                 if(mysqli_num_rows($highquery)>0){
                                     while($rowHigh = mysqli_fetch_assoc($highquery)){
@@ -237,7 +237,7 @@
                     </div>
                     <div class="statusCard averageLevel">
                         <div style="background: lightgreen;">
-                            <?php $averagelevel = "Select count(ingQuantity) as average from ingredients where ingQuantity between 10 and 51";
+                            <?php $averagelevel = "Select count(ingName) as average from ingredients where ingQuantity between 10 and 51";
                                         $averagequery = mysqli_query($connection,$averagelevel);
                                         if(mysqli_num_rows($averagequery)>0){
                                             while($rowAve = mysqli_fetch_assoc($averagequery)){
@@ -253,7 +253,7 @@
                     </div>
                     <div class="statusCard lowLevel">
                         <div style="background: salmon;">
-                        <?php $lowlevel = "Select count(ingQuantity) as low from ingredients where ingQuantity between 0 and 11";
+                        <?php $lowlevel = "Select count(ingName) as low from ingredients where ingQuantity between 0 and 11";
                                         $lowquery = mysqli_query($connection,$lowlevel);
                                         if(mysqli_num_rows($lowquery)>0){
                                             while($rowLow = mysqli_fetch_assoc($lowquery)){
@@ -429,10 +429,21 @@
     let suggest = document.getElementsByClassName('suggest');
     for(let i = 0; i< suggest.length; i++){
       suggest[i].onclick = function(){
-        console.log();
         document.getElementById('ingredientName').value = suggest[i].innerHTML;
         suggestionsPanel.innerHTML = '';
       }
     }
   });
+//   searchInput.addEventListener('mouseleave',function(){
+//     suggestionsPanel.innerHTML = '';
+//   });
+</script>
+<script>
+    const forUnit = document.getElementById('ingredientName');
+    const forName = forUnit.value;
+    forUnit.onkeyup = function(){
+        console.log("keydown");
+        console.log(forUnit.value);
+    }
+
 </script>
