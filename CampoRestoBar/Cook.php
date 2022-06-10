@@ -10,8 +10,8 @@
             <div class="addIngredient">
                 <h3>Add Ingredients</h3>
                 <div class="addContent">
-                    <div style="width: 45%;"><input type="text" id="ingName" placeholder="Ingredient"></div>
-                    <div style="width: 27%;"><input type="number" id="ingQuantity" placeholder="Qnty"> <p id="yunit"></p></div>
+                    <div style="width: 45%;"><input type="text" id="ingName" placeholder="Ingredient" autocomplete="off"></div>
+                    <div style="width: 27%;"><input type="number" id="ingQuantity" placeholder="Qnty" autocomplete="off"> <p id="yunit"></p></div>
                     <div style="width: 25%;"><button id="addIngredientBtn">Add</button></div>
                 </div>
                 <div class="suggestions">
@@ -113,13 +113,18 @@
         document.getElementById('yunit').innerHTML = units[i].innerHTML+'/s';
         suggestionsPanel.innerHTML = '';
         invisiblePanel.innerHTML = '';  
+        console.log(suggest[i].innerHTML);
       }
        document.getElementById('yunit').innerHTML = units[i].innerHTML+'/s';
     }
   });
-  searchInput.addEventListener('focus',clearInput,true);
-
-  function clearInput(){
-      searchInput.value = '';
-  }
+  // searchInput.addEventListener('focus',clearInput,true);
+  // function clearInput(){
+  //     searchInput.value = '';
+  // }
+  // searchInput.addEventListener('blur',clearSuggestion,true);
+  //   function clearSuggestion(){
+  //       suggestionsPanel.innerHTML = '';  
+  //       invisiblePanel.innerHTML = '';  
+  //   }
 </script>
