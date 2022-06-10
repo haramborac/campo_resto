@@ -457,8 +457,7 @@
         suggestionsPanel.innerHTML = '';
         invisiblePanel.innerHTML = '';  
       }
-    //   document.getElementById('yunit').innerHTML = units[i].innerHTML+'/s';
+       document.getElementById('yunit').innerHTML = units[i].innerHTML+'/s';
     }
   });
-
 </script>
