@@ -459,5 +459,9 @@
       }
        document.getElementById('yunit').innerHTML = units[i].innerHTML+'/s';
     }
+    searchInput.addEventListener('focus',clearInput,true);
+    function clearInput(){
+        searchInput.value = '';
+    }
   });
 </script>
