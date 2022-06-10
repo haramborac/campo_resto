@@ -7,20 +7,20 @@
         sortName();
 });
 </script>
-<section class="campoInventory" id="campoInventory">
+<section class="campoInventory" id="campoInventory" >
     <div class="invContent">
         <h1>INVENTORY SYSTEM</h1>
         <form action="" method="post">
             <div class="addNewIng">
                 <h1>Add New Ingredient</h1>
                 <div class="addNew">
-                    <div>
+                    <div >
                         <label for="ingNameNew">Ingredient Name</label>
-                        <input type="text" id="ingNameNew" class="ingNameNew" name="ingNameNew">
+                        <input type="text" id="ingNameNew" class="ingNameNew" name="ingNameNew" autocomplete="off">
                     </div>
                     <div>
                         <label for="ingNewQuan">Quantity</label>
-                        <input type="number" id="ingNewQuan" class="ingNewQuan" name="ingNewQuan" style="text-align: right;">
+                        <input type="number" id="ingNewQuan" class="ingNewQuan" name="ingNewQuan" style="text-align: right;" autocomplete="off">
 
                         <Select id="ingNewVolume" class="ingNewVolume" name="ingNewVolume">
 
@@ -34,7 +34,7 @@
                     </div>
                     <div>
                         <label for="ingNewPrice" id="labelForPrice">Price</label>
-                        <span>₱</span><input type="text" id="ingNewPrice" class="ingNewPrice" name="ingPrice" placeholder="0.00">
+                        <span>₱</span><input type="text" id="ingNewPrice" class="ingNewPrice" name="ingPrice" placeholder="0.00" autocomplete="off">
                     </div>
                     <div>
                         <button type="submit" id="addIngSubmit" name="addIngredients" class="btnHover" disabled>Add Ingredient</button>
@@ -85,7 +85,7 @@
                     <div id="ingResName" class="ingResName">
                         <div>
                             <label for="ingredientName">Ingredient Name</label>
-                            <input type="text" id="ingredientName" class="ingredientName" name="restockIngredientName">
+                            <input type="text" id="ingredientName" class="ingredientName" name="restockIngredientName" autocomplete="off">
                             <div class="suggestions">
                                 </div>
                                 <div class="invi" style ="display:none">
@@ -93,7 +93,7 @@
                         </div>
                         <div>
                             <label for="resVol">Quantity</label>
-                            <input type="number" id="resVol" class="resVol" name="resVol">
+                            <input type="number" id="resVol" class="resVol" name="resVol" autocomplete="off">
                         </div>
                         <div>
                             <p id="yunit"></p>
@@ -101,7 +101,7 @@
                     </div>
                     <div>
                         <label for="">Price</label>
-                        <span>₱</span><input type="number" id="resPrice" class="resPrice" name="resPrice" placeholder="0.00">
+                        <span>₱</span><input type="number" id="resPrice" class="resPrice" name="resPrice" placeholder="0.00" autocomplete="off">
                     </div>
                     <div>
                         <button type="submit" id="restockIngSubmit" name="restockIngredients" class="btnHover" disabled>Restock Ingredient</button>
@@ -459,9 +459,14 @@
       }
        document.getElementById('yunit').innerHTML = units[i].innerHTML+'/s';
     }
-    searchInput.addEventListener('focus',clearInput,true);
-    function clearInput(){
-        searchInput.value = '';
-    }
+    // searchInput.addEventListener('focus',clearInput,true);
+    // function clearInput(){
+    //     searchInput.value = '';
+    // }
+    // searchInput.addEventListener('blur',clearSuggestion,true);
+    // function clearSuggestion(){
+    //     suggestionsPanel.innerHTML = '';  
+    //     invisiblePanel.innerHTML = '';  
+    // }
   });
 </script>
