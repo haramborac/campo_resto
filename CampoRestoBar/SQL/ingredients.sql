@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 07, 2022 at 12:54 PM
+-- Generation Time: Jun 10, 2022 at 07:51 AM
 -- Server version: 10.4.22-MariaDB
 -- PHP Version: 8.1.2
 
@@ -33,9 +33,17 @@ CREATE TABLE `ingredients` (
   `ingQuantity` int(11) NOT NULL,
   `ingUnit` varchar(255) NOT NULL,
   `ingCost` int(11) NOT NULL,
+  `ingCostperUnit` int(11) NOT NULL,
   `ingListed` datetime NOT NULL DEFAULT current_timestamp(),
   `ingUpdated` datetime DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `ingredients`
+--
+
+INSERT INTO `ingredients` (`id`, `ingName`, `ingQuantity`, `ingUnit`, `ingCost`, `ingCostperUnit`, `ingListed`, `ingUpdated`) VALUES
+(8, 'YOSI', 20, 'Pc', 160, 8, '2022-06-10 00:32:28', '2022-06-10 00:32:28');
 
 --
 -- Indexes for dumped tables
@@ -55,7 +63,7 @@ ALTER TABLE `ingredients`
 -- AUTO_INCREMENT for table `ingredients`
 --
 ALTER TABLE `ingredients`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
