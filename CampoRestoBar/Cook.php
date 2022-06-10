@@ -11,14 +11,13 @@
                 <h3>Add Ingredients</h3>
                 <div class="addContent">
                     <div style="width: 45%;"><input type="text" id="ingName" placeholder="Ingredient"></div>
-
                     <div style="width: 27%;"><input type="number" id="ingQuantity" placeholder="Qnty"> <p id="yunit"></p></div>
                     <div style="width: 25%;"><button id="addIngredientBtn">Add</button></div>
                 </div>
                 <div class="suggestions">
-                        </div>
-                        <div class="invi" style ="display:none">
-                        </div>
+                  </div>
+                <div class="invi" style ="display:none">
+                  </div>
                 <div class="ingAddedList">
                     <h3>Ingredient List</h3>
                     <table>
@@ -118,4 +117,9 @@
        document.getElementById('yunit').innerHTML = units[i].innerHTML+'/s';
     }
   });
+  searchInput.addEventListener('focus',clearInput,true);
+
+  function clearInput(){
+      searchInput.value = '';
+  }
 </script>
