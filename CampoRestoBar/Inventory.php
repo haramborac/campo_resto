@@ -86,7 +86,10 @@
                         <div>
                             <label for="ingredientName">Ingredient Name</label>
                             <input type="text" id="ingredientName" class="ingredientName" name="restockIngredientName">
-                            <div class="suggestions"></div>
+                            <div class="suggestions">
+                                </div>
+                                <div class="invi" style ="display:none">
+                                </div>
                         </div>
                         <div>
                             <label for="resVol">Quantity</label>
@@ -422,39 +425,40 @@
 
   const searchInput = document.querySelector('#ingredientName');
   const suggestionsPanel = document.querySelector('.suggestions');
+  const invisiblePanel = document.querySelector('.invi');
   searchInput.addEventListener('keyup', function() {
     const input = searchInput.value;
     suggestionsPanel.innerHTML = '';
+    invisiblePanel.innerHTML = '';
     const suggestions = name.filter(function(ingName) {
       return ingName.name.toLowerCase().startsWith(input);
     });
     suggestions.forEach(function(suggested) {
       const div = document.createElement('div');
+      const div2 = document.createElement('div');
       div.className = "suggest";
+      div2.className = "invisible";
       div.innerHTML = suggested.name;
+      div2.innerHTML = suggested.unit;
       suggestionsPanel.appendChild(div);
+      invisiblePanel.appendChild(div2);
     });
     if (input === '') {
       suggestionsPanel.innerHTML = '';  
-    }
+      invisiblePanel.innerHTML = '';  
+      document.getElementById('yunit').innerHTML = '';
+    }   
     let suggest = document.getElementsByClassName('suggest');
+    let units = document.getElementsByClassName('invisible');
     for(let i = 0; i< suggest.length; i++){
       suggest[i].onclick = function(){
         document.getElementById('ingredientName').value = suggest[i].innerHTML;
+        document.getElementById('yunit').innerHTML = units[i].innerHTML+'/s';
         suggestionsPanel.innerHTML = '';
+        invisiblePanel.innerHTML = '';  
       }
+    //   document.getElementById('yunit').innerHTML = units[i].innerHTML+'/s';
     }
   });
-//   searchInput.addEventListener('mouseleave',function(){
-//     suggestionsPanel.innerHTML = '';
-//   });
-</script>
-<script>
-    const forUnit = document.getElementById('ingredientName');
-    const forName = forUnit.value;
-    forUnit.onkeyup = function(){
-        console.log("keydown");
-        console.log(forUnit.value);
-    }
 
 </script>

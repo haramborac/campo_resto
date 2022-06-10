@@ -48,20 +48,26 @@
                         <h1>₱ <?php echo number_format($ingredient_cost, 2) ?></h1>
                     </div>
                 </div>
-                <div class="warningMessage">
-                    <?php
+                <?php
                         $lowIngredients = "SELECT COUNT(ingQuantity) AS lowingredients FROM ingredients WHERE ingQuantity <= 10 ";
                         $lowIngredients_query = mysqli_query($connection, $lowIngredients);
                         if(mysqli_num_rows($lowIngredients_query)>0){
                             while($lowing = mysqli_fetch_assoc($lowIngredients_query)){
                                 $low_ingredients = $lowing['lowingredients'];
-                            }
+                            }    
+                                if($low_ingredients == 0){
+                                    $echo = "";
+                                }else{
+                                    $echo = "<div class='warningMessage'>
+                                    <h4><span>WARNING :</span> $low_ingredients Ingredients Low Level !!</h4>
+                                    </div>";
+                                }
                         }else{
                             $low_ingredients = 0;
                         }   
                     ?>
-                    <h4><span>WARNING :</span> <?php echo $low_ingredients ?> Ingredients Low Level !!</h4>
-                </div>
+                    <?php echo $echo ?>
+
             </div>
             <div class="campoCard">
                 <h1>Cook</h1>
