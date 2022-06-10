@@ -167,6 +167,26 @@ section{
     text-transform: capitalize;
     width: 150px;
 }
+.ingResNAme div .suggestions{
+    position: absolute;
+    top: 110px;
+    left: 0;
+    height: 100px;
+    width: 100%;
+    z-index: 5;
+    margin-top: 0;
+    padding: 0 10%;
+}
+.ingResNAme div .suggest{
+    margin: 0;
+    text-transform: capitalize;
+    cursor: pointer;
+    background: whitesmoke;
+}
+.ingResNAme div .suggest:hover{
+    border-radius: 5px;
+    background: gray;
+}
 .invModalButtons{
     margin-top: 15px;
 }

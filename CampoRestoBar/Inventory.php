@@ -85,8 +85,7 @@
                         <div>
                             <label for="ingredientName">Ingredient Name</label>
                             <input type="text" id="ingredientName" class="ingredientName" name="restockIngredientName">
-                            <div class="suggestions">
-                                </div>
+                            <div class="suggestions"></div>
                         </div>
                         <div>
                             <label for="resVol">Quantity</label>
