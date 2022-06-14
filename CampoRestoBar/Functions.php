@@ -78,7 +78,7 @@
                     mysqli_query($connection, $asd);
                     $zxc = "INSERT INTO ingredients_used (ingredient_used, quantity) VALUES ('$ingredient', $quantity) ";
                     mysqli_query($connection, $zxc);
-                    header('location:zxc.php'); 
+                    header('location:Cook.php'); 
                 } 
             }
                  
