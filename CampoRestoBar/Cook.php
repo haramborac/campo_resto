@@ -9,11 +9,14 @@
             <h1>ADD INGREDIENTS HERE</h1>
             <div class="addIngredient">
                 <h3>Add Ingredients</h3>
-                <div class="addContent">
-                    <div style="width: 45%;"><input type="text" id="ingName" placeholder="Ingredient" autocomplete="off"></div>
-                    <div style="width: 27%;"><input type="number" id="ingQuantity" placeholder="Qnty" autocomplete="off"> <p id="yunit"></p></div>
-                    <div style="width: 25%;"><button id="addIngredientBtn">Add</button></div>
-                </div>
+                <?php addIngredient() ?>
+                <form action="" method="post">
+                  <div class="addContent">
+                      <div style="width: 45%;"><input type="text" id="ingName" name="ingredient" placeholder="Ingredient" autocomplete="off"></div>
+                      <div style="width: 27%;"><input type="number" id="ingQuantity" name="quantity" placeholder="Qnty" autocomplete="off"> <p id="yunit"></p></div>
+                      <div style="width: 25%;"><button type="submit" id="addIngredientBtn" name="addIngredient" >Add</button></div>
+                  </div>
+                </form>
                 <div class="suggestions">
                   </div>
                 <div class="invi" style ="display:none">
@@ -27,17 +30,30 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td width="30%">Salt Papi</td>
-                                <td width="20%">2 Kgs</td>
-                                <td width="30%">₱ 10.00/Kgs</td>
-                                <td width="10%">
-                                    <button><i class="fas fa-plus"></i></button>
-                                </td>
-                                <td width="10%">
-                                    <button><i class="fas fa-minus"></i></button>
-                                </td>
-                            </tr>
+                          <?php 
+                            $show_ingredients_used = mysqli_query($connection, "SELECT * FROM ingredients_used");
+                            while($list = mysqli_fetch_assoc($show_ingredients_used)){
+                              $i = 0;
+                              $ingredient_used = $list['ingredient_used'];
+
+                              $show_unit = mysqli_query($connection, "SELECT * FROM ingredients WHERE ingName = '$ingredient_used' ");
+                              while($unit = mysqli_fetch_assoc($show_unit)){
+                                $costperunit_query = mysqli_query($connection, "SELECT * FROM ingredients WHERE ingName = '$ingredient_used'");
+                                while($costperunit = mysqli_fetch_assoc($costperunit_query)){
+                                  $cost_per_unit = $costperunit['ingCostperUnit']*$list['quantity'];
+                          ?>
+                          <tr>
+                            <td width="30%"><?php echo $ingredient_used ?></td>
+                            <td width="20%"><?php echo $list['quantity'].$unit['ingUnit'] ?>/s</td>
+                            <td width="30%">₱ <?php echo number_format($cost_per_unit,2).$unit['ingUnit']?></td>
+                            <td width="10%">
+                              <a href="Functions.php?add=<?php echo $ingredient_used ?>"><button><i class="fas fa-plus"></i></button></a>
+                            </td>
+                            <td width="10%">
+                              <a href="Functions.php?subtract=<?php echo $ingredient_used ?>"><button><i class="fas fa-minus"></i></button></a>
+                            </td>
+                          </tr>
+                          <?php }}} ?>
                         </tbody>
                     </table>
                 </div>
@@ -71,12 +87,12 @@
 <script>
   const name = [
     <?php
-  $query = "select * from ingredients";
-  $myQuery = mysqli_query($connection,$query);
-  while($row = mysqli_fetch_assoc($myQuery)){
-?>
-  {name: '<?php echo $row['ingName'] ?>', unit:'<?php echo $row['ingUnit'] ?>'},
-  <?php }?>
+      $query = "select * from ingredients";
+      $myQuery = mysqli_query($connection,$query);
+      while($row = mysqli_fetch_assoc($myQuery)){
+    ?>
+    {name: '<?php echo $row['ingName'] ?>', unit:'<?php echo $row['ingUnit'] ?>'},
+    <?php }?>
   {name: '',unit:''}
 ];
 

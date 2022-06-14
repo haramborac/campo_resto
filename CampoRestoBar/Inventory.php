@@ -39,39 +39,15 @@
                     <div>
                         <button type="submit" id="addIngSubmit" name="addIngredients" class="btnHover" disabled>Add Ingredient</button>
                     </div>
-                    <?php 
-                        if(isset($_POST['addIngredients'])){
-                            $ing_name = mysqli_real_escape_string($connection, $_POST['ingNameNew']);
-                            $ing_quantity = mysqli_real_escape_string($connection, $_POST['ingNewQuan']);
-                            $ing_unit = mysqli_real_escape_string($connection, $_POST['ingNewVolume']);
-                            $ing_price = mysqli_real_escape_string($connection, $_POST['ingPrice']);
-                            
-                            if(mysqli_num_rows(mysqli_query($connection, "SELECT * FROM ingredients WHERE ingName = '$ing_name'"))>0){
-                                echo "<p style='color: red; font-style: italic;'>Ingredient Already Exists</p>";
-                            }else{
-                                $addIngredient = "INSERT INTO ingredients 
-                                (ingName, ingQuantity, ingUnit, ingCost, ingCostperUnit, ingListed, ingUpdated) 
-                                VALUES ('$ing_name', $ing_quantity, '$ing_unit', $ing_price, $ing_price/$ing_quantity, now(), now() ) ";
-                                $adding_query = mysqli_query($connection, $addIngredient);
-                                header('location:Inventory.php');
-
-                                $inventoryhistory = "INSERT INTO inventory_history (ingredient, quantity, cost, date) 
-                                VALUES ('$ing_name', '$ing_quantity $ing_unit', $ing_price, now() )";
-                                $invhistory_query = mysqli_query($connection, $inventoryhistory);
-                                header('location:Inventory.php');
-                            } 
-                        }
-                    ?>
                 </div>
+                <?php addStock() ?>
             </div>
             <div class="totalCostInv new">
                 <p>New Ingredients Total Cost</p>
                 <?php
-                            
                     $ingredientprices = "SELECT SUM(ingCost) AS ingredientCost FROM ingredients WHERE date(ingListed) = curdate()";
                     $ingredientprices_query = mysqli_query($connection, $ingredientprices);
                     while($ing_cost = mysqli_fetch_assoc($ingredientprices_query)){
-                
                 ?>
                 <h1>₱ <?php echo number_format($ing_cost['ingredientCost'], 2) ?></h1>
                 <?php } ?>
@@ -80,16 +56,13 @@
         <form action="" method="post">
             <div class="ingRestock">
                 <h1>Restock Ingredient</h1>
-                <div class="ingRes">
-                    
+                <div class="ingRes">    
                     <div id="ingResName" class="ingResName">
                         <div>
                             <label for="ingredientName">Ingredient Name</label>
                             <input type="text" id="ingredientName" class="ingredientName" name="restockIngredientName" autocomplete="off">
-                            <div class="suggestions">
-                                </div>
-                                <div class="invi" style ="display:none">
-                                </div>
+                            <div class="suggestions"></div>
+                            <div class="invi" style ="display:none"></div>
                         </div>
                         <div>
                             <label for="resVol">Quantity</label>
@@ -106,36 +79,7 @@
                     <div>
                         <button type="submit" id="restockIngSubmit" name="restockIngredients" class="btnHover" disabled>Restock Ingredient</button>
                     </div>
-                    <?php 
-                        if(isset($_POST['restockIngredients'])){
-                            $restockIng_name = mysqli_real_escape_string($connection, $_POST['restockIngredientName']);
-                            $restockIng_quantity = mysqli_real_escape_string($connection, $_POST['resVol']);
-                            $restockIng_price = mysqli_real_escape_string($connection, $_POST['resPrice']);
-                            
-                            $z = mysqli_query($connection, "SELECT * FROM ingredients WHERE ingName = '$restockIng_name'");
-
-                            if(mysqli_num_rows(mysqli_query($connection, "SELECT * FROM ingredients WHERE ingName = '$restockIng_name'"))>0){
-                                while($asd = mysqli_fetch_assoc($z)){
-                                    $rstckUnit = $asd['ingUnit'];
-                                    
-                                    $restockIng = "UPDATE ingredients SET 
-                                    ingQuantity = ingQuantity+$restockIng_quantity,
-                                    ingCost = ingCost+$restockIng_price,
-                                    ingCostperUnit = ((ingCost+$restockIng_price)/(ingQuantity+$restockIng_quantity))+ingCostperUnit,
-                                    ingUpdated = now() 
-                                    WHERE ingName = '$restockIng_name' ";
-                                    $restockIng_query = mysqli_query($connection, $restockIng);
-
-                                    $inventoryhistory = "INSERT INTO inventory_history (ingredient, quantity, cost, date) 
-                                    VALUES ('$restockIng_name', '$restockIng_quantity $rstckUnit', $restockIng_price, now() )";
-                                    $invhistory_query = mysqli_query($connection, $inventoryhistory);
-                                    header('location:Inventory.php');
-                                }
-                            }else{
-                                echo "<p style='color: red; font-style: italic;'>Ingredient doesn't exist</p>";
-                            }
-                        }
-                    ?>
+                    <?php Restock() ?>
                 </div>
             </div>
             <div class="totalCostInv old">
@@ -241,64 +185,68 @@
                     </div>
                     <div class="statusCard averageLevel">
                         <div style="background: lightgreen;">
-                            <?php $averagelevel = "Select count(ingName) as average from ingredients where ingQuantity between 10 and 51";
-                                        $averagequery = mysqli_query($connection,$averagelevel);
-                                        if(mysqli_num_rows($averagequery)>0){
-                                            while($rowAve = mysqli_fetch_assoc($averagequery)){
-                                            $rowA = $rowAve['average'];
-                                            }
-                                        }else{
-                                            $rowA = 0;
-                                        }
-                                ?>
+                            <?php 
+                                $averagelevel = "Select count(ingName) as average from ingredients where ingQuantity between 10 and 51";
+                                $averagequery = mysqli_query($connection,$averagelevel);
+                                if(mysqli_num_rows($averagequery)>0){
+                                    while($rowAve = mysqli_fetch_assoc($averagequery)){
+                                    $rowA = $rowAve['average'];
+                                    }
+                                }else{
+                                    $rowA = 0;
+                                }
+                            ?>
                             <p>Average Level Ingredients</p>
                             <h2><?php echo $rowA?></h2>
                         </div>
                     </div>
                     <div class="statusCard lowLevel">
                         <div style="background: salmon;">
-                        <?php $lowlevel = "Select count(ingName) as low from ingredients where ingQuantity between 0 and 11";
-                                        $lowquery = mysqli_query($connection,$lowlevel);
-                                        if(mysqli_num_rows($lowquery)>0){
-                                            while($rowLow = mysqli_fetch_assoc($lowquery)){
-                                            $rowL = $rowLow['low'];
-                                            }
-                                        }else{
-                                            $rowL = 0;
-                                        }
-                                ?>
+                            <?php 
+                                $lowlevel = "Select count(ingName) as low from ingredients where ingQuantity between 0 and 11";
+                                $lowquery = mysqli_query($connection,$lowlevel);
+                                if(mysqli_num_rows($lowquery)>0){
+                                    while($rowLow = mysqli_fetch_assoc($lowquery)){
+                                    $rowL = $rowLow['low'];
+                                    }
+                                }else{
+                                    $rowL = 0;
+                                }
+                            ?>
                             <p>Low Level Ingredients</p>
                             <h2><?php echo $rowL?></h2>
                         </div>
                     </div>
                     <div class="statusCard empty">
                         <div style="background: darkgray;">
-                        <?php $emptylevel = "Select count(ingQuantity) as empty from ingredients where ingQuantity = 0";
-                                        $emptyquery = mysqli_query($connection,$emptylevel);
-                                        if(mysqli_num_rows($emptyquery)>0){
-                                            while($rowEmpty = mysqli_fetch_assoc($emptyquery)){
-                                            $rowE = $rowEmpty['empty'];
-                                            }
-                                        }else{
-                                            $rowE = 0;
-                                        }
-                                ?>
+                            <?php 
+                                $emptylevel = "Select count(ingQuantity) as empty from ingredients where ingQuantity = 0";
+                                $emptyquery = mysqli_query($connection,$emptylevel);
+                                if(mysqli_num_rows($emptyquery)>0){
+                                    while($rowEmpty = mysqli_fetch_assoc($emptyquery)){
+                                    $rowE = $rowEmpty['empty'];
+                                    }
+                                }else{
+                                    $rowE = 0;
+                                }
+                            ?>
                             <p>Out of Stock</p>
                             <h2><?php echo $rowE?></h2>
                         </div>
                     </div>
                     <div class="statusCard total">
                         <div>
-                        <?php $totalIng = "Select count(ingName) as total from ingredients";
-                                        $totalquery = mysqli_query($connection, $totalIng);
-                                        if(mysqli_num_rows($totalquery)>0){
-                                            while($rowTotal = mysqli_fetch_assoc($totalquery)){
-                                            $rowT = $rowTotal['total'];
-                                            }
-                                        }else{
-                                            $rowT = 0;
-                                        }
-                                ?>
+                            <?php 
+                                $totalIng = "Select count(ingName) as total from ingredients";
+                                $totalquery = mysqli_query($connection, $totalIng);
+                                if(mysqli_num_rows($totalquery)>0){
+                                    while($rowTotal = mysqli_fetch_assoc($totalquery)){
+                                    $rowT = $rowTotal['total'];
+                                    }
+                                }else{
+                                    $rowT = 0;
+                                }
+                            ?>
                             <p>Total Number of Ingredients</p>
                             <h2><?php echo $rowT?></h2>
                         </div>
@@ -336,39 +284,39 @@
                         </tr>
                     </thead>
                     <tbody>
-                    <?php 
-                        $showingredients = "SELECT * FROM ingredients";
-                        $showingredients_query = mysqli_query($connection, $showingredients);
-                        while($row = mysqli_fetch_assoc($showingredients_query)){
-                            $row['ingQuantity'];
-                            $quantity = $row['ingQuantity'];
-                            $row['ingUnit'];
-                            $unit = $row['ingUnit'];
-                            $cost;
-                            $text;
-                                if($quantity==0){
-                                    $cost = 0;
-                                    $level = "<td width='10%' id='highLight' style='background:black; color:white'>EMPTY</td>";
-                                    $text = $unit;
-                                }else{
-                                    if($quantity>0 && $quantity<=10){
-                                        $level = "<td width='10%' id='highLight' style='background:salmon'>LOW</td>";                             
-                                    }
-                                    if($quantity>10 && $quantity<=50){
-                                        $level ="<td width='10%' id='highLight' style='background:lightgreen'>AVERAGE</td>";
-                                    }
-                                    if($quantity>50){
-                                        $level ="<td width='10%' id='highLight' style='background:skyblue'>HIGH</td>";
-                                    }
-                                    $cost=$row['ingCostperUnit'];
-                                    
-                                    if($quantity!=1){
-                                        $text = $unit."s";
-                                    }else{
+                        <?php 
+                            $showingredients = "SELECT * FROM ingredients";
+                            $showingredients_query = mysqli_query($connection, $showingredients);
+                            while($row = mysqli_fetch_assoc($showingredients_query)){
+                                $row['ingQuantity'];
+                                $quantity = $row['ingQuantity'];
+                                $row['ingUnit'];
+                                $unit = $row['ingUnit'];
+                                $cost;
+                                $text;
+                                    if($quantity==0){
+                                        $cost = 0;
+                                        $level = "<td width='10%' id='highLight' style='background:black; color:white'>EMPTY</td>";
                                         $text = $unit;
+                                    }else{
+                                        if($quantity>0 && $quantity<=10){
+                                            $level = "<td width='10%' id='highLight' style='background:salmon'>LOW</td>";                             
+                                        }
+                                        if($quantity>10 && $quantity<=50){
+                                            $level ="<td width='10%' id='highLight' style='background:lightgreen'>AVERAGE</td>";
+                                        }
+                                        if($quantity>50){
+                                            $level ="<td width='10%' id='highLight' style='background:skyblue'>HIGH</td>";
+                                        }
+                                        $cost=$row['ingCostperUnit'];
+                                        
+                                        if($quantity!=1){
+                                            $text = $unit."s";
+                                        }else{
+                                            $text = $unit;
+                                        }
                                     }
-                                }
-                    ?>
+                        ?>
                     
                         <tr>
                             <td width="20%" id="ingNameCont"><?php echo $row['ingName'] ?></td>
