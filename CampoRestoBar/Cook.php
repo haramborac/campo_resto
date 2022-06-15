@@ -35,16 +35,22 @@
                             while($list = mysqli_fetch_assoc($show_ingredients_used)){
                               $i = 0;
                               $ingredient_used = $list['ingredient_used'];
-
+                              $lQuantity = $list['quantity'];
                               $show_unit = mysqli_query($connection, "SELECT * FROM ingredients WHERE ingName = '$ingredient_used' ");
                               while($unit = mysqli_fetch_assoc($show_unit)){
+                                $ingUnit = $unit['ingUnit'];
                                 $costperunit_query = mysqli_query($connection, "SELECT * FROM ingredients WHERE ingName = '$ingredient_used'");
                                 while($costperunit = mysqli_fetch_assoc($costperunit_query)){
                                   $cost_per_unit = $costperunit['ingCostperUnit']*$list['quantity'];
+                                  if($lQuantity==1){
+                                    $ingList = "<td width='20%'> $lQuantity $ingUnit</td>";
+                                  }else{
+                                    $ingList = "<td width='20%'> $lQuantity $ingUnit/s</td>";
+                                  }
                           ?>
                           <tr>
                             <td width="30%" id="ingUsed"><?php echo $ingredient_used ?></td>
-                            <td width="20%"><?php echo $list['quantity'].' '.$unit['ingUnit'] ?>/s</td>
+                            <?php echo $ingList?>
                             <td width="30%">₱ <?php echo number_format($cost_per_unit,2).'/'.$unit['ingUnit']?></td>
 
                             <td width="10%">
