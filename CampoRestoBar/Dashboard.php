@@ -78,7 +78,7 @@
             </div>
             <div class="campoCard">
                 <h1>Cook</h1>
-                <p>Here you can see the Ingredients used and Meal Sale</p>
+                <p>Here you can see the Ingredients used and Meal Base Cost</p>
                 <div class="breakNumbers">
                     <div>
                         <h3>Ingredients Used</h3>

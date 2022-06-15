@@ -28,6 +28,7 @@ section{
 }
 .cookDetails.cookFoodDetails{
     width: 45%;
+    padding: 4vh 2%;
 }
 .cookDetails.cookServeToCustomer{
     width: 25%;
@@ -130,4 +131,184 @@ div input#ingQuantity{
     border-radius: 5px;
     border: solid 1px;
     cursor: pointer;
+}
+.currentIngCook{
+    display: flex;
+    justify-content: space-between;
+}
+.invOrderedIng{
+    height: 100%;
+    width: 35%;
+}
+.invOrderedIng h3{
+    font-size: 20px;
+    font-weight: 500;
+}
+.invOrderedIng p{
+    font-size: 10px;
+    font-style: italic;
+    line-height: 12px;
+}
+.ingSummaryCook{
+    height: 500px;
+    margin: 10px 0;
+    padding: 5px;
+    border-radius: 10px;
+    border: solid 1px;
+}
+.ingSummaryCook p{
+    font-size: 15px;
+    font-style: normal;
+    line-height: 15px;
+}
+.orderIngCook{
+    height: 100%;
+    width: 55%;
+}
+.orderIngCook h3{
+    font-size: 20px;
+    font-weight: 500;
+}
+.orderIngCook p{
+    font-size: 10px;
+    font-style: italic;
+    line-height: 12px;
+}
+.addMealDetail{
+    height: 500px;
+    margin: 10px 0;
+    padding: 5px;
+}
+.mealDetails{
+    margin-top: 20px;
+}
+.mealDetails div{
+    width: 100%;
+    padding: 0 5%;
+}
+.mealDetails div label{
+    position: absolute;
+    font-size: 10px;
+    margin-top: -15px;
+}
+.mealDetails div input{
+    height: 30px;
+    padding: 0 5px;
+    border-radius: 10px;
+    border: solid 1px;
+    margin: 0 2%;
+}
+.mealDetails div input#nameMeal{
+    width: 100%;
+    margin: 0;
+    margin-bottom: 20px;
+}
+.mealDetails div input#servingMeal{
+    width: 20%;
+}
+.mealDetails button{
+    margin: 2% 0;
+    padding: 1% 5%;
+    border-radius: 10px;
+    border: solid 1px;
+    cursor: pointer;
+}
+.menuMeals{
+    height: 300px;
+    width: 100%;
+    border: solid 1px;
+    border-radius: 10px;
+}
+.menuMeals table{
+    display: flex;
+    flex-flow: column;
+    text-align: center;
+    text-transform: capitalize;
+    height: 100%;
+}
+.menuMeals table thead tr th{
+    border-radius: 10px;
+    border: solid 1px;
+    font-size: 20px;
+    font-weight: 600;
+}
+.menuMeals table tbody{
+    flex: 1 1 auto;
+    display: block;
+    overflow-y: scroll;
+}
+.menuMeals table tbody tr{
+    width: 100%;
+    font-size: 15px;
+}
+.menuMeals table thead,
+.menuMeals table tbody tr{
+    display: table;
+    table-layout: fixed;
+}
+.menuMeals table tbody::-webkit-scrollbar{
+    display: none;
+}
+.summaryTotalMeal{
+    display: flex;
+    justify-content: space-evenly;
+    border: solid 1px;
+    border-radius: 10px;
+    margin: 1% 0;
+    padding: 1% 0;
+}
+.summaryServe{
+    margin: 3% 0;
+}
+.summaryServe button{
+    padding: 1% 5%;
+    border-radius: 10px;
+    border: solid 1px;
+    cursor: pointer;
+}
+.servingContainer h3{
+    font-size: 20px;
+    font-weight: 500;
+}
+.servingContainer p{
+    font-size: 10px;
+    font-style: italic;
+}
+.mealServeContent{
+    height: 500px;
+    width: 100%;
+    text-align: center;
+    margin: 2% 0;
+    border: solid 1px;
+    border-radius: 10px;
+}
+.mealServeContent table{
+    display: flex;
+    flex-flow: column;
+    text-align: center;
+    text-transform: capitalize;
+    height: 100%;
+}
+.mealServeContent table thead tr th{
+    border-radius: 10px;
+    border: solid 1px;
+    font-size: 10px;
+    font-weight: 600;
+}
+.mealServeContent table tbody{
+    flex: 1 1 auto;
+    display: block;
+    overflow-y: scroll;
+}
+.mealServeContent table tbody tr{
+    width: 100%;
+    font-size: 15px;
+}
+.mealServeContent table thead,
+.mealServeContent table tbody tr{
+    display: table;
+    table-layout: fixed;
+}
+.mealServeContent table tbody::-webkit-scrollbar{
+    display: none;
 }
