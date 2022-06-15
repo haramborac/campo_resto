@@ -93,8 +93,8 @@
         $res1 = mysqli_query($connection, $mm);
         while($rowrow = mysqli_fetch_assoc($res1)){
             if($rowrow['ingQuantity'] == 0 ){
-                echo "no more stock";
                 header('location:Cook.php');
+                echo "no more stock";
                 exit();
             }else{
                 echo "else";
