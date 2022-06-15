@@ -4,7 +4,7 @@
 </style>
 <script>
       document.addEventListener('DOMContentLoaded',function (){
-        sortName();
+
 });
 </script>
 <section class="campoInventory" id="campoInventory" >
@@ -284,6 +284,7 @@
                         </tr>
                     </thead>
                     <tbody>
+
                         <?php 
                             $showingredients = "SELECT * FROM ingredients";
                             $showingredients_query = mysqli_query($connection, $showingredients);
@@ -347,18 +348,6 @@
         document.getElementById('closeModal').addEventListener('click',closeMod);
     </script>   
 </section>
-<script>
-    document.getElementById('ingNameNew').addEventListener('keyup',enableAdd);
-    document.getElementById('ingNewQuan').addEventListener('keyup',enableAdd);
-    document.getElementById('ingNewPrice').addEventListener('keyup',enableAdd); 
-    document.getElementById('ingredientName').addEventListener('keyup',enableRestock);
-    document.getElementById('resVol').addEventListener('keyup',enableRestock);
-    document.getElementById('resPrice').addEventListener('keyup',enableRestock);
-    document.getElementById('viewHistory').addEventListener('click',viewHistory);
-    document.getElementById('viewSummary').addEventListener('click',viewSummary);
-    document.getElementById('closeModal').addEventListener('click',closeMod);
-</script>
-
 <script>
   const name = [
     <?php
