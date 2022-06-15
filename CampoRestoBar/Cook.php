@@ -43,9 +43,9 @@
                                   $cost_per_unit = $costperunit['ingCostperUnit']*$list['quantity'];
                           ?>
                           <tr>
-                            <td width="30%"><?php echo $ingredient_used ?></td>
-                            <td width="20%"><?php echo $list['quantity'].$unit['ingUnit'] ?>/s</td>
-                            <td width="30%">₱ <?php echo number_format($cost_per_unit,2).$unit['ingUnit']?></td>
+                            <td width="30%"><?php echo $ingredient_used ?><input type="text" name="" value="<?php echo $ingredient_used ?>"></td>
+                            <td width="20%"><?php echo $list['quantity'].$unit['ingUnit'] ?>/s<input type="text" name="" value="<?php echo $list['quantity'].$unit['ingUnit'] ?>"></td>
+                            <td width="30%">₱ <?php echo number_format($cost_per_unit,2).$unit['ingUnit']?><input type="text" name="" value="<?php echo $cost_per_unit.$unit['ingUnit']?>"></td>
                             <td width="10%">
                               <a href="Functions.php?add=<?php echo $ingredient_used ?>"><button><i class="fas fa-plus"></i></button></a>
                             </td>
@@ -81,11 +81,16 @@
                 <p>Use current Ingredients before requesting new set of Ingredients</p>
                 <h4>Ingredients Summary</h4>
                 <div class="ingSummaryCook">
+                  <?php 
+                    $show_current_ingredients = mysqli_query($connection, "SELECT * FROM current_ingredients");
+                    while($curIng = mysqli_fetch_assoc($show_current_ingredients)){
+                  ?>
+                  <p><?php echo $curIng['name'].' - '. $curIng['quantity'] ?>/s</p>
+                  <?php } ?>
+                  <!-- <p>Salt Papi - 2Kgs</p>
                   <p>Salt Papi - 2Kgs</p>
                   <p>Salt Papi - 2Kgs</p>
-                  <p>Salt Papi - 2Kgs</p>
-                  <p>Salt Papi - 2Kgs</p>
-                  <p>Salt Papi - 2Kgs</p>
+                  <p>Salt Papi - 2Kgs</p> -->
                 </div>
                 <div class="invCurrentCost">
                   <p>Total Ingredients Base Cost</p>
@@ -97,7 +102,16 @@
                 <p>In this area you can add multiple meal as long as ingredients will fit and used in the meals added. </p>
                 <h4>Add Meal</h4>
                 <div class="addMealDetail">
-                  <form action="">
+                  <?php
+                    if(isset($_POST['cookMeal'])){
+                      echo mysqli_real_escape_string($connection, $_POST['nameMeal']);
+                      echo mysqli_real_escape_string($connection, $_POST['servingMeal']);
+                      echo mysqli_real_escape_string($connection, $_POST['bcostMeal']);
+
+                      $cookmeal = "INSERT INTO ";
+                    }
+                  ?>
+                  <form action="" method="post">
                     <div class="mealDetails">
                       <div>
                         <label for="nameMeal">Name of Meal</label>
@@ -109,7 +123,7 @@
                         <label for="bcostMeal">Base Cost</label>
                         <span>₱</span><input type="number" id="bcostMeal" name="bcostMeal">
                       </div>
-                      <button>Cook Meal</button>
+                      <button type="submit" name="cookMeal">Cook Meal</button>
                     </div>
                   </form>
                   <div class="menuMeals">
