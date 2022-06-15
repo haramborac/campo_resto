@@ -80,11 +80,13 @@ div input#ingQuantity{
     display: flex;
     flex-flow: column;
     text-align: center;
-    text-transform: capitalize;
     height: 50%;
     width: 100%;
     border-radius: 5px;
     border: solid 1px;
+}
+#ingUsed{
+    text-transform: capitalize;
 }
 .ingAddedList table thead tr th{
     border-radius: 5px;

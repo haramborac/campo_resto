@@ -43,9 +43,10 @@
                                   $cost_per_unit = $costperunit['ingCostperUnit']*$list['quantity'];
                           ?>
                           <tr>
-                            <td width="30%"><?php echo $ingredient_used ?></td>
-                            <td width="20%"><?php echo $list['quantity'].$unit['ingUnit'] ?>/s</td>
-                            <td width="30%">₱ <?php echo number_format($cost_per_unit,2).$unit['ingUnit']?></td>
+                            <td width="30%" id="ingUsed"><?php echo $ingredient_used ?></td>
+                            <td width="20%"><?php echo $list['quantity'].' '.$unit['ingUnit'] ?>/s</td>
+                            <td width="30%">₱ <?php echo number_format($cost_per_unit,2).'/'.$unit['ingUnit']?></td>
+
                             <td width="10%">
                               <a href="Functions.php?add=<?php echo $ingredient_used ?>"><button><i class="fas fa-plus"></i></button></a>
                             </td>

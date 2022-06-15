@@ -286,7 +286,7 @@
                     <tbody>
 
                         <?php 
-                            $showingredients = "SELECT * FROM ingredients";
+                            $showingredients = "SELECT * FROM ingredients ORDER BY ingName ASC";
                             $showingredients_query = mysqli_query($connection, $showingredients);
                             while($row = mysqli_fetch_assoc($showingredients_query)){
                                 $row['ingQuantity'];
