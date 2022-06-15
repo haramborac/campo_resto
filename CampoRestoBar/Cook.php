@@ -27,17 +27,30 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td width="30%">Salt Papi</td>
-                                <td width="20%">2 Kgs</td>
-                                <td width="30%">₱ 10.00/Kgs</td>
-                                <td width="10%">
-                                    <button><i class="fas fa-plus"></i></button>
-                                </td>
-                                <td width="10%">
-                                    <button><i class="fas fa-minus"></i></button>
-                                </td>
-                            </tr>
+                          <?php 
+                            $show_ingredients_used = mysqli_query($connection, "SELECT * FROM ingredients_used");
+                            while($list = mysqli_fetch_assoc($show_ingredients_used)){
+                              $i = 0;
+                              $ingredient_used = $list['ingredient_used'];
+
+                              $show_unit = mysqli_query($connection, "SELECT * FROM ingredients WHERE ingName = '$ingredient_used' ");
+                              while($unit = mysqli_fetch_assoc($show_unit)){
+                                $costperunit_query = mysqli_query($connection, "SELECT * FROM ingredients WHERE ingName = '$ingredient_used'");
+                                while($costperunit = mysqli_fetch_assoc($costperunit_query)){
+                                  $cost_per_unit = $costperunit['ingCostperUnit']*$list['quantity'];
+                          ?>
+                          <tr>
+                            <td width="30%" id="ingUsed"><?php echo $ingredient_used ?></td>
+                            <td width="20%"><?php echo $list['quantity'].' '.$unit['ingUnit'] ?>/s</td>
+                            <td width="30%">₱ <?php echo number_format($cost_per_unit,2).'/'.$unit['ingUnit']?></td>
+                            <td width="10%">
+                              <a href="Functions.php?add=<?php echo $ingredient_used ?>"><button><i class="fas fa-plus"></i></button></a>
+                            </td>
+                            <td width="10%">
+                              <a href="Functions.php?subtract=<?php echo $ingredient_used ?>"><button><i class="fas fa-minus"></i></button></a>
+                            </td>
+                          </tr>
+                          <?php }}} ?>
                         </tbody>
                     </table>
                 </div>

@@ -364,6 +364,7 @@
                                     
                                     if($quantity!=1){
                                         $text = $unit."s";
+
                                     }else{
                                         $text = $unit;
                                     }
