@@ -147,9 +147,9 @@
                             while($meal = mysqli_fetch_assoc($show_cooked_meals)){
                           ?>
                           <tr>
-                            <td width="30%"><?php echo $meal['name'] ?><input type="text" name="cookMealName[]" value="<?php echo $meal['name'] ?>"></td>
-                            <td width="30%"><?php echo $meal['serving'] ?><input type="text" name="cookMealServing[]" value="<?php echo $meal['serving'] ?>"></td>
-                            <td width="40%">₱ <?php echo $meal['base_cost'] ?><input type="text" name="cookMealCost[]" value=" <?php echo $meal['base_cost'] ?>"></td><!-- numberformat -->
+                            <td width="30%"><?php echo $meal['name'] ?><input type="hidden" name="cookMealName[]" value="<?php echo $meal['name'] ?>"></td>
+                            <td width="30%"><?php echo $meal['serving'] ?><input type="hidden" name="cookMealServing[]" value="<?php echo $meal['serving'] ?>"></td>
+                            <td width="40%">₱ <?php echo $meal['base_cost'] ?><input type="hidden" name="cookMealCost[]" value=" <?php echo $meal['base_cost'] ?>"></td><!-- numberformat -->
                           </tr>
                           <?php } ?>
                         </tbody>
@@ -172,13 +172,14 @@
                   <?php 
                     if(isset($_POST['AddMeal'])){
                       $cookMealName = $_POST['cookMealName'];
+                      $cookMealServing = $_POST['cookMealServing'];
+                      $cookMealCost = $_POST['cookMealCost'];
+
                       foreach($cookMealName as $key => $n ) {
-                        echo $n;
-         
-                         $addMeal = "INSERT INTO current_ingredients (name, quantity, cost) VALUES ('$n', '$listQuantity[$key]', '$listCost[$key]' )";
-                         mysqli_query($connection, $a);
-                         mysqli_query($connection, " DELETE FROM ingredients_used WHERE ingredient_used = '$n' ");
-                         header('location:Cook.php');
+                        $addMeal = "INSERT INTO served_meals (name, serving, base_cost) VALUES ('$n', $cookMealServing[$key], $cookMealCost[$key] )";
+                        mysqli_query($connection, $addMeal);
+                        mysqli_query($connection, " DELETE FROM cooked_meals WHERE name = '$n' ");
+                        // header('location:Cook.php');
                      }
                     }
                   ?>
@@ -202,11 +203,16 @@
                   </tr>
                 </thead>
                 <tbody>
+                  <?php 
+                    $show_serving_meals = mysqli_query($connection, "SELECT * FROM served_meals");
+                    while($serving = mysqli_fetch_assoc($show_serving_meals)){
+                  ?>
                   <tr>
-                    <td width="40%">Dinuguan</td>
-                    <td width="20%">10</td>
-                    <td width="40%">₱ 100.00</td>
+                    <td width="40%"><?php echo $serving['name'] ?></td>
+                    <td width="20%"><?php echo $serving['serving'] ?></td>
+                    <td width="40%">₱ <?php echo $serving['base_cost'] ?></td><!-- numberformat -->
                   </tr>
+                  <?php } ?>
                 </tbody>
               </table>
             </div>
