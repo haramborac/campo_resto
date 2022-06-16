@@ -6,82 +6,85 @@
 <section class="campoCook" id="campoCook">
     <div class="campoCookContent">
         <div class="cookDetails cookAddIngredient">
-            <h1>ADD INGREDIENTS HERE</h1>
-            <div class="addIngredient">
-                <h3>Add Ingredients</h3>
-                <?php 
-                  if(isset($_GET['stock'])){
-                    echo "<p style='color: red; font-style: italic;'>No More Stock</p>";
-                  }
-                ?>
-                <?php addIngredient() ?>
-                <form action="" method="post">
-                  <div class="addContent">
-                      <div style="width: 45%;"><input type="text" id="ingName" name="ingredient" placeholder="Ingredient" autocomplete="off"></div>
-                      <div style="width: 27%;"><input type="number" id="ingQuantity" name="quantity" placeholder="Qnty" autocomplete="off"> <p id="yunit"></p></div>
-                      <div style="width: 25%;"><button type="submit" id="addIngredientBtn" name="addIngredient" >Add</button></div>
-                  </div>
-                </form>
-                <div class="suggestions">
-                  </div>
-                <div class="invi" style ="display:none">
-                  </div>
-                <div class="ingAddedList">
-                  <h3>Ingredient List</h3>
-                  <table>
-                    <thead>
-                      <tr>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <?php 
-                        $show_ingredients_used = mysqli_query($connection, "SELECT * FROM ingredients_used");
-                        while($list = mysqli_fetch_assoc($show_ingredients_used)){
-                          $i = 0;
-                          $ingredient_used = $list['ingredient_used'];
-                          $lQuantity = $list['quantity'];
-                          $show_unit = mysqli_query($connection, "SELECT * FROM ingredients WHERE ingName = '$ingredient_used' ");
-                          while($unit = mysqli_fetch_assoc($show_unit)){
-                            $ingUnit = $unit['ingUnit'];
-                            $costperunit_query = mysqli_query($connection, "SELECT * FROM ingredients WHERE ingName = '$ingredient_used'");
-                            while($costperunit = mysqli_fetch_assoc($costperunit_query)){
-                              $cost_per_unit = $costperunit['ingCostperUnit']*$list['quantity'];
-                              if($lQuantity==1){
-                                $ingList = "<td width='20%'> $lQuantity $ingUnit<input type='hidden' name='' value='$lQuantity $ingUnit'></td>";
-                              }else{
-                                $ingList = "<td width='20%'> $lQuantity $ingUnit/s<input type='hidden' name='' value='$lQuantity $ingUnit'></td>";
-                              }
-                      ?>
-                      <tr>
-                        <td width="30%"><?php echo $ingredient_used ?><input type="hidden" name="" value="<?php echo $ingredient_used ?>"></td>
-                        <?php echo $ingList ?>
-                        <td width="30%">₱ <?php echo number_format($cost_per_unit,2).$unit['ingUnit']?><input type="hidden" name="" value="<?php echo $cost_per_unit.$unit['ingUnit']?>"></td>
-                        <td width="10%">
-                          <a href="Functions.php?add=<?php echo $ingredient_used ?>"><button><i class="fas fa-plus"></i></button></a>
-                        </td>
-                        <td width="10%">
-                          <a href="Functions.php?subtract=<?php echo $ingredient_used ?>"><button><i class="fas fa-minus"></i></button></a>
-                        </td>
-                      </tr>
-                      <?php }}} ?>
-                    </tbody>
-                  </table>
-                </div>
-                <div class="addIngSummary">
-                    <div>
-                        <p>Total Ingredients</p>
-                        <h2>100 Kinds</h2>
-                    </div>
-                    <div>
-                        <p>Ingredient Total Amount</p>
-                        <h2>₱ 10000.00</h2>
-                    </div>
-                </div>
-                <div class="addSumBtn">
-                    <button>HISTORY</button>
-                    <button>COOK</button>
-                </div>
+          <h1>ADD INGREDIENTS HERE</h1>
+          <div class="addIngredient">
+            <h3>Add Ingredients</h3>
+            <?php 
+              if(isset($_GET['stock'])){
+                echo "<p style='color: red; font-style: italic;'>No More Stock</p>";
+              }
+            ?>
+            <?php addIngredient() ?>
+            <form action="" method="post">
+              <div class="addContent">
+                  <div style="width: 45%;"><input type="text" id="ingName" name="ingredient" placeholder="Ingredient" autocomplete="off"></div>
+                  <div style="width: 27%;"><input type="number" id="ingQuantity" name="quantity" placeholder="Qnty" autocomplete="off"> <p id="yunit"></p></div>
+                  <div style="width: 25%;"><button type="submit" id="addIngredientBtn" name="addIngredient" >Add</button></div>
+              </div>
+            </form>
+            <div class="suggestions">
+              </div>
+            <div class="invi" style ="display:none">
+              </div>
+            <div class="ingAddedList">
+              <h3>Ingredient List</h3>
+              <form action="" id="ingredientListForm" method="post">
+                <table>
+                  <thead>
+                    <tr>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <?php 
+                      $show_ingredients_used = mysqli_query($connection, "SELECT * FROM ingredients_used");
+                      while($list = mysqli_fetch_assoc($show_ingredients_used)){
+                        $i = 0;
+                        $ingredient_used = $list['ingredient_used'];
+                        $lQuantity = $list['quantity'];
+                        $show_unit = mysqli_query($connection, "SELECT * FROM ingredients WHERE ingName = '$ingredient_used' ");
+                        while($unit = mysqli_fetch_assoc($show_unit)){
+                          $ingUnit = $unit['ingUnit'];
+                          $costperunit_query = mysqli_query($connection, "SELECT * FROM ingredients WHERE ingName = '$ingredient_used'");
+                          while($costperunit = mysqli_fetch_assoc($costperunit_query)){
+                            $cost_per_unit = $costperunit['ingCostperUnit']*$list['quantity'];
+                            if($lQuantity==1){
+                              $ingList = "<td width='20%'> $lQuantity $ingUnit<input type='hidden' name='ingListQuantity[]' value='$lQuantity $ingUnit'></td>";
+                            }else{
+                              $ingList = "<td width='20%'> $lQuantity $ingUnit/s<input type='hidden' name='ingListQuantity[]' value='$lQuantity $ingUnit'></td>";
+                            }
+                    ?>
+                    <tr>
+                      <td width="30%"><?php echo $ingredient_used ?><input type="hidden" name="ingListName[]" value="<?php echo $ingredient_used ?>"></td>
+                      <?php echo $ingList ?>
+                      <td width="30%">₱ <?php echo number_format($cost_per_unit,2).$unit['ingUnit']?><input type="hidden" name="ingListCost[]" value="<?php echo $cost_per_unit.$unit['ingUnit']?>"></td>
+                      <td width="10%">
+                        <a href="Functions.php?add=<?php echo $ingredient_used ?>"><button><i class="fas fa-plus"></i></button></a>
+                      </td>
+                      <td width="10%">
+                        <a href="Functions.php?subtract=<?php echo $ingredient_used ?>"><button><i class="fas fa-minus"></i></button></a>
+                      </td>
+                    </tr>
+                    <?php }}} ?>  
+                  </tbody>
+                </table>
+              </form>
             </div>
+            <div class="addIngSummary">
+              <div>
+                <p>Total Ingredients</p>
+                <h2>100 Kinds</h2>
+              </div>
+              <div>
+                <p>Ingredient Total Amount</p>
+                <h2>₱ 10000.00</h2>
+              </div>
+            </div>
+            <div class="addSumBtn">
+              <button>HISTORY</button>
+              <button type="submit" name="cookIngredients" form="ingredientListForm">COOK</button>
+            </div>
+            <?php cookList() ?>
+          </div>
         </div>
         <div class="cookDetails cookFoodDetails">
             <h1>LET'S COOK!!</h1>
@@ -112,15 +115,7 @@
                 <p>In this area you can add multiple meal as long as ingredients will fit and used in the meals added. </p>
                 <h4>Add Meal</h4>
                 <div class="addMealDetail">
-                  <?php
-                    if(isset($_POST['cookMeal'])){
-                      echo mysqli_real_escape_string($connection, $_POST['nameMeal']);
-                      echo mysqli_real_escape_string($connection, $_POST['servingMeal']);
-                      echo mysqli_real_escape_string($connection, $_POST['bcostMeal']);
-
-                      $cookmeal = "INSERT INTO ";
-                    }
-                  ?>
+                  <?php cookMeal() ?>
                   <form action="" method="post">
                     <div class="mealDetails">
                       <div>
@@ -137,22 +132,29 @@
                     </div>
                   </form>
                   <div class="menuMeals">
-                    <table>
-                      <thead>
-                        <tr>
-                          <th width="30%">Meal</th>
-                          <th width="30%">Serving</th>
-                          <th width="40%">Base Cost</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <tr>
-                          <td width="30%">Dinuguan</td>
-                          <td width="30%">10</td>
-                          <td width="40%">₱ 1000.00</td>
-                        </tr>
-                      </tbody>
-                    </table>
+                    <form action="" id="cookMealForm" method="post">
+                      <table>
+                        <thead>
+                          <tr>
+                            <th width="30%">Meal</th>
+                            <th width="30%">Serving</th>
+                            <th width="40%">Base Cost</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <?php 
+                            $show_cooked_meals = mysqli_query($connection, "SELECT * FROM cooked_meals");
+                            while($meal = mysqli_fetch_assoc($show_cooked_meals)){
+                          ?>
+                          <tr>
+                            <td width="30%"><?php echo $meal['name'] ?><input type="text" name="cookMealName[]" value="<?php echo $meal['name'] ?>"></td>
+                            <td width="30%"><?php echo $meal['serving'] ?><input type="text" name="cookMealServing[]" value="<?php echo $meal['serving'] ?>"></td>
+                            <td width="40%">₱ <?php echo $meal['base_cost'] ?><input type="text" name="cookMealCost[]" value=" <?php echo $meal['base_cost'] ?>"></td><!-- numberformat -->
+                          </tr>
+                          <?php } ?>
+                        </tbody>
+                      </table>
+                    </form>
                   </div>
                   <div class="summaryTotalMeal">
                     <div>
@@ -165,8 +167,21 @@
                     </div>
                   </div>
                   <div class="summaryServe">
-                    <button>Add Meal</button>
+                    <button type="submit" name="AddMeal" form="cookMealForm">Add Meal</button>
                   </div>
+                  <?php 
+                    if(isset($_POST['AddMeal'])){
+                      $cookMealName = $_POST['cookMealName'];
+                      foreach($cookMealName as $key => $n ) {
+                        echo $n;
+         
+                         $addMeal = "INSERT INTO current_ingredients (name, quantity, cost) VALUES ('$n', '$listQuantity[$key]', '$listCost[$key]' )";
+                         mysqli_query($connection, $a);
+                         mysqli_query($connection, " DELETE FROM ingredients_used WHERE ingredient_used = '$n' ");
+                         header('location:Cook.php');
+                     }
+                    }
+                  ?>
                 </div>
               </div>
             </div>
