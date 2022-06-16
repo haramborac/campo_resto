@@ -9,6 +9,11 @@
             <h1>ADD INGREDIENTS HERE</h1>
             <div class="addIngredient">
                 <h3>Add Ingredients</h3>
+                <?php 
+                  if(isset($_GET['stock'])){
+                    echo "<p style='color: red; font-style: italic;'>No More Stock</p>";
+                  }
+                ?>
                 <?php addIngredient() ?>
                 <form action="" method="post">
                   <div class="addContent">
@@ -22,46 +27,45 @@
                 <div class="invi" style ="display:none">
                   </div>
                 <div class="ingAddedList">
-                    <h3>Ingredient List</h3>
-                    <table>
-                        <thead>
-                            <tr>
-
-                            </tr>
-                        </thead>
-                        <tbody>
-                          <?php 
-                            $show_ingredients_used = mysqli_query($connection, "SELECT * FROM ingredients_used");
-                            while($list = mysqli_fetch_assoc($show_ingredients_used)){
-                              $i = 0;
-                              $ingredient_used = $list['ingredient_used'];
-                              $lQuantity = $list['quantity'];
-                              $show_unit = mysqli_query($connection, "SELECT * FROM ingredients WHERE ingName = '$ingredient_used' ");
-                              while($unit = mysqli_fetch_assoc($show_unit)){
-                                $ingUnit = $unit['ingUnit'];
-                                $costperunit_query = mysqli_query($connection, "SELECT * FROM ingredients WHERE ingName = '$ingredient_used'");
-                                while($costperunit = mysqli_fetch_assoc($costperunit_query)){
-                                  $cost_per_unit = $costperunit['ingCostperUnit']*$list['quantity'];
-                                  if($lQuantity==1){
-                                    $ingList = "<td width='20%'> $lQuantity $ingUnit</td>";
-                                  }else{
-                                    $ingList = "<td width='20%'> $lQuantity $ingUnit/s</td>";
-                                  }
-                          ?>
-                          <tr>
-                            <td width="30%"><?php echo $ingredient_used ?><input type="text" name="" value="<?php echo $ingredient_used ?>"></td>
-                            <td width="20%"><?php echo $list['quantity'].$unit['ingUnit'] ?>/s<input type="text" name="" value="<?php echo $list['quantity'].$unit['ingUnit'] ?>"></td>
-                            <td width="30%">₱ <?php echo number_format($cost_per_unit,2).$unit['ingUnit']?><input type="text" name="" value="<?php echo $cost_per_unit.$unit['ingUnit']?>"></td>
-                            <td width="10%">
-                              <a href="Functions.php?add=<?php echo $ingredient_used ?>"><button><i class="fas fa-plus"></i></button></a>
-                            </td>
-                            <td width="10%">
-                              <a href="Functions.php?subtract=<?php echo $ingredient_used ?>"><button><i class="fas fa-minus"></i></button></a>
-                            </td>
-                          </tr>
-                          <?php }}} ?>
-                        </tbody>
-                    </table>
+                  <h3>Ingredient List</h3>
+                  <table>
+                    <thead>
+                      <tr>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <?php 
+                        $show_ingredients_used = mysqli_query($connection, "SELECT * FROM ingredients_used");
+                        while($list = mysqli_fetch_assoc($show_ingredients_used)){
+                          $i = 0;
+                          $ingredient_used = $list['ingredient_used'];
+                          $lQuantity = $list['quantity'];
+                          $show_unit = mysqli_query($connection, "SELECT * FROM ingredients WHERE ingName = '$ingredient_used' ");
+                          while($unit = mysqli_fetch_assoc($show_unit)){
+                            $ingUnit = $unit['ingUnit'];
+                            $costperunit_query = mysqli_query($connection, "SELECT * FROM ingredients WHERE ingName = '$ingredient_used'");
+                            while($costperunit = mysqli_fetch_assoc($costperunit_query)){
+                              $cost_per_unit = $costperunit['ingCostperUnit']*$list['quantity'];
+                              if($lQuantity==1){
+                                $ingList = "<td width='20%'> $lQuantity $ingUnit<input type='hidden' name='' value='$lQuantity $ingUnit'></td>";
+                              }else{
+                                $ingList = "<td width='20%'> $lQuantity $ingUnit/s<input type='hidden' name='' value='$lQuantity $ingUnit'></td>";
+                              }
+                      ?>
+                      <tr>
+                        <td width="30%"><?php echo $ingredient_used ?><input type="hidden" name="" value="<?php echo $ingredient_used ?>"></td>
+                        <?php echo $ingList ?>
+                        <td width="30%">₱ <?php echo number_format($cost_per_unit,2).$unit['ingUnit']?><input type="hidden" name="" value="<?php echo $cost_per_unit.$unit['ingUnit']?>"></td>
+                        <td width="10%">
+                          <a href="Functions.php?add=<?php echo $ingredient_used ?>"><button><i class="fas fa-plus"></i></button></a>
+                        </td>
+                        <td width="10%">
+                          <a href="Functions.php?subtract=<?php echo $ingredient_used ?>"><button><i class="fas fa-minus"></i></button></a>
+                        </td>
+                      </tr>
+                      <?php }}} ?>
+                    </tbody>
+                  </table>
                 </div>
                 <div class="addIngSummary">
                     <div>

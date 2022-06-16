@@ -67,7 +67,7 @@
             $ingredient = mysqli_real_escape_string($connection, $_POST['ingredient']);
             $quantity =  mysqli_real_escape_string($connection, $_POST['quantity']);
             if(empty($ingredient) || empty($quantity)){
-                echo "missing input";
+                echo "<p style='color: red; font-style: italic;'>Missing Input</p>";
             }else{
                 if(mysqli_num_rows(mysqli_query($connection, "SELECT * FROM ingredients_used WHERE ingredient_used = '$ingredient'"))>0){
                     echo "<p style='color: red; font-style: italic;'>Ingredient Already Added</p>";
@@ -88,13 +88,10 @@
     //add 1 in cook.php
     if(isset($_GET['add'])){
         $name = $_GET['add'];
-
-        $mm = "SELECT * FROM ingredients";
-        $res1 = mysqli_query($connection, $mm);
-        while($rowrow = mysqli_fetch_assoc($res1)){
-            if($rowrow['ingQuantity'] == 0 ){
-                header('location:Cook.php');
-                echo "no more stock";
+        $checkstock = mysqli_query($connection, "SELECT * FROM ingredients WHERE ingName = '$name' ");
+        while($row = mysqli_fetch_assoc($checkstock)){
+            if($row['ingQuantity'] == 0 ){
+                header('location:Cook.php?stock=empty');
                 exit();
             }else{
                 echo "else";
@@ -120,10 +117,9 @@
         header('location:Cook.php');
 
         //check if ingredient_used is empty
-        $mm = "SELECT * FROM ingredients_used";
-        $res1 = mysqli_query($connection, $mm);
-        while($rowrow = mysqli_fetch_assoc($res1)){
-            if($rowrow['quantity'] == 0 ){
+        $checkstock = mysqli_query($connection, "SELECT * FROM ingredients_used WHERE ingName = '$name' ");
+        while($row = mysqli_fetch_assoc($checkstock)){
+            if($row['quantity'] == 0 ){
                 $delete_from_list = "DELETE FROM ingredients_used WHERE ingredient_used = '$name' ";
                 mysqli_query($connection, $delete_from_list);
                 header('location:Cook.php');
