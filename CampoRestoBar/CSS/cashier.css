@@ -1,0 +1,66 @@
+section{
+    height: 100%;
+    width: 100%;
+    padding: 5%;
+    text-align: center;
+}
+.cashierContent{
+    height: 100%;
+    width: 100%;
+    padding: 2%;
+    border-radius: 20px;
+}
+.cashierContent h1{
+    font-size: 35px;
+}
+.cashierContainer{
+    height: 100%;
+    width: 100%;
+    display: flex;
+    justify-content: space-evenly;
+}
+.tabsForCash{
+    height: 100%;
+    margin: 1%;
+    border-radius: 10px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
+}
+.tabsForCash.mealavailable{
+    width: 30%;
+}
+.tabsForCash.orderMeal{
+    width: 45%;
+}
+.tabsForCash.mealReserved{
+    width: 30%;
+}
+.mealAvailable{
+    padding: 1% 2%;
+}
+.mealAvailable h3{
+    font-size: 20px;
+    font-weight: 400;
+}
+.searchMeal{
+    margin: 2%;
+    width: 100%;
+}
+.searchMeal span i{
+    font-size: 15px;
+    font-weight: 600;
+    margin-right: 2%;
+}
+.searchMeal input{
+    height: 30px;
+    width: 65%;
+    padding: 0 5px;
+    border-radius: 10px;
+    border: solid 1px;
+    text-transform: capitalize;
+}
+.servedMeal{
+    height: 580px;
+    width: 100%;
+    border: solid 1px;
+    border-radius: 10px;
+}

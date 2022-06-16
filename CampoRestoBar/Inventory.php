@@ -101,7 +101,7 @@
         </div>
     </div>
     <div class="invList">
-        <div class="invExtras" id="invExtrasHis" style="display:none">
+        <div class="invExtras" id="invExtrasHis">
             <span id="closeModal" class="closeModal" onclick="closeMod()"><i class="fa fa-times"></i></span>
             <div class="invExtPanel history" id="invExtraHistory">
                 <h1>Inventory History</h1>
@@ -133,7 +133,7 @@
                 </div>
             </div>
         </div>
-        <div class="invExtras" id="invExtrasSum" style="display: none;">
+        <div class="invExtras" id="invExtrasSum">
             <span id="closeModal" class="closeModal" onclick="closeMod()"><i class="fa fa-times"></i></span>
             <div class="invExtPanel summary" id="invExtraSummary">
                 <h1>Inventory Summary</h1>
@@ -346,6 +346,8 @@
         document.getElementById('viewHistory').addEventListener('click',viewHistory);
         document.getElementById('viewSummary').addEventListener('click',viewSummary);
         document.getElementById('closeModal').addEventListener('click',closeMod);
+        document.getElementById("invExtrasHis").style.display = "none";
+        document.getElementById("invExtrasSum").style.display = "none";
     </script>   
 </section>
 <script>
