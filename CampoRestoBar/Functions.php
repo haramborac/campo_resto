@@ -72,13 +72,13 @@
                 if(mysqli_num_rows(mysqli_query($connection, "SELECT * FROM ingredients_used WHERE ingredient_used = '$ingredient'"))>0){
                     echo "<p style='color: red; font-style: italic;'>Ingredient Already Added</p>";
                 }elseif(mysqli_num_rows(mysqli_query($connection, "SELECT * FROM ingredients"))<0){
-                    echo "<p style='color: red; font-style: italic;'>ingredient does not exist</p>";
+                    echo "<p style='color: red; font-style: italic;'>Ingredient Does Not Exist</p>";
                 }else{
                     $asd = "UPDATE ingredients SET ingQuantity = ingQuantity-$quantity WHERE ingName = '$ingredient' ";
                     mysqli_query($connection, $asd);
                     $zxc = "INSERT INTO ingredients_used (ingredient_used, quantity) VALUES ('$ingredient', $quantity) ";
                     mysqli_query($connection, $zxc);
-                    header('location:Cook.php'); 
+                    header('location:Cook.php');
                 } 
             }
                  
@@ -125,6 +125,38 @@
                 header('location:Cook.php');
                 exit();
             }
+        }
+    }
+
+    function cookList(){
+        global $connection;
+        if(isset($_POST['cookIngredients'])){
+            // $foodid = $_POST['foodid'];
+            $listName = $_POST['ingListName'];
+            $listQuantity = $_POST['ingListQuantity'];
+            $listCost = $_POST['ingListCost'];
+            foreach($listName as $key => $n ) {
+               //echo $n . ' quantity: '. $zzxc[$key] . "<br>";
+
+                $a = "INSERT INTO current_ingredients (name, quantity, cost) VALUES ('$n', '$listQuantity[$key]', '$listCost[$key]' )";
+                mysqli_query($connection, $a);
+                mysqli_query($connection, " DELETE FROM ingredients_used WHERE ingredient_used = '$n' ");
+                header('location:Cook.php');
+            }
+        }
+    }
+
+    function cookMeal (){
+        global $connection;
+        if(isset($_POST['cookMeal'])){
+            $mealname = mysqli_real_escape_string($connection, $_POST['nameMeal']);
+            $mealserving =  mysqli_real_escape_string($connection, $_POST['servingMeal']);
+            $mealcost =  mysqli_real_escape_string($connection, $_POST['bcostMeal']);
+
+            $cookmeal = "INSERT INTO cooked_meals (name, serving, base_cost) 
+            VALUES ('$mealname', $mealserving, $mealcost)";
+            mysqli_query($connection, $cookmeal);
+            header('location:Cook.php');
         }
     }
 ?>
