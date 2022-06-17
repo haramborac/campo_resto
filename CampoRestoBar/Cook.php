@@ -58,10 +58,10 @@
                       <?php echo $ingList ?>
                       <td width="30%">₱ <?php echo number_format($cost_per_unit,2).$unit['ingUnit']?><input type="hidden" name="ingListCost[]" value="<?php echo $cost_per_unit.$unit['ingUnit']?>"></td>
                       <td width="10%">
-                        <a href="Functions.php?add=<?php echo $ingredient_used ?>"><button><i class="fas fa-plus"></i></button></a>
+                        <a href="Functions.php?add=<?php echo $ingredient_used ?>"><button type="button"><i class="fas fa-plus"></i></button></a>
                       </td>
                       <td width="10%">
-                        <a href="Functions.php?subtract=<?php echo $ingredient_used ?>"><button><i class="fas fa-minus"></i></button></a>
+                        <a href="Functions.php?subtract=<?php echo $ingredient_used ?>"><button type="button"><i class="fas fa-minus"></i></button></a>
                       </td>
                     </tr>
                     <?php }}} ?>  
@@ -175,12 +175,16 @@
                       $cookMealServing = $_POST['cookMealServing'];
                       $cookMealCost = $_POST['cookMealCost'];
 
-                      foreach($cookMealName as $key => $n ) {
-                        $addMeal = "INSERT INTO served_meals (name, serving, base_cost) VALUES ('$n', $cookMealServing[$key], $cookMealCost[$key] )";
-                        mysqli_query($connection, $addMeal);
-                        mysqli_query($connection, " DELETE FROM cooked_meals WHERE name = '$n' ");
-                        header('location:Cook.php');
-                     }
+                      if(empty($cookMealName)||empty($cookMealName)||empty($cookMealName)){
+                        echo "asd";
+                      }else{
+                        foreach($cookMealName as $key => $n ) {
+                          $addMeal = "INSERT INTO served_meals (name, serving, base_cost) VALUES ('$n', $cookMealServing[$key], $cookMealCost[$key] )";
+                          mysqli_query($connection, $addMeal);
+                          mysqli_query($connection, " DELETE FROM cooked_meals WHERE name = '$n' ");
+                          header('location:Cook.php');
+                       }
+                      }
                     }
                   ?>
                 </div>

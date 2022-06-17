@@ -90,17 +90,18 @@
         $name = $_GET['add'];
         $checkstock = mysqli_query($connection, "SELECT * FROM ingredients WHERE ingName = '$name' ");
         while($row = mysqli_fetch_assoc($checkstock)){
-            if($row['ingQuantity'] == 0 ){
-                header('location:Cook.php?stock=empty');
-                exit();
-            }else{
-                echo "else";
+            if($row['ingQuantity'] !== 0 ){
                 $addIng = "UPDATE ingredients_used SET quantity = quantity+1 where ingredient_used = '$name'";
                 mysqli_query($connection, $addIng);
 
                 $deducStock = "UPDATE ingredients SET ingQuantity = ingQuantity-1 where ingName = '$name'";
                 mysqli_query($connection, $deducStock);
                 header('location:Cook.php');
+                exit();
+                
+            }else{
+                echo "else";
+                header('location:Cook.php?stock=empty');
                 exit();
             }
         }
@@ -135,13 +136,15 @@
             $listName = $_POST['ingListName'];
             $listQuantity = $_POST['ingListQuantity'];
             $listCost = $_POST['ingListCost'];
-            foreach($listName as $key => $n ) {
-               //echo $n . ' quantity: '. $zzxc[$key] . "<br>";
-
-                $a = "INSERT INTO current_ingredients (name, quantity, cost) VALUES ('$n', '$listQuantity[$key]', '$listCost[$key]' )";
-                mysqli_query($connection, $a);
-                mysqli_query($connection, " DELETE FROM ingredients_used WHERE ingredient_used = '$n' ");
-                header('location:Cook.php');
+            if(!empty($listName) || !empty($listQuantity) || !empty($listCost)){
+                foreach($listName as $key => $n ) {
+                    //echo $n . ' quantity: '. $zzxc[$key] . "<br>";
+        
+                    $a = "INSERT INTO current_ingredients (name, quantity, cost) VALUES ('$n', '$listQuantity[$key]', '$listCost[$key]' )";
+                    mysqli_query($connection, $a);
+                    mysqli_query($connection, " DELETE FROM ingredients_used WHERE ingredient_used = '$n' ");
+                    header('location:Cook.php');
+                }
             }
         }
     }
@@ -153,10 +156,16 @@
             $mealserving =  mysqli_real_escape_string($connection, $_POST['servingMeal']);
             $mealcost =  mysqli_real_escape_string($connection, $_POST['bcostMeal']);
 
-            $cookmeal = "INSERT INTO cooked_meals (name, serving, base_cost) 
-            VALUES ('$mealname', $mealserving, $mealcost)";
-            mysqli_query($connection, $cookmeal);
-            header('location:Cook.php');
+            if(empty($mealname) ||empty($mealserving) ||empty($mealcost)){
+                echo "<p style='color: red; font-style: italic;'>Please Input All Fields</p>";
+            }else{
+                $cookmeal = "INSERT INTO cooked_meals (name, serving, base_cost) 
+                VALUES ('$mealname', $mealserving, $mealcost)";
+                mysqli_query($connection, $cookmeal);
+                header('location:Cook.php');
+            }
+
+
         }
     }
 ?>
