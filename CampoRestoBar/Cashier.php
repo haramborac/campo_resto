@@ -15,7 +15,22 @@
                     <span><i class="fas fa-search"></i></span><input type="text" id="searchAvMeal" name="searchAvMeal" placeholder="Search Meal...">
                 </div>
                 <div class="servedMeal">
-
+                    <table>
+                        <thead>
+                            <tr>
+                                <th width="40%">Meal</th>
+                                <th width="20%">Servings</th>
+                                <th width="40%">Price</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td width="40%">Dinuguan</td>
+                                <td width="30%">10</td>
+                                <td width="40%">₱ 10000.00</td>
+                            </tr>
+                        </tbody>
+                    </table>
                 </div>
             </div>
             <div class="tabsForCash orderMeal">
