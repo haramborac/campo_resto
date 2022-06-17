@@ -63,4 +63,36 @@ section{
     width: 100%;
     border: solid 1px;
     border-radius: 10px;
+    text-transform: capitalize;
+}
+.servedMeal table{
+    display: flex;
+    flex-flow: column;
+    text-align: center;
+    height: 100%;
+    width: 100%;
+}
+.servedMeal table thead tr th{
+    border-radius: 5px;
+    border: solid 1px;
+    font-size: 12px;
+    font-weight: 600;
+}
+.servedMeal table tbody{
+    flex: 1 1 auto;
+    display: block;
+    overflow-y: scroll;
+}
+.servedMeal table tbody tr{
+    width: 100%;
+    font-size: 12px;
+    font-size: 10px;
+}
+.servedMeal table thead,
+.servedMeal table tbody tr{
+    display: table;
+    table-layout: fixed;
+}
+.servedMeal table tbody::-webkit-scrollbar{
+    display: none;
 }

@@ -67,7 +67,7 @@
             $ingredient = mysqli_real_escape_string($connection, $_POST['ingredient']);
             $quantity =  mysqli_real_escape_string($connection, $_POST['quantity']);
             if(empty($ingredient) || empty($quantity)){
-                echo "<p style='color: red; font-style: italic;'>Missing Input</p>";
+                echo "<p style='color: red; font-style: italic;'>Please Fill all Fields</p>";
             }else{
                 if(mysqli_num_rows(mysqli_query($connection, "SELECT * FROM ingredients_used WHERE ingredient_used = '$ingredient'"))>0){
                     echo "<p style='color: red; font-style: italic;'>Ingredient Already Added</p>";

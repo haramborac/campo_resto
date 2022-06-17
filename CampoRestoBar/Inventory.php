@@ -275,8 +275,8 @@
                     <thead>
                         <tr>
                             <th width="20%">Ingredient Name</th>
-                            <th width="15%">Quantity</th>
-                            <th width="10%">Cost</th>
+                            <th width="10%">Quantity</th>
+                            <th width="15%">Cost</th>
                             <th width="15%">Cost/Unit</th>
                             <th width="10%">Status</th>
                             <th width="15%">Date Listed</th>
@@ -321,9 +321,9 @@
                     
                         <tr>
                             <td width="20%" id="ingNameCont"><?php echo $row['ingName'] ?></td>
-                            <td width="15%"><?php echo $quantity?> <?php echo $text ?></td>
+                            <td width="10%"><?php echo $quantity?> <?php echo $text ?></td>
                             <td style ="display:none"><?php echo $row['ingCost'] ?></td>
-                            <td width="10%">₱ <?php echo number_format($row['ingCost'], 2) ?></td>
+                            <td width="15%">₱ <?php echo number_format($row['ingCost'], 2) ?></td>
                             <td width="15%">₱ <?php echo number_format($cost,2) ?>/<?php echo $row['ingUnit'] ?></td>
                             <?php echo $level ?>
                             <td width="15%"><?php echo date('F d, Y', strtotime($row['ingListed'])) ?></td>

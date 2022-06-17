@@ -5,16 +5,18 @@
 
 <section class="campoCook" id="campoCook">
     <div class="campoCookContent">
-        <div class="cookDetails cookAddIngredient">
+        <div class="cookDetails cookAddIngredient" style="display: none;">
           <h1>ADD INGREDIENTS HERE</h1>
           <div class="addIngredient">
+            <div class="errorMessage  addIngredientEr">
+              <?php 
+                if(isset($_GET['stock'])){
+                  echo "<p style='position:absolute; color: red; font-style: italic;'>No More Stock</p>";
+                }
+              ?>
+              <?php addIngredient() ?>
+            </div>
             <h3>Add Ingredients</h3>
-            <?php 
-              if(isset($_GET['stock'])){
-                echo "<p style='color: red; font-style: italic;'>No More Stock</p>";
-              }
-            ?>
-            <?php addIngredient() ?>
             <form action="" method="post">
               <div class="addContent">
                   <div style="width: 45%;"><input type="text" id="ingName" name="ingredient" placeholder="Ingredient" autocomplete="off"></div>
@@ -80,11 +82,14 @@
               </div>
             </div>
             <div class="addSumBtn">
-              <button>HISTORY</button>
+              <button id="openAddedhis" onclick="openAddedhis()">HISTORY</button>
               <button type="submit" name="cookIngredients" form="ingredientListForm">COOK</button>
             </div>
             <?php cookList() ?>
           </div>
+        </div>
+        <div class="cookDetails cookAddHistory">
+          <h1>HISTORY</h1>
         </div>
         <div class="cookDetails cookFoodDetails">
             <h1>LET'S COOK!!</h1>

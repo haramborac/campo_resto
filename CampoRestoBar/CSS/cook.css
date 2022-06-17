@@ -26,6 +26,9 @@ section{
 .cookDetails.cookAddIngredient{
     width: 25%;
 }
+.cookDetails.cookAddHistory{
+    width: 25%;
+}
 .cookDetails.cookFoodDetails{
     width: 45%;
     padding: 4vh 2%;
@@ -33,15 +36,34 @@ section{
 .cookDetails.cookServeToCustomer{
     width: 25%;
 }
-
-.addIngredient{
-    margin-top: 20px;
+.addIngredient .errorMessage.addIngredientEr{
+   height: 25px;
+   width: 100%; 
 }
 .addIngredient .addContent{
     display: flex;
     justify-content: space-between;
     width: 100%;
     margin: 1% 0;
+}
+.addIngredient .suggestions{
+    position: absolute;
+    top: 155px;
+    left: 0;
+    width: 100%;
+    z-index: 5;
+    padding: 0 10%;
+}
+.addIngredient .suggest{
+    width: 100%;
+    margin: 0;
+    text-transform: capitalize;
+    cursor: pointer;
+    background: whitesmoke;
+}
+.addIngredient .suggest:hover{
+    border-radius: 5px;
+    background: gray;
 }
 .addContent div{
     display: flex;
@@ -84,6 +106,7 @@ div input#ingQuantity{
     width: 100%;
     border-radius: 5px;
     border: solid 1px;
+    text-transform: capitalize;
 }
 #ingUsed{
     text-transform: capitalize;
@@ -160,6 +183,7 @@ div input#ingQuantity{
     font-size: 15px;
     font-style: normal;
     line-height: 15px;
+    text-transform: capitalize;
 }
 .orderIngCook{
     height: 100%;
@@ -202,6 +226,7 @@ div input#ingQuantity{
     width: 100%;
     margin: 0;
     margin-bottom: 20px;
+    text-transform: capitalize;
 }
 .mealDetails div input#servingMeal{
     width: 20%;
@@ -239,7 +264,7 @@ div input#ingQuantity{
 }
 .menuMeals table tbody tr{
     width: 100%;
-    font-size: 15px;
+    font-size: 12px;
 }
 .menuMeals table thead,
 .menuMeals table tbody tr{
@@ -299,6 +324,7 @@ div input#ingQuantity{
     flex: 1 1 auto;
     display: block;
     overflow-y: scroll;
+    text-transform: capitalize;
 }
 .mealServeContent table tbody tr{
     width: 100%;
