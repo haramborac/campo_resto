@@ -179,7 +179,7 @@
                         $addMeal = "INSERT INTO served_meals (name, serving, base_cost) VALUES ('$n', $cookMealServing[$key], $cookMealCost[$key] )";
                         mysqli_query($connection, $addMeal);
                         mysqli_query($connection, " DELETE FROM cooked_meals WHERE name = '$n' ");
-                        // header('location:Cook.php');
+                        header('location:Cook.php');
                      }
                     }
                   ?>
