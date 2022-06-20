@@ -2,10 +2,20 @@
 <style>
     <?php include 'CSS/cook.css';?>
 </style>
-
+<script>
+  <?php include 'JS/cook.js'?>
+</script>
+<script>
+      document.addEventListener('DOMContentLoaded',function (){
+        enableCookBtn();
+        disableAdd();
+        enableAdd();
+       
+});
+</script>
 <section class="campoCook" id="campoCook">
     <div class="campoCookContent">
-        <div class="cookDetails cookAddIngredient" style="display: none;">
+        <div class="cookDetails cookAddIngredient" ><!-- style="display: none;" --> 
           <h1>ADD INGREDIENTS HERE</h1>
           <div class="addIngredient">
             <div class="errorMessage  addIngredientEr">
@@ -21,7 +31,7 @@
               <div class="addContent">
                   <div style="width: 45%;"><input type="text" id="ingName" name="ingredient" placeholder="Ingredient" autocomplete="off"></div>
                   <div style="width: 27%;"><input type="number" id="ingQuantity" name="quantity" placeholder="Qnty" autocomplete="off"> <p id="yunit"></p></div>
-                  <div style="width: 25%;"><button type="submit" id="addIngredientBtn" name="addIngredient" >Add</button></div>
+                  <div style="width: 25%;"><button type="submit" id="addIngredientBtn" name="addIngredient" disabled>Add</button></div>
               </div>
             </form>
             <div class="suggestions">
@@ -31,12 +41,12 @@
             <div class="ingAddedList">
               <h3>Ingredient List</h3>
               <form action="" id="ingredientListForm" method="post">
-                <table>
+                <table >
                   <thead>
                     <tr>
                     </tr>
                   </thead>
-                  <tbody>
+                  <tbody id="ingredientListTable">
                     <?php 
                       $show_ingredients_used = mysqli_query($connection, "SELECT * FROM ingredients_used");
                       while($list = mysqli_fetch_assoc($show_ingredients_used)){
@@ -83,14 +93,14 @@
             </div>
             <div class="addSumBtn">
               <button id="openAddedhis" onclick="openAddedhis()">HISTORY</button>
-              <button type="submit" name="cookIngredients" form="ingredientListForm">COOK</button>
+              <button type="submit" id="cookIngredientsBtn" name="cookIngredients" form="ingredientListForm">COOK</button>
             </div>
             <?php cookList() ?>
           </div>
         </div>
-        <div class="cookDetails cookAddHistory">
+        <!-- <div class="cookDetails cookAddHistory">
           <h1>HISTORY</h1>
-        </div>
+        </div> -->
         <div class="cookDetails cookFoodDetails">
             <h1>LET'S COOK!!</h1>
             <div class="currentIngCook">
@@ -98,7 +108,7 @@
                 <h3>Current Ingredients</h3>
                 <p>Use current Ingredients before requesting new set of Ingredients</p>
                 <h4>Ingredients Summary</h4>
-                <div class="ingSummaryCook">
+                <div class="ingSummaryCook" id="ingSummaryCook">
                   <?php 
                     $show_current_ingredients = mysqli_query($connection, "SELECT * FROM current_ingredients");
                     while($curIng = mysqli_fetch_assoc($show_current_ingredients)){
@@ -133,7 +143,7 @@
                         <label for="bcostMeal">Base Cost</label>
                         <span>₱</span><input type="number" id="bcostMeal" name="bcostMeal">
                       </div>
-                      <button type="submit" name="cookMeal">Cook Meal</button>
+                      <button type="submit" id="cookMealBtn" name="cookMeal">Cook Meal</button>
                     </div>
                   </form>
                   <div class="menuMeals">
@@ -146,7 +156,7 @@
                             <th width="40%">Base Cost</th>
                           </tr>
                         </thead>
-                        <tbody>
+                        <tbody id="cmFormBody">
                           <?php 
                             $show_cooked_meals = mysqli_query($connection, "SELECT * FROM cooked_meals");
                             while($meal = mysqli_fetch_assoc($show_cooked_meals)){
@@ -172,7 +182,7 @@
                     </div>
                   </div>
                   <div class="summaryServe">
-                    <button type="submit" name="AddMeal" form="cookMealForm">Add Meal</button>
+                    <button type="submit" id="addMealBtn" name="AddMeal" form="cookMealForm" disabled>Add Meal</button>
                   </div>
                   <?php 
                     if(isset($_POST['AddMeal'])){
@@ -274,7 +284,6 @@
         document.getElementById('yunit').innerHTML = units[i].innerHTML+'/s';
         suggestionsPanel.innerHTML = '';
         invisiblePanel.innerHTML = '';  
-        console.log(suggest[i].innerHTML);
       }
        document.getElementById('yunit').innerHTML = units[i].innerHTML+'/s';
     }
@@ -288,4 +297,14 @@
   //       suggestionsPanel.innerHTML = '';  
   //       invisiblePanel.innerHTML = '';  
   //   }
+    document.getElementById('addIngredientBtn').addEventListener('click',enableCookBtn);
+    document.getElementById('ingName').addEventListener('change',enableAddBtn);
+    document.getElementById('ingQuantity').addEventListener('change',enableAddBtn);
+    document.getElementById('ingQuantity').addEventListener('keyup',enableAddBtn);
+    document.getElementById('nameMeal').addEventListener('keyup',disableAdd);
+    document.getElementById('servingMeal').addEventListener('keyup',disableAdd);
+    document.getElementById('bcostMeal').addEventListener('keyup',disableAdd);
+    // document.getElementById('cookMealBtn').addEventListener('click',enableAdd);
+
+
 </script>
