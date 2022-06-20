@@ -19,9 +19,9 @@
           <div class="addIngredient">
             <div class="errorMessage  addIngredientEr">
               <?php 
-                // if(isset($_GET['stock'])){
-                //   echo "<p style='position:absolute; color: red; font-style: italic;'>No More Stock</p>";
-                // }
+                if(isset($_GET['stock'])){
+                  echo "<p style='position:absolute; color: red; font-style: italic;'>No More Stock</p>";
+                }
               ?>
               <?php addIngredient() ?>
             </div>
