@@ -67,7 +67,7 @@
             $ingredient = mysqli_real_escape_string($connection, $_POST['ingredient']);
             $quantity =  mysqli_real_escape_string($connection, $_POST['quantity']);
             if(empty($ingredient) || empty($quantity)){
-                echo "<p style='color: red; font-style: italic;'>Please Fill all Fields</p>";
+                echo "<p style='color: red; font-style: italic;'>Missing Input</p>";
             }else{
                 if(mysqli_num_rows(mysqli_query($connection, "SELECT * FROM ingredients_used WHERE ingredient_used = '$ingredient'"))>0){
                     echo "<p style='color: red; font-style: italic;'>Ingredient Already Added</p>";
@@ -110,6 +110,7 @@
     //subtract 1 in cook.php
     if(isset($_GET['subtract'])){
         $name = $_GET['subtract'];
+        
         $deducIng = "UPDATE ingredients_used SET quantity = quantity-1 where ingredient_used = '$name'";
         mysqli_query($connection, $deducIng);
 
@@ -118,13 +119,13 @@
         header('location:Cook.php');
 
         //check if ingredient_used is empty
-        $checkstock = mysqli_query($connection, "SELECT * FROM ingredients_used WHERE ingName = '$name' ");
+        $checkstock = mysqli_query($connection, "SELECT * FROM ingredients_used WHERE ingredient_used = '$name' ");
         while($row = mysqli_fetch_assoc($checkstock)){
             if($row['quantity'] == 0 ){
                 $delete_from_list = "DELETE FROM ingredients_used WHERE ingredient_used = '$name' ";
                 mysqli_query($connection, $delete_from_list);
                 header('location:Cook.php');
-                exit();
+                exit();  
             }
         }
     }
@@ -164,8 +165,6 @@
                 mysqli_query($connection, $cookmeal);
                 header('location:Cook.php');
             }
-
-
         }
     }
 ?>

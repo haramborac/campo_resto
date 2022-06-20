@@ -6,12 +6,11 @@
   <?php include 'JS/cook.js'?>
 </script>
 <script>
-      document.addEventListener('DOMContentLoaded',function (){
-        enableCookBtn();
-        disableAdd();
-        enableAdd();
-       
-});
+  document.addEventListener('DOMContentLoaded',function (){
+    enableCookBtn();
+    disableAdd();
+    enableAdd();
+  });
 </script>
 <section class="campoCook" id="campoCook">
     <div class="campoCookContent">
