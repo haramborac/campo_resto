@@ -99,9 +99,6 @@
               </div>
               <div>
                 <p>Ingredient Total Amount</p>
-                <?php 
-                  
-                ?>
                 <h2 id="ita"></h2>
               </div>
             </div>
@@ -136,7 +133,17 @@
                 </div>
                 <div class="invCurrentCost">
                   <p>Total Ingredients Base Cost</p>
-                  <h4>₱ 10000.00</h4>
+                  <?php 
+                    $ingredients_sum = mysqli_query($connection, "SELECT SUM(cost) AS ingredientsBaseCost FROM current_ingredients");
+                    if(mysqli_num_rows($ingredients_sum)>0){
+                      while($ing_cost = mysqli_fetch_assoc($ingredients_sum)){
+                        $ingredient_cost = $ing_cost['ingredientsBaseCost'];
+                      }
+                    }else{
+                      $ingredient_cost = 0;
+                    } 
+                  ?>
+                  <h4>₱ <?php echo number_format($ingredient_cost, 2) ?></h4>
                 </div>
               </div>
               <div class="orderIngCook">
@@ -188,11 +195,31 @@
                   <div class="summaryTotalMeal">
                     <div>
                       <p>Total Meal Cooked</p>
-                      <h4>1 Meal</h4>
+                      <?php
+                        $countcookedmeals = mysqli_query($connection, "SELECT COUNT(name) AS cookedMeals FROM cooked_meals");
+                        if(mysqli_num_rows($countcookedmeals)>0){
+                          while($cooked = mysqli_fetch_assoc($countcookedmeals)){
+                            $total_meals_cooked = $cooked['cookedMeals'];
+                          }
+                        }else{
+                          $total_meals_cooked = 0;
+                        }
+                      ?>
+                      <h4><?php echo $total_meals_cooked ?> Meal</h4>
                     </div>
                     <div>
                       <p>Total Meal Base Cost</p>
-                      <h4>₱ 1000.00</h4>
+                      <?php 
+                        $total_meal_cost = mysqli_query($connection, "SELECT SUM(base_cost) AS mealTotalBaseCost FROM cooked_meals");
+                        if(mysqli_num_rows($total_meal_cost)>0){
+                          while($meal_cost = mysqli_fetch_assoc($total_meal_cost)){
+                            $cooked_meal_cost = $meal_cost['mealTotalBaseCost'];
+                          }
+                        }else{
+                          $cooked_meal_cost = 0;
+                        } 
+                      ?>
+                      <h4>₱ <?php echo number_format($cooked_meal_cost, 2) ?></h4>
                     </div>
                   </div>
                   <div class="summaryServe">
