@@ -106,7 +106,7 @@ div input#ingQuantity{
     width: 100%;
     border-radius: 5px;
     border: solid 1px;
-    text-transform: capitalize;
+    /* text-transform: capitalize; */
 }
 #ingUsed{
     text-transform: capitalize;
@@ -183,7 +183,7 @@ div input#ingQuantity{
     font-size: 15px;
     font-style: normal;
     line-height: 15px;
-    text-transform: capitalize;
+    /* text-transform: capitalize; */
 }
 .orderIngCook{
     height: 100%;
