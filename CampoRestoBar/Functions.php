@@ -90,19 +90,17 @@
         $name = $_GET['add'];
         $checkstock = mysqli_query($connection, "SELECT * FROM ingredients WHERE ingName = '$name' ");
         while($row = mysqli_fetch_assoc($checkstock)){
-            if($row['ingQuantity'] !== 0 ){
+            if($row['ingQuantity'] == 0 ){
+                header('location:Cook.php?stock=empty');
+                exit();
+            }else{
                 $addIng = "UPDATE ingredients_used SET quantity = quantity+1 where ingredient_used = '$name'";
                 mysqli_query($connection, $addIng);
 
                 $deducStock = "UPDATE ingredients SET ingQuantity = ingQuantity-1 where ingName = '$name'";
                 mysqli_query($connection, $deducStock);
                 header('location:Cook.php');
-                exit();
-                
-            }else{
-                echo "else";
-                header('location:Cook.php?stock=empty');
-                exit();
+                exit();  
             }
         }
     }
