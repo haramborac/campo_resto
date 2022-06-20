@@ -65,6 +65,7 @@
                             }
                     ?>
                     <tr>
+                      <td style="display:none"><?php echo $cost_per_unit ?></td>
                       <td width="30%"><?php echo $ingredient_used ?><input type="hidden" name="ingListName[]" value="<?php echo $ingredient_used ?>"></td>
                       <?php echo $ingList ?>
                       <td width="30%">₱ <?php echo number_format($cost_per_unit,2).$unit['ingUnit']?><input type="hidden" name="ingListCost[]" value="<?php echo $cost_per_unit.$unit['ingUnit']?>"></td>
@@ -83,10 +84,23 @@
             <div class="addIngSummary">
               <div>
                 <p>Total Ingredients</p>
-                <h2>100 Kinds</h2>
+                <?php 
+                  $total_ingredients_used = mysqli_query($connection, "SELECT COUNT(ingredient_used) AS ingredientsUsed FROM ingredients_used");
+                  if(mysqli_num_rows($total_ingredients_used)>0){
+                    while($total_ing = mysqli_fetch_assoc($total_ingredients_used)){
+                      $total_ingredients = $total_ing['ingredientsUsed'];
+                    }
+                  }else{
+                    $total_ingredients = 0;
+                  }
+                ?>
+                <h2><?php echo $total_ingredients ?> Kinds</h2>
               </div>
               <div>
                 <p>Ingredient Total Amount</p>
+                <?php 
+                  
+                ?>
                 <h2>₱ 10000.00</h2>
               </div>
             </div>
