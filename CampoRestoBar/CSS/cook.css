@@ -29,6 +29,57 @@ section{
 .cookDetails.cookAddHistory{
     width: 25%;
 }
+.cookAddHistory p{
+    font-size: 10px;
+    font-style: italic;
+}
+.cookAddHistory span{
+    position: absolute;
+    top: 0;
+    right: 0;
+    height: 25px;
+    width: 25px;
+    border-radius: 50%;
+    background: gray;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
+.ingredientHistory table{
+    display: flex;
+    flex-flow: column;
+    text-align: center;
+    height: 90%;
+    width: 100%;
+    border-radius: 5px;
+    border: solid 1px;
+    text-transform: capitalize;
+}
+.ingredientHistory table thead tr th{
+    border-radius: 5px;
+    border: solid 1px;
+    font-size: 12px;
+    font-weight: 600;
+}
+.ingredientHistory table tbody{
+    flex: 1 1 auto;
+    display: block;
+    overflow-y: scroll;
+}
+.ingredientHistory table tbody tr{
+    width: 100%;
+    font-size: 12px;
+    font-size: 10px;
+}
+.ingredientHistory table thead,
+.ingredientHistory table tbody tr{
+    display: table;
+    table-layout: fixed;
+}
+.ingredientHistory table tbody::-webkit-scrollbar{
+    display: none;
+}
 .cookDetails.cookFoodDetails{
     width: 45%;
     padding: 4vh 2%;
@@ -106,7 +157,7 @@ div input#ingQuantity{
     width: 100%;
     border-radius: 5px;
     border: solid 1px;
-    /* text-transform: capitalize; */
+    text-transform: capitalize;
 }
 #ingUsed{
     text-transform: capitalize;
@@ -183,7 +234,7 @@ div input#ingQuantity{
     font-size: 15px;
     font-style: normal;
     line-height: 15px;
-    /* text-transform: capitalize; */
+    text-transform: capitalize;
 }
 .orderIngCook{
     height: 100%;

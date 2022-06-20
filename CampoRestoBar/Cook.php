@@ -15,7 +15,7 @@
 </script>
 <section class="campoCook" id="campoCook">
     <div class="campoCookContent">
-        <div class="cookDetails cookAddIngredient" ><!-- style="display: none;" --> 
+        <div class="cookDetails cookAddIngredient" id="ckAddIngredient">
           <h1>ADD INGREDIENTS HERE</h1>
           <div class="addIngredient">
             <div class="errorMessage  addIngredientEr">
@@ -112,9 +112,31 @@
             <?php cookList() ?>
           </div>
         </div>
-        <!-- <div class="cookDetails cookAddHistory">
+        <div class="cookDetails cookAddHistory" id="ckAddHistory" style="display: none;">
+          <span onclick="closeCKHis()"><i class="fa fa-times"></i></span>
           <h1>HISTORY</h1>
-        </div> -->
+          <p>Here you can see all the ingredients added on the last meal/s the chef was created or cooked.</p>
+          <div class="ingredientHistory">
+            <table>
+              <thead>
+                <tr>
+                  <th width="30%">Ingredient</th>
+                  <th width="15%">Qnty</th>
+                  <th width="25%">Cost</th>
+                  <th width="30%">Date Used</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td width="30%"></td>
+                  <td width="15%"></td>
+                  <td width="25%"></td>
+                  <td width="30%"></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
         <div class="cookDetails cookFoodDetails">
             <h1>LET'S COOK!!</h1>
             <div class="currentIngCook">
