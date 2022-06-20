@@ -10,6 +10,7 @@
     enableCookBtn();
     disableAdd();
     enableAdd();
+    sumIng();
   });
 </script>
 <section class="campoCook" id="campoCook">
@@ -61,14 +62,14 @@
                             if($lQuantity==1){
                               $ingList = "<td width='20%'> $lQuantity $ingUnit<input type='hidden' name='ingListQuantity[]' value='$lQuantity $ingUnit'></td>";
                             }else{
-                              $ingList = "<td width='20%'> $lQuantity $ingUnit/s<input type='hidden' name='ingListQuantity[]' value='$lQuantity $ingUnit'></td>";
+                              $ingList = "<td width='20%'> $lQuantity $ingUnit"."s<input type='hidden' name='ingListQuantity[]' value='$lQuantity $ingUnit'></td>";
                             }
                     ?>
                     <tr>
-                      <td style="display:none"><?php echo $cost_per_unit ?></td>
+                      <td id="tdCost" style="display:none"><?php echo $cost_per_unit ?></td>
                       <td width="30%"><?php echo $ingredient_used ?><input type="hidden" name="ingListName[]" value="<?php echo $ingredient_used ?>"></td>
                       <?php echo $ingList ?>
-                      <td width="30%">₱ <?php echo number_format($cost_per_unit,2).$unit['ingUnit']?><input type="hidden" name="ingListCost[]" value="<?php echo $cost_per_unit.$unit['ingUnit']?>"></td>
+                      <td width="30%">₱ <?php echo number_format($cost_per_unit,2)?><input type="hidden" name="ingListCost[]" value="<?php echo $cost_per_unit.$unit['ingUnit']?>"></td>
                       <td width="10%">
                         <a href="Functions.php?add=<?php echo $ingredient_used ?>"><button type="button"><i class="fas fa-plus"></i></button></a>
                       </td>
@@ -101,7 +102,7 @@
                 <?php 
                   
                 ?>
-                <h2>₱ 10000.00</h2>
+                <h2 id="ita"></h2>
               </div>
             </div>
             <div class="addSumBtn">
