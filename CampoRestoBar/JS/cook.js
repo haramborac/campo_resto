@@ -75,3 +75,22 @@ function sumIng(){
         }
         document.getElementById('ita').innerHTML = sum.toLocaleString('en-US',{style: 'currency', currency:'PHP'})
 }
+
+function openAddedhis() {
+    var addedHisModal    = document.getElementById("ckAddHistory");
+    var addedIngModal    = document.getElementById("ckAddIngredient");
+    
+    if(addedHisModal.style.display = "none"){
+        addedHisModal.style.display = "block";
+        addedIngModal.style.display = "none";
+    }
+}
+function closeCKHis() {
+    var addedHisModal    = document.getElementById("ckAddHistory");
+    var addedIngModal    = document.getElementById("ckAddIngredient");
+    
+    if(addedHisModal.style.display = "block"){
+        addedHisModal.style.display = "none";
+        addedIngModal.style.display = "block";
+    }
+}
