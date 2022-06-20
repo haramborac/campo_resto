@@ -54,9 +54,24 @@ function enableAdd(){
     let button = document.getElementById('addMealBtn');
         if(table.rows.length>0){
             button.disabled = false;
-            console.log('greater than 0');
         }else{
             button.disabled = true;
-            console.log('equal to 0');
         }
+}
+
+function sumIng(){
+
+    let table, tr, td, textValue, intValue, sum = 0;
+        table = document.getElementById('ingredientListTable');
+        tr = table.getElementsByTagName('tr');
+
+        for(let i = 0; i< tr.length; i++){
+            td = tr[i].getElementsByTagName('td')[0];
+                if(td){
+                    textValue = td.textContent || td.innerHTML;
+                    intValue = parseFloat(textValue);
+                    sum += intValue;
+                }
+        }
+        document.getElementById('ita').innerHTML = sum.toLocaleString('en-US',{style: 'currency', currency:'PHP'})
 }
