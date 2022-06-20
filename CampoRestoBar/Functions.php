@@ -71,7 +71,7 @@
             }else{
                 if(mysqli_num_rows(mysqli_query($connection, "SELECT * FROM ingredients_used WHERE ingredient_used = '$ingredient'"))>0){
                     echo "<p style='color: red; font-style: italic;'>Ingredient Already Added</p>";
-                }elseif(mysqli_num_rows(mysqli_query($connection, "SELECT * FROM ingredients"))<0){
+                }elseif(mysqli_num_rows(mysqli_query($connection, "SELECT * FROM ingredients WHERE ingName = '$ingredient' ")) == 0){
                     echo "<p style='color: red; font-style: italic;'>Ingredient Does Not Exist</p>";
                 }else{
                     $asd = "UPDATE ingredients SET ingQuantity = ingQuantity-$quantity WHERE ingName = '$ingredient' ";

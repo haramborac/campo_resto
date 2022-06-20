@@ -19,9 +19,9 @@
           <div class="addIngredient">
             <div class="errorMessage  addIngredientEr">
               <?php 
-                if(isset($_GET['stock'])){
-                  echo "<p style='position:absolute; color: red; font-style: italic;'>No More Stock</p>";
-                }
+                // if(isset($_GET['stock'])){
+                //   echo "<p style='position:absolute; color: red; font-style: italic;'>No More Stock</p>";
+                // }
               ?>
               <?php addIngredient() ?>
             </div>
@@ -196,7 +196,10 @@
                           $addMeal = "INSERT INTO served_meals (name, serving, base_cost) VALUES ('$n', $cookMealServing[$key], $cookMealCost[$key] )";
                           mysqli_query($connection, $addMeal);
                           mysqli_query($connection, " DELETE FROM cooked_meals WHERE name = '$n' ");
+                          // header('location:Cook.php');
+                          mysqli_query($connection, "TRUNCATE TABLE current_ingredients");
                           header('location:Cook.php');
+
                        }
                       }
                     }
