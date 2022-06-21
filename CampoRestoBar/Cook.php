@@ -124,12 +124,17 @@
                 </tr>
               </thead>
               <tbody>
+                <?php 
+                  $show_ingredient_history = mysqli_query($connection, "SELECT * FROM ingredient_used_history");
+                  while($inghistory = mysqli_fetch_assoc($show_ingredient_history)){
+                ?>
                 <tr>
-                  <td width="30%"></td>
-                  <td width="15%"></td>
-                  <td width="25%"></td>
-                  <td width="30%"></td>
+                  <td width="30%"><?php echo $inghistory['ingredient'] ?></td>
+                  <td width="15%"><?php echo $inghistory['quantity'] ?></td>
+                  <td width="25%">₱<?php echo number_format($inghistory['cost'], 2) ?></td>
+                  <td width="30%"><?php echo date('F d, Y', strtotime($inghistory['date_used']))?></td>
                 </tr>
+                <?php } ?>
               </tbody>
             </table>
           </div>
