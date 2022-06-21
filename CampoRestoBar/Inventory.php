@@ -295,7 +295,7 @@
                                 $unit = $row['ingUnit'];
                                 $cost;
                                 $text;
-                                    if($quantity==0){
+                                    if($quantity<=0){
                                         $cost = 0;
                                         $level = "<td width='10%' id='highLight' style='background:black; color:white'>EMPTY</td>";
                                         $text = $unit;
