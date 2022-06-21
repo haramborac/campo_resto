@@ -74,14 +74,22 @@
                 }elseif(mysqli_num_rows(mysqli_query($connection, "SELECT * FROM ingredients WHERE ingName = '$ingredient' ")) == 0){
                     echo "<p style='color: red; font-style: italic;'>Ingredient Does Not Exist</p>";
                 }else{
-                    $asd = "UPDATE ingredients SET ingQuantity = ingQuantity-$quantity WHERE ingName = '$ingredient' ";
-                    mysqli_query($connection, $asd);
-                    $zxc = "INSERT INTO ingredients_used (ingredient_used, quantity) VALUES ('$ingredient', $quantity) ";
-                    mysqli_query($connection, $zxc);
-                    header('location:Cook.php');
+                    $checkstock = mysqli_query($connection, "SELECT * FROM ingredients WHERE ingName = '$ingredient' ");
+                    while($stock = mysqli_fetch_assoc($checkstock)){
+                        $remaining_stock = $stock['ingQuantity'];
+                    }
+                    if($remaining_stock<$quantity){
+                        echo "<p style='color: red; font-style: italic;'>Not Enough Stock</p>";
+                    }else{
+                        echo "heh";
+                        $getingredients = "UPDATE ingredients SET ingQuantity = ingQuantity-$quantity WHERE ingName = '$ingredient' ";
+                        mysqli_query($connection, $getingredients);
+                        $addtolist = "INSERT INTO ingredients_used (ingredient_used, quantity) VALUES ('$ingredient', $quantity) ";
+                        mysqli_query($connection, $addtolist);
+                        header('location:Cook.php');
+                    } 
                 } 
-            }
-                 
+            }               
         }
     }
 
@@ -138,9 +146,14 @@
             if(!empty($listName) || !empty($listQuantity) || !empty($listCost)){
                 foreach($listName as $key => $n ) {
                     //echo $n . ' quantity: '. $zzxc[$key] . "<br>";
-        
-                    $a = "INSERT INTO current_ingredients (name, quantity, cost) VALUES ('$n', '$listQuantity[$key]', '$listCost[$key]' )";
-                    mysqli_query($connection, $a);
+                    $cook = "INSERT INTO current_ingredients (name, quantity, cost) VALUES ('$n', '$listQuantity[$key]', '$listCost[$key]')";
+                    mysqli_query($connection, $cook);
+                   
+
+                    $ingredient_history = "INSERT INTO ingredient_used_history (ingredient, quantity, cost, date_used) 
+                    VALUES ('$n', '$listQuantity[$key]', '$listCost[$key]', now()) ";
+                    mysqli_query($connection, $ingredient_history);
+
                     mysqli_query($connection, " DELETE FROM ingredients_used WHERE ingredient_used = '$n' ");
                     header('location:Cook.php');
                 }
