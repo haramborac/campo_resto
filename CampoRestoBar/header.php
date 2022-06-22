@@ -1,4 +1,12 @@
 <?php ob_start() ?>
+<?php
+    session_start();
+
+    if(!isset($_SESSION['UNAME'])){
+        header('location:Login.php');
+        die();
+    }
+?>
 <?php include 'Db.php';?>
 <?php include 'Functions.php';?>
 <script type="text/javascript" src="JS/inventory.js"></script>
@@ -43,7 +51,7 @@
             <li><a href="Cook.php"><i class="fas fa-utensils"></i>Cook</a></li>
             <li><a href="Cashier.php"><i class="fas fa-file-invoice-dollar"></i>Cashier</a></li>
             <li><a href="Settings.php"><i class="fas fa-cogs"></i></a></li>
-            <a href=""></a><button>LOGOUT</button></a>
+            <a href="logout.php"><button>LOGOUT</button></a>
         </ul>
     </div>
 </header>

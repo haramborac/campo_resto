@@ -9,7 +9,7 @@
         <h1>WECOME TO CAMPO</h1>
         <p>Login to Continue</p>
         <?php logIn() ?>
-        <form action="" method="post">
+        <form action="authentication.php" method="post">
             <div class="loginContinue">
                 <div class="selectRole">
                     <div>
