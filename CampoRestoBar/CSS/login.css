@@ -1,0 +1,71 @@
+@import url('https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;600;700;900&display=swap');
+
+*{
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Kanit', sans-serif;
+}
+section{
+    height: 100%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    background: url('IMG/campoBG.jpg') no-repeat center;
+    background-size: cover;
+}
+section img{
+    position: absolute;
+    height: auto;
+    width: 60%;
+}
+.loginCard{
+    height: 45vh;
+    width: 40%;
+    border-radius: 20px;
+    background: rgba(255, 255, 255, 0.2);
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    padding: 2% 0;
+}
+.loginCard h1{
+    font-size: 50px;
+}
+.loginCard p{
+    margin: 3% 0;
+    margin-top: 0;
+    font-size: 15px;
+}
+.selectRole div{
+    margin: 3%;
+}
+.selectRole div label{
+    position: absolute;
+    margin-top: -20px;
+    font-size: 13px;
+}
+.selectRole div select{
+    height: 30px;
+    width: 40%;
+    border-radius: 10px;
+    border: solid 1px;
+    padding: 0 5px;
+}
+.selectRole div input{
+    height: 30px;
+    width: 40%;
+    border-radius: 10px;
+    border: solid 1px;
+    padding: 0 5px;
+}
+.selectRole div button{
+    height: 30px;
+    width: 20%;
+    border-radius: 10px;
+    border: solid 1px;
+    cursor: pointer;
+}
