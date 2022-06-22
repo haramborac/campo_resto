@@ -159,7 +159,7 @@
                   <p>Salt Papi - 2Kgs</p> -->
                 </div>
                 <div class="invCurrentCost">
-                  <p>Total Ingredients Base Cost</p>
+                  <p>Total Ingredients Base Cost (TIBC)</p>
                   <?php 
                     $ingredients_sum = mysqli_query($connection, "SELECT SUM(cost) AS ingredientsBaseCost FROM current_ingredients");
                     if(mysqli_num_rows($ingredients_sum)>0){
@@ -235,7 +235,7 @@
                       <h4><?php echo $total_meals_cooked ?> Meal</h4>
                     </div>
                     <div>
-                      <p>Total Meal Base Cost</p>
+                      <p>Total Meal Base Cost (TMBC)</p>
                       <?php 
                         $total_meal_cost = mysqli_query($connection, "SELECT SUM(base_cost) AS mealTotalBaseCost FROM cooked_meals");
                         if(mysqli_num_rows($total_meal_cost)>0){
@@ -250,6 +250,11 @@
                     </div>
                   </div>
                   <div class="summaryServe">
+                    <span>
+                      <p>TIBC - TMBC</p>
+                      <p>Total Cost of Unused Ingredients</p>
+                      <h3>= ₱ 0.00</h3>
+                    </span>
                     <button type="submit" id="addMealBtn" name="AddMeal" form="cookMealForm" disabled>Add Meal</button>
                   </div>
                   <?php 
@@ -305,6 +310,19 @@
                   <?php } ?>
                 </tbody>
               </table>
+              <div class="serveMIDiff">
+                <span>
+                  <p>Ingredients Cost</p>
+                  <h1>₱0.00</h1>
+                </span>
+                <span>
+                  <p>Meal Base Cost</p>
+                  <h1>₱0.00</h1>
+                </span>
+              </div>
+              <div class="serveToCashier">
+                <button>To Cashier</button>
+              </div>
             </div>
         </div>
     </div>

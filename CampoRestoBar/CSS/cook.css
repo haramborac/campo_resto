@@ -335,6 +335,8 @@ div input#ingQuantity{
 }
 .summaryServe{
     margin: 3% 0;
+    display: flex;
+    justify-content: space-evenly;
 }
 .summaryServe button{
     padding: 1% 5%;
@@ -388,4 +390,22 @@ div input#ingQuantity{
 }
 .mealServeContent table tbody::-webkit-scrollbar{
     display: none;
+}
+.mealServeContent .serveMIDiff{
+    margin: 2% 0;
+    display: flex;
+    justify-content: space-evenly;
+}
+.serveMIDiff span p{
+    font-size: 12px;
+}
+.serveToCashier{
+    width: 100%;
+}
+.serveToCashier button{
+    height: 30px;
+    width: 70%;
+    border-radius: 10px;
+    cursor: pointer;
+    border: solid 1px;
 }
