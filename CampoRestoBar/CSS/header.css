@@ -45,6 +45,18 @@ header{
 .campoNav ul li a i{
     margin: 0 10px;
 }
+.campoNav ul li a div{
+    position: absolute;
+    height: 20px;
+    width: 20px;
+    border-radius: 50%;
+    background: salmon;
+    text-align: center;
+}
+.campoNav ul li a div p{
+    font-size: 12px;
+    color: red;
+}
 .campoNav ul button{
     height: 30px;
     width: 100px;

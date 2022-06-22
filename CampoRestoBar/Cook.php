@@ -160,7 +160,7 @@
                   <p>Salt Papi - 2Kgs</p> -->
                 </div>
                 <div class="invCurrentCost">
-                  <p>Total Ingredients Base Cost</p>
+                  <p>Total Ingredients Base Cost (TIBC)</p>
                   <?php 
                     $ingredients_sum = mysqli_query($connection, "SELECT SUM(cost) AS ingredientsBaseCost FROM ingredients_used WHERE status = 'cooked' ");
                     if(mysqli_num_rows($ingredients_sum)>0){
@@ -236,7 +236,7 @@
                       <h4><?php echo $total_meals_cooked ?> Meal</h4>
                     </div>
                     <div>
-                      <p>Total Meal Base Cost</p>
+                      <p>Total Meal Base Cost (TMBC)</p>
                       <?php 
                         $total_meal_cost = mysqli_query($connection, "SELECT SUM(base_cost) AS mealTotalBaseCost FROM meals WHERE status = 'cooked'");
                         if(mysqli_num_rows($total_meal_cost)>0){
@@ -251,6 +251,11 @@
                     </div>
                   </div>
                   <div class="summaryServe">
+                    <span>
+                      <p>TIBC - TMBC</p>
+                      <p>Total Cost of Unused Ingredients</p>
+                      <h3>= ₱<?php echo  number_format($ingredient_cost - $cooked_meal_cost,2)?></h3>
+                    </span>
                     <button type="submit" id="addMealBtn" name="AddMeal" form="cookMealForm" disabled>Add Meal</button>
                   </div>
                   <?php addMeal() ?>
@@ -278,6 +283,9 @@
                   <?php 
                     $show_serving_meals = mysqli_query($connection, "SELECT * FROM meals where status = 'available'");
                     while($serving = mysqli_fetch_assoc($show_serving_meals)){
+                      $servingS = 0;
+                      $sum = $serving['base_cost'];
+                      $servingS = $servingS + $sum;
                   ?>
                   <tr>
                     <td width="40%"><?php echo $serving['name'] ?><input type="hidden" name="availMealName[]" value="<?php echo $serving['name'] ?>"></td>
@@ -287,6 +295,24 @@
                   <?php } ?>
                 </tbody>
               </table> 
+              <div class="serveMIDiff">
+                <span>
+                  <p>Total Meals</p>
+                  <h1>0</h1>
+                </span>
+                <span>
+                  <p>Meal Base Cost</p>
+                  <?php 
+                    $show_serving_meals = mysqli_query($connection, "SELECT SUM(base_cost) AS tSum FROM served_meals");
+                    while($serving = mysqli_fetch_assoc($show_serving_meals)){
+                  ?>
+                  <h1>₱ <?php echo number_format($serving['tSum'],2)?></h1>
+                  <?php } ?>
+                </span>
+              </div>
+              <div class="serveToCashier">
+                <button>To Cashier</button>
+              </div>
             </div>
             <button type="submit" name="serveMeal">submit</button>
             <?php serveMeal() ?>

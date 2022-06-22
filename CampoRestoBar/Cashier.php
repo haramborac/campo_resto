@@ -1,4 +1,7 @@
 <?php include 'header.php'; ?>
+<script>
+    <?php include 'JS/cashier.js';?>
+</script>
 <style>
     <?php include 'CSS/cashier.css';?>
 </style>
@@ -12,10 +15,10 @@
             <div class="tabsForCash mealAvailable">
                 <h3>Available Meals</h3>
                 <div class="searchMeal">
-                    <span><i class="fas fa-search"></i></span><input type="text" id="searchAvMeal" name="searchAvMeal" placeholder="Search Meal...">
+                    <span><i class="fas fa-search"></i></span><input type="text" id="searchAvMeal" name="searchAvMeal" placeholder="Search Meal..." onkeyup= "searchFilter();">
                 </div>
                 <div class="servedMeal">
-                    <table>
+                    <table id="tableAv">
                         <thead>
                             <tr>
                                 <th width="40%">Meal</th>
