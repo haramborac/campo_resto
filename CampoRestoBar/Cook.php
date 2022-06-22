@@ -10,6 +10,7 @@
     enableCookBtn();
     disableAdd();
     enableAdd();
+    enableCashier();
     sumIng();
   });
 </script>
@@ -70,7 +71,7 @@
                       <td width="30%"><?php echo $ingredient_used ?><input type="hidden" name="ingListName[]" value="<?php echo $ingredient_used ?>"></td>
                       <?php echo $ingList ?>
                       <td width="30%">₱ <?php echo number_format($cost_per_unit,2)?><input type="hidden" name="ingListCost[]" value="<?php echo $cost_per_unit?>"></td>
-                      <td id="tdCost" style="display:"><?php echo $cost_per_unit ?><input type="text" name="ingListUnit[]" value="<?php echo $ingUnit?>"></td>
+                      <td id="tdCost" style="display: none"><?php echo $cost_per_unit ?><input type="hidden" name="ingListUnit[]" value="<?php echo $ingUnit?>"></td>
                       <td width="10%">
                         <a href="Functions.php?add=<?php echo $ingredient_used ?>"><button type="button"><i class="fas fa-plus"></i></button></a>
                       </td>
@@ -279,7 +280,7 @@
                     <th width="40%">Base Cost/Serving</th>
                   </tr>
                 </thead>
-                <tbody>
+                <tbody id="serveBody">
                   <?php 
                     $show_serving_meals = mysqli_query($connection, "SELECT * FROM meals where status = 'available'");
                     while($serving = mysqli_fetch_assoc($show_serving_meals)){
@@ -298,20 +299,35 @@
               <div class="serveMIDiff">
                 <span>
                   <p>Total Meals</p>
-                  <h1>0</h1>
+                  <?php 
+                    $show_serving_meals = mysqli_query($connection, "SELECT COUNT(name) AS tCount FROM meals where status = 'available'");
+                    if(mysqli_num_rows($show_serving_meals)>0){
+                      while($serving = mysqli_fetch_assoc($show_serving_meals)){
+                        $count = $serving['tCount'];
+                      }
+                    }else{
+                        $count = 0;
+                    }
+                  ?>
+                  <h1><?php echo $count ?></h1>
                 </span>
                 <span>
                   <p>Meal Base Cost</p>
                   <?php 
-                    $show_serving_meals = mysqli_query($connection, "SELECT SUM(base_cost) AS tSum FROM served_meals");
-                    while($serving = mysqli_fetch_assoc($show_serving_meals)){
+                    $show_serving_cost = mysqli_query($connection, "SELECT SUM(base_cost) AS tSum FROM meals where status = 'available'");
+                    if(mysqli_num_rows($show_serving_cost)>0){
+                      while($serving = mysqli_fetch_assoc($show_serving_cost)){
+                        $sum2 = $serving['tSum'];
+                      }
+                    }else{
+                        $sum2 = 0;
+                    }
                   ?>
-                  <h1>₱ <?php echo number_format($serving['tSum'],2)?></h1>
-                  <?php } ?>
+                  <h1>₱ <?php echo number_format($sum2,2)?></h1>
                 </span>
               </div>
               <div class="serveToCashier">
-                <button type="submit" name="serveMeal">To Cashier</button>
+                <button type="submit" name="serveMeal" id="serveMeal">To Cashier</button>
               </div>
             </div>
             <?php serveMeal() ?>

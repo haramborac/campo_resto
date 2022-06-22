@@ -58,7 +58,15 @@ function enableAdd(){
             button.disabled = true;
         }
 }
-
+function enableCashier(){
+    let table = document.getElementById('serveBody');
+    let button = document.getElementById('serveMeal');
+        if(table.rows.length>0){
+            button.disabled = false;
+        }else{
+            button.disabled = true;
+        }
+}
 function sumIng(){
 
     let table, tr, td, textValue, intValue, sum = 0;
