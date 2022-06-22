@@ -312,8 +312,8 @@
               </table>
               <div class="serveMIDiff">
                 <span>
-                  <p>Ingredients Cost</p>
-                  <h1>₱0.00</h1>
+                  <p>Total Meals</p>
+                  <h1>0</h1>
                 </span>
                 <span>
                   <p>Meal Base Cost</p>
