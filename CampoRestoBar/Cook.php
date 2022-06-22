@@ -253,7 +253,7 @@
                     <span>
                       <p>TIBC - TMBC</p>
                       <p>Total Cost of Unused Ingredients</p>
-                      <h3>= ₱ 0.00</h3>
+                      <h3>= ₱<?php echo  number_format($ingredient_cost - $cooked_meal_cost,2)?></h3>
                     </span>
                     <button type="submit" id="addMealBtn" name="AddMeal" form="cookMealForm" disabled>Add Meal</button>
                   </div>
@@ -301,9 +301,12 @@
                   <?php 
                     $show_serving_meals = mysqli_query($connection, "SELECT * FROM served_meals");
                     while($serving = mysqli_fetch_assoc($show_serving_meals)){
+                      $servingS = 0;
+                      $sum = $serving['base_cost'];
+                      $servingS = $servingS + $sum;
                   ?>
                   <tr>
-                    <td width="40%"><?php echo $serving['name'] ?></td>
+                    <td width="40%"><?php echo $serving['name']?></td>
                     <td width="20%"><?php echo $serving['serving'] ?></td>
                     <td width="40%">₱ <?php echo $serving['base_cost'] ?></td><!-- numberformat -->
                   </tr>
@@ -317,7 +320,12 @@
                 </span>
                 <span>
                   <p>Meal Base Cost</p>
-                  <h1>₱0.00</h1>
+                  <?php 
+                    $show_serving_meals = mysqli_query($connection, "SELECT SUM(base_cost) AS tSum FROM served_meals");
+                    while($serving = mysqli_fetch_assoc($show_serving_meals)){
+                  ?>
+                  <h1>₱ <?php echo number_format($serving['tSum'],2)?></h1>
+                  <?php } ?>
                 </span>
               </div>
               <div class="serveToCashier">
