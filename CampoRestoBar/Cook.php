@@ -311,10 +311,9 @@
                 </span>
               </div>
               <div class="serveToCashier">
-                <button>To Cashier</button>
+                <button type="submit" name="serveMeal">To Cashier</button>
               </div>
             </div>
-            <button type="submit" name="serveMeal">submit</button>
             <?php serveMeal() ?>
           </form>
         </div> 
