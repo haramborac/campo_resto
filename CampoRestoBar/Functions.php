@@ -1,6 +1,15 @@
 <?php 
     include "Db.php";
-    
+    //login
+    function logIn(){
+        global $connection;
+        if(isset($_POST['login'])){
+            $username = mysqli_real_escape_string($connection,$_POST['pUsername']);
+            $password = mysqli_real_escape_string($connection,$_POST['pPassword']);
+
+            $result = mysqli_query($connection, "SELECT * FROM employees where username = '$username'");
+        }
+    }
     //add new stock in inventory.php
     function addStock(){
         global $connection;
