@@ -48,7 +48,7 @@
                   </thead>
                   <tbody id="ingredientListTable">
                     <?php 
-                      $show_ingredients_used = mysqli_query($connection, "SELECT * FROM ingredients_used");
+                      $show_ingredients_used = mysqli_query($connection, "SELECT * FROM ingredients_used WHERE status = 'added' ");
                       while($list = mysqli_fetch_assoc($show_ingredients_used)){
                         $i = 0;
                         $ingredient_used = $list['ingredient_used'];
@@ -66,10 +66,11 @@
                             }
                     ?>
                     <tr>
-                      <td id="tdCost" style="display:none"><?php echo $cost_per_unit ?></td>
+                      
                       <td width="30%"><?php echo $ingredient_used ?><input type="hidden" name="ingListName[]" value="<?php echo $ingredient_used ?>"></td>
                       <?php echo $ingList ?>
-                      <td width="30%">₱ <?php echo number_format($cost_per_unit,2)?><input type="hidden" name="ingListCost[]" value="<?php echo $cost_per_unit.$unit['ingUnit']?>"></td>
+                      <td width="30%">₱ <?php echo number_format($cost_per_unit,2)?><input type="hidden" name="ingListCost[]" value="<?php echo $cost_per_unit?>"></td>
+                      <td id="tdCost" style="display:"><?php echo $cost_per_unit ?><input type="text" name="ingListUnit[]" value="<?php echo $ingUnit?>"></td>
                       <td width="10%">
                         <a href="Functions.php?add=<?php echo $ingredient_used ?>"><button type="button"><i class="fas fa-plus"></i></button></a>
                       </td>
@@ -86,7 +87,7 @@
               <div>
                 <p>Total Ingredients</p>
                 <?php 
-                  $total_ingredients_used = mysqli_query($connection, "SELECT COUNT(ingredient_used) AS ingredientsUsed FROM ingredients_used");
+                  $total_ingredients_used = mysqli_query($connection, "SELECT COUNT(ingredient_used) AS ingredientsUsed FROM ingredients_used WHERE status = 'added' ");
                   if(mysqli_num_rows($total_ingredients_used)>0){
                     while($total_ing = mysqli_fetch_assoc($total_ingredients_used)){
                       $total_ingredients = $total_ing['ingredientsUsed'];
@@ -125,14 +126,14 @@
               </thead>
               <tbody>
                 <?php 
-                  $show_ingredient_history = mysqli_query($connection, "SELECT * FROM ingredient_used_history");
+                  $show_ingredient_history = mysqli_query($connection, "SELECT * FROM ingredients_used WHERE status IN ('cooked', 'used') ");
                   while($inghistory = mysqli_fetch_assoc($show_ingredient_history)){
                 ?>
                 <tr>
-                  <td width="30%"><?php echo $inghistory['ingredient'] ?></td>
-                  <td width="15%"><?php echo $inghistory['quantity'] ?></td>
+                  <td width="30%"><?php echo $inghistory['ingredient_used'] ?></td>
+                  <td width="15%"><?php echo $inghistory['quantity'].$inghistory['unit'] ?></td>
                   <td width="25%">₱<?php echo number_format($inghistory['cost'], 2) ?></td>
-                  <td width="30%"><?php echo date('F d, Y', strtotime($inghistory['date_used']))?></td>
+                  <td width="30%"><?php echo date('F d, Y', strtotime($inghistory['date_added']))?></td>
                 </tr>
                 <?php } ?>
               </tbody>
@@ -148,10 +149,10 @@
                 <h4>Ingredients Summary</h4>
                 <div class="ingSummaryCook" id="ingSummaryCook">
                   <?php 
-                    $show_current_ingredients = mysqli_query($connection, "SELECT * FROM current_ingredients");
+                    $show_current_ingredients = mysqli_query($connection,"SELECT * FROM ingredients_used WHERE status = 'cooked' ");
                     while($curIng = mysqli_fetch_assoc($show_current_ingredients)){
                   ?>
-                  <p><?php echo $curIng['name'].' - '. $curIng['quantity'] ?>/s</p>
+                  <p><?php echo $curIng['ingredient_used'].' - '. $curIng['quantity'].$curIng['unit'] ?>/s</p>
                   <?php } ?>
                   <!-- <p>Salt Papi - 2Kgs</p>
                   <p>Salt Papi - 2Kgs</p>
@@ -161,7 +162,7 @@
                 <div class="invCurrentCost">
                   <p>Total Ingredients Base Cost (TIBC)</p>
                   <?php 
-                    $ingredients_sum = mysqli_query($connection, "SELECT SUM(cost) AS ingredientsBaseCost FROM current_ingredients");
+                    $ingredients_sum = mysqli_query($connection, "SELECT SUM(cost) AS ingredientsBaseCost FROM ingredients_used WHERE status = 'cooked' ");
                     if(mysqli_num_rows($ingredients_sum)>0){
                       while($ing_cost = mysqli_fetch_assoc($ingredients_sum)){
                         $ingredient_cost = $ing_cost['ingredientsBaseCost'];
@@ -206,13 +207,13 @@
                         </thead>
                         <tbody id="cmFormBody">
                           <?php 
-                            $show_cooked_meals = mysqli_query($connection, "SELECT * FROM cooked_meals");
+                            $show_cooked_meals = mysqli_query($connection, "SELECT * FROM meals WHERE status = 'cooked' ");
                             while($meal = mysqli_fetch_assoc($show_cooked_meals)){
                           ?>
                           <tr>
                             <td width="30%"><?php echo $meal['name'] ?><input type="hidden" name="cookMealName[]" value="<?php echo $meal['name'] ?>"></td>
                             <td width="30%"><?php echo $meal['serving'] ?><input type="hidden" name="cookMealServing[]" value="<?php echo $meal['serving'] ?>"></td>
-                            <td width="40%">₱ <?php echo $meal['base_cost'] ?><input type="hidden" name="cookMealCost[]" value=" <?php echo $meal['base_cost'] ?>"></td><!-- numberformat -->
+                            <td width="40%">₱ <?php echo number_format($meal['base_cost'], 2) ?><input type="hidden" name="cookMealCost[]" value=" <?php echo $meal['base_cost'] ?>"></td>
                           </tr>
                           <?php } ?>
                         </tbody>
@@ -223,7 +224,7 @@
                     <div>
                       <p>Total Meal Cooked</p>
                       <?php
-                        $countcookedmeals = mysqli_query($connection, "SELECT COUNT(name) AS cookedMeals FROM cooked_meals");
+                        $countcookedmeals = mysqli_query($connection, "SELECT COUNT(name) AS cookedMeals FROM meals WHERE status = 'cooked' ");
                         if(mysqli_num_rows($countcookedmeals)>0){
                           while($cooked = mysqli_fetch_assoc($countcookedmeals)){
                             $total_meals_cooked = $cooked['cookedMeals'];
@@ -237,7 +238,7 @@
                     <div>
                       <p>Total Meal Base Cost (TMBC)</p>
                       <?php 
-                        $total_meal_cost = mysqli_query($connection, "SELECT SUM(base_cost) AS mealTotalBaseCost FROM cooked_meals");
+                        $total_meal_cost = mysqli_query($connection, "SELECT SUM(base_cost) AS mealTotalBaseCost FROM meals WHERE status = 'cooked'");
                         if(mysqli_num_rows($total_meal_cost)>0){
                           while($meal_cost = mysqli_fetch_assoc($total_meal_cost)){
                             $cooked_meal_cost = $meal_cost['mealTotalBaseCost'];
@@ -257,37 +258,18 @@
                     </span>
                     <button type="submit" id="addMealBtn" name="AddMeal" form="cookMealForm" disabled>Add Meal</button>
                   </div>
-                  <?php 
-                    if(isset($_POST['AddMeal'])){
-                      $cookMealName = $_POST['cookMealName'];
-                      $cookMealServing = $_POST['cookMealServing'];
-                      $cookMealCost = $_POST['cookMealCost'];
-
-                      if(empty($cookMealName)||empty($cookMealName)||empty($cookMealName)){
-                        echo "asd";
-                      }else{
-                        foreach($cookMealName as $key => $n ) {
-                          $addMeal = "INSERT INTO served_meals (name, serving, base_cost) VALUES ('$n', $cookMealServing[$key], $cookMealCost[$key] )";
-                          mysqli_query($connection, $addMeal);
-                          mysqli_query($connection, " DELETE FROM cooked_meals WHERE name = '$n' ");
-                          // header('location:Cook.php');
-                          mysqli_query($connection, "TRUNCATE TABLE current_ingredients");
-                          header('location:Cook.php');
-
-                       }
-                      }
-                    }
-                  ?>
+                  <?php addMeal() ?>
                 </div>
               </div>
             </div>
         </div>
         <div class="cookDetails cookServeToCustomer">
-            <h1>SERVE HERE</h1>
-            <div class="servingContainer">
-              <h3>Available Meals</h3>
-              <p>Here you can view what is the available meal prepared.</p>
-            </div>
+          <h1>SERVE HERE</h1>
+          <div class="servingContainer">
+            <h3>Available Meals</h3>
+            <p>Here you can view what is the available meal prepared.</p>
+          </div>
+          <form action="" method="post">
             <div class="mealServeContent">
               <table>
                 <thead>
@@ -299,20 +281,20 @@
                 </thead>
                 <tbody>
                   <?php 
-                    $show_serving_meals = mysqli_query($connection, "SELECT * FROM served_meals");
+                    $show_serving_meals = mysqli_query($connection, "SELECT * FROM meals where status = 'available'");
                     while($serving = mysqli_fetch_assoc($show_serving_meals)){
                       $servingS = 0;
                       $sum = $serving['base_cost'];
                       $servingS = $servingS + $sum;
                   ?>
                   <tr>
-                    <td width="40%"><?php echo $serving['name']?></td>
-                    <td width="20%"><?php echo $serving['serving'] ?></td>
-                    <td width="40%">₱ <?php echo $serving['base_cost'] ?></td><!-- numberformat -->
+                    <td width="40%"><?php echo $serving['name'] ?><input type="hidden" name="availMealName[]" value="<?php echo $serving['name'] ?>"></td>
+                    <td width="20%"><?php echo $serving['serving'] ?><input type="hidden" name="availMealServing[]" value="<?php echo $serving['serving'] ?>"></td>
+                    <td width="40%">₱ <?php echo number_format($serving['base_cost'], 2) ?><input type="hidden" name="availMealCost[]" value="<?php echo $serving['base_cost'] ?>"></td>
                   </tr>
                   <?php } ?>
                 </tbody>
-              </table>
+              </table> 
               <div class="serveMIDiff">
                 <span>
                   <p>Total Meals</p>
@@ -332,7 +314,10 @@
                 <button>To Cashier</button>
               </div>
             </div>
-        </div>
+            <button type="submit" name="serveMeal">submit</button>
+            <?php serveMeal() ?>
+          </form>
+        </div> 
     </div>
 </section>
 

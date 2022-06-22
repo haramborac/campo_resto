@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 13, 2022 at 08:58 AM
+-- Generation Time: Jun 22, 2022 at 03:31 PM
 -- Server version: 10.4.22-MariaDB
 -- PHP Version: 8.1.2
 
@@ -30,15 +30,12 @@ SET time_zone = "+00:00";
 CREATE TABLE `ingredients_used` (
   `id` int(11) NOT NULL,
   `ingredient_used` varchar(255) NOT NULL,
-  `quantity` int(11) NOT NULL
+  `quantity` int(11) NOT NULL,
+  `unit` varchar(255) NOT NULL,
+  `cost` int(11) NOT NULL,
+  `status` varchar(255) NOT NULL,
+  `date_added` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data for table `ingredients_used`
---
-
-INSERT INTO `ingredients_used` (`id`, `ingredient_used`, `quantity`) VALUES
-(16, 'yosi', 1);
 
 --
 -- Indexes for dumped tables
@@ -58,7 +55,7 @@ ALTER TABLE `ingredients_used`
 -- AUTO_INCREMENT for table `ingredients_used`
 --
 ALTER TABLE `ingredients_used`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

@@ -66,7 +66,7 @@ function sumIng(){
         tr = table.getElementsByTagName('tr');
 
         for(let i = 0; i< tr.length; i++){
-            td = tr[i].getElementsByTagName('td')[0];
+            td = tr[i].getElementsByTagName('td')[3];
                 if(td){
                     textValue = td.textContent || td.innerHTML;
                     intValue = parseFloat(textValue);
