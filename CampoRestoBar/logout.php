@@ -3,7 +3,7 @@
 
     include 'Db.php';
     
-    unset($_SESSION['UNAME']);
+    unset($_SESSION['IS_LOGIN']);
     if (ini_get("session.use_cookies")) {
         $params = session_get_cookie_params();
         setcookie(session_name(), '', time() - 48000,
@@ -14,6 +14,6 @@
     
     // Finally, destroy the session.
     session_destroy();
-    header('location:Login.php');
+    header('location:login.php');
     exit();
 ?>
