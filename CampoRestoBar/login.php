@@ -1,3 +1,4 @@
+<?php include "Functions.php" ?>
 <style>
     <?php include 'CSS/login.css';?>
 </style>
@@ -7,7 +8,8 @@
     <div class="loginCard">
         <h1>WECOME TO CAMPO</h1>
         <p>Login to Continue</p>
-        <form action="">
+        <?php logIn() ?>
+        <form action="" method="post">
             <div class="loginContinue">
                 <div class="selectRole">
                     <div>
@@ -28,7 +30,7 @@
                         <input type="password" id="pPassword" name="pPassword">
                     </div>
                     <div>
-                        <button>LOGIN</button>
+                        <button type="submit" name="login">LOGIN</button>
                     </div>
                 </div>
             </div>
