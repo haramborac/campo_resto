@@ -23,7 +23,23 @@
     <div class="campoNav">
         <ul>
             <li><a href="Dashboard.php"><i class="fas fa-tachometer-alt"></i>Dashboard</a></li>
-            <li><a href="Inventory.php"><div><p>99</p></div><i class="fas fa-boxes"></i>Inventory</a></li>
+            <?php
+                        $lowIngredients = "SELECT COUNT(ingQuantity) AS lowingredients FROM ingredients WHERE ingQuantity <= 10 ";
+                        $lowIngredients_query = mysqli_query($connection, $lowIngredients);
+                        if(mysqli_num_rows($lowIngredients_query)>0){
+                            while($lowing = mysqli_fetch_assoc($lowIngredients_query)){
+                                $low_ingredients = $lowing['lowingredients'];
+                            }    
+                                if($low_ingredients == 0){
+                                    $warning = "none";
+                                }else{
+                                    $warning = "block";
+                                }
+                        }else{
+                            $low_ingredients = 0;
+                        }   
+                    ?>
+            <li><a href="Inventory.php"><div id="cWarning" style="display:<?php echo $warning?>"><p><?php echo $low_ingredients?></p></div><i class="fas fa-boxes"></i>Inventory</a></li>
             <li><a href="Cook.php"><i class="fas fa-utensils"></i>Cook</a></li>
             <li><a href="Cashier.php"><i class="fas fa-file-invoice-dollar"></i>Cashier</a></li>
             <li><a href="Settings.php"><i class="fas fa-cogs"></i></a></li>

@@ -57,15 +57,19 @@
                             }    
                                 if($low_ingredients == 0){
                                     $echo = "";
+                                    $warning = "none";
                                 }else{
                                     if($low_ingredients == 1){
                                         $echo = "<div class='warningMessage'>
                                         <h4><span>WARNING :</span> $low_ingredients Ingredient at Low Level !</h4>
                                         </div>";
+                                        $warning = "block";
+
                                     } else{
                                         $echo = "<div class='warningMessage'>
                                         <h4><span>WARNING :</span> $low_ingredients Ingredients at Low Level !</h4>
                                         </div>";
+                                        $warning = "block";
                                     }
 
                                 }
