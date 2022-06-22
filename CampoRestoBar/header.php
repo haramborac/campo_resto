@@ -43,7 +43,7 @@
             <li><a href="Cook.php"><i class="fas fa-utensils"></i>Cook</a></li>
             <li><a href="Cashier.php"><i class="fas fa-file-invoice-dollar"></i>Cashier</a></li>
             <li><a href="Settings.php"><i class="fas fa-cogs"></i></a></li>
-            <button>LOGOUT</button>
+            <a href=""></a><button>LOGOUT</button></a>
         </ul>
     </div>
 </header>
