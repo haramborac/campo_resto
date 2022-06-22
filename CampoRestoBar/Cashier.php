@@ -24,11 +24,16 @@
                             </tr>
                         </thead>
                         <tbody>
+                            <?php 
+                                $show_serving_meals = mysqli_query($connection, "SELECT * FROM meals WHERE status = 'serving' ");
+                                while($serve = mysqli_fetch_assoc($show_serving_meals)){
+                            ?>
                             <tr>
-                                <td width="40%">Dinuguan</td>
-                                <td width="30%">10</td>
-                                <td width="40%">₱ 10000.00</td>
+                                <td width="40%"><?php echo $serve['name'] ?></td>
+                                <td width="30%"><?php echo $serve['serving'] ?></td>
+                                <td width="40%">₱ <?php echo $serve['base_cost'] ?></td>
                             </tr>
+                            <?php } ?>
                         </tbody>
                     </table>
                 </div>

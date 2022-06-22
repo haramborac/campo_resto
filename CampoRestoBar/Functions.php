@@ -69,7 +69,7 @@
             if(empty($ingredient) || empty($quantity)){
                 echo "<p style='color: red; font-style: italic;'>Missing Input</p>";
             }else{
-                if(mysqli_num_rows(mysqli_query($connection, "SELECT * FROM ingredients_used WHERE ingredient_used = '$ingredient'"))>0){
+                if(mysqli_num_rows(mysqli_query($connection, "SELECT * FROM ingredients_used WHERE ingredient_used = '$ingredient' AND status = 'added' "))>0){
                     echo "<p style='color: red; font-style: italic;'>Ingredient Already Added</p>";
                 }elseif(mysqli_num_rows(mysqli_query($connection, "SELECT * FROM ingredients WHERE ingName = '$ingredient' ")) == 0){
                     echo "<p style='color: red; font-style: italic;'>Ingredient Does Not Exist</p>";
@@ -84,7 +84,7 @@
                         echo "heh";
                         $getingredients = "UPDATE ingredients SET ingQuantity = ingQuantity-$quantity WHERE ingName = '$ingredient' ";
                         mysqli_query($connection, $getingredients);
-                        $addtolist = "INSERT INTO ingredients_used (ingredient_used, quantity) VALUES ('$ingredient', $quantity) ";
+                        $addtolist = "INSERT INTO ingredients_used (ingredient_used, quantity, status) VALUES ('$ingredient', $quantity, 'added') ";
                         mysqli_query($connection, $addtolist);
                         header('location:Cook.php');
                     } 
@@ -135,26 +135,36 @@
             }
         }
     }
-
+    //change:not finished
     function cookList(){
         global $connection;
         if(isset($_POST['cookIngredients'])){
             // $foodid = $_POST['foodid'];
             $listName = $_POST['ingListName'];
             $listQuantity = $_POST['ingListQuantity'];
+            $listUnit = $_POST['ingListUnit'];
             $listCost = $_POST['ingListCost'];
             if(!empty($listName) || !empty($listQuantity) || !empty($listCost)){
                 foreach($listName as $key => $n ) {
-                    //echo $n . ' quantity: '. $zzxc[$key] . "<br>";
-                    $cook = "INSERT INTO current_ingredients (name, quantity, cost) VALUES ('$n', '$listQuantity[$key]', '$listCost[$key]')";
-                    mysqli_query($connection, $cook);
+                    echo $n;
+                    // $cook = "INSERT INTO current_ingredients (name, quantity, cost) VALUES ('$n', '$listQuantity[$key]', '$listCost[$key]')";
+                    // mysqli_query($connection, $cook);
                    
 
-                    $ingredient_history = "INSERT INTO ingredient_used_history (ingredient, quantity, cost, date_used) 
-                    VALUES ('$n', '$listQuantity[$key]', '$listCost[$key]', now()) ";
-                    mysqli_query($connection, $ingredient_history);
+                    // $ingredient_history = "INSERT INTO ingredient_used_history (ingredient, quantity, cost, date_used) 
+                    // VALUES ('$n', '$listQuantity[$key]', '$listCost[$key]', now()) ";
+                    // mysqli_query($connection, $ingredient_history);
 
-                    mysqli_query($connection, " DELETE FROM ingredients_used WHERE ingredient_used = '$n' ");
+                    // mysqli_query($connection, " DELETE FROM ingredients_used WHERE ingredient_used = '$n' ");
+                    // header('location:Cook.php');
+
+                    $cook = "UPDATE ingredients_used SET 
+                    unit = '$listUnit[$key]', 
+                    cost = $listCost[$key], 
+                    status = 'cooked', 
+                    date_added = now() 
+                    where status = 'added' AND ingredient_used = '$n'  ";
+                    mysqli_query($connection, $cook);
                     header('location:Cook.php');
                 }
             }
@@ -171,9 +181,50 @@
             if(empty($mealname) ||empty($mealserving) ||empty($mealcost)){
                 echo "<p style='color: red; font-style: italic;'>Please Input All Fields</p>";
             }else{
-                $cookmeal = "INSERT INTO cooked_meals (name, serving, base_cost) 
-                VALUES ('$mealname', $mealserving, $mealcost)";
+                $cookmeal = "INSERT INTO meals (name, serving, base_cost, status) 
+                VALUES ('$mealname', $mealserving, $mealcost, 'cooked')";
                 mysqli_query($connection, $cookmeal);
+                header('location:Cook.php');
+            }
+        }
+    }
+    //change
+    function addMeal(){
+        global $connection;
+        if(isset($_POST['AddMeal'])){
+            $cookMealName = $_POST['cookMealName'];
+            $cookMealServing = $_POST['cookMealServing'];
+            $cookMealCost = $_POST['cookMealCost'];
+
+            if(empty($cookMealName)||empty($cookMealName)||empty($cookMealName)){
+                echo "<p style='color: red; font-style: italic;'>Please Input All Fields</p>";
+            }else{
+                foreach($cookMealName as $key => $n ) {
+                    $addMeal = "UPDATE meals SET 
+                    status = 'available'
+                    where name = '$n' AND status = 'cooked'";
+                    //$addMeal = "INSERT INTO served_meals (name, serving, base_cost) VALUES ('$n', $cookMealServing[$key], $cookMealCost[$key] )";
+                    mysqli_query($connection, $addMeal);
+                    //mysqli_query($connection, " DELETE FROM cooked_meals WHERE name = '$n' ");
+                    // header('location:Cook.php');
+                    mysqli_query($connection, "UPDATE ingredients_used SET status = 'used' WHERE status = 'cooked' ");
+                    header('location:Cook.php');
+
+                }
+            }
+        }
+    }
+
+    function serveMeal(){
+        global $connection;
+        if(isset($_POST['serveMeal'])){
+            $serveMealName = $_POST['availMealName'];
+            $serveMealServing = $_POST['availMealServing'];
+            $serveMealCost = $_POST['availMealCost'];
+    
+            foreach($serveMealName as $key => $n ) {
+                $serveMeal = "UPDATE meals SET status = 'serving' WHERE name = '$n' AND status = 'available'  ";
+                mysqli_query($connection, $serveMeal);
                 header('location:Cook.php');
             }
         }

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 21, 2022 at 01:15 PM
+-- Generation Time: Jun 22, 2022 at 03:33 PM
 -- Server version: 10.4.22-MariaDB
 -- PHP Version: 8.1.2
 
@@ -24,32 +24,25 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Table structure for table `ingredient_used_history`
+-- Table structure for table `meals`
 --
 
-CREATE TABLE `ingredient_used_history` (
+CREATE TABLE `meals` (
   `id` int(11) NOT NULL,
-  `ingredient` varchar(255) NOT NULL,
-  `quantity` int(11) NOT NULL,
-  `cost` int(11) NOT NULL,
-  `date_used` datetime NOT NULL
+  `name` varchar(255) NOT NULL,
+  `serving` int(11) NOT NULL,
+  `base_cost` int(11) NOT NULL,
+  `status` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data for table `ingredient_used_history`
---
-
-INSERT INTO `ingredient_used_history` (`id`, `ingredient`, `quantity`, `cost`, `date_used`) VALUES
-(1, 'itlog', 1, 1000, '2022-06-21 14:33:35');
 
 --
 -- Indexes for dumped tables
 --
 
 --
--- Indexes for table `ingredient_used_history`
+-- Indexes for table `meals`
 --
-ALTER TABLE `ingredient_used_history`
+ALTER TABLE `meals`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -57,10 +50,10 @@ ALTER TABLE `ingredient_used_history`
 --
 
 --
--- AUTO_INCREMENT for table `ingredient_used_history`
+-- AUTO_INCREMENT for table `meals`
 --
-ALTER TABLE `ingredient_used_history`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+ALTER TABLE `meals`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
