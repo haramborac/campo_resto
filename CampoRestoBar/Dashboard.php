@@ -2,12 +2,20 @@
 <style>
     <?php include 'CSS/dashboard.css'; ?>
 </style>
+<?php
+    session_start();
+
+    if(!isset($_SESSION['UNAME'])){
+        header('location:Login.php');
+        die();
+    }
+?>
 
 <section class="campoDashboard" id="campoDashboard">
     <div class="campoWelcome">
         <div class="welcome">
             <img src="IMG/campoLogoBlack.png" alt="">
-            <h1>Welcome <span>Josh</span>,</h1>
+            <h1>Welcome <span><?php echo $_SESSION['UNAME'];?></span>,</h1>
             <p>Serve Well and Enjoy!</p>
         </div>
         <div class="currentStats">
@@ -85,17 +93,47 @@
                 <p>Here you can see the Ingredients used and Meal Base Cost</p>
                 <div class="breakNumbers">
                     <div>
+<!--TO BE FIXED MEALS NOT SOLD--------------------------------------------------------------------------------------------------------------->
                         <h3>Ingredients Used</h3>
-                        <h1>100 kinds</h1>
+                        <?php $tIngCount = mysqli_query($connection,"SELECT COUNT(DISTINCT ingredient_used) AS 'count' FROM ingredients_used ");
+                            while($tIngQ = mysqli_fetch_assoc($tIngCount)){
+                                $tIng = $tIngQ['count'];
+                                if($tIngQ['count']==0){
+                                    $ingCount = "none";
+                                }else{
+                                    if($tIngQ['count']==1){
+                                        $ingCount = $tIngQ['count'].' '."kind"; 
+                                        $echo = "<div class='warningMessage'>
+                                        <h4><span>WARNING :</span> $tIng Meal not sold !</h4>
+                                        </div>";
+                                    }else{
+                                        $ingCount = $tIngQ['count'].' '."kinds"; 
+                                        $echo = "<div class='warningMessage'>
+                                        <h4><span>WARNING :</span>  $tIng Meals not sold !</h4>
+                                        </div>";
+                                    }
+                                }
+                        }
+                        
+                        ?>
+                        <h1><?php echo $ingCount ?></h1>
                     </div>
                     <hr>
                     <div>
                         <h3>Meal Cost</h3>
-                        <h1>₱ 999999.99</h1>
+                        <?php $tMealQuery = mysqli_query($connection,"SELECT SUM(base_cost) AS base FROM meals");
+                            while($tMealQ = mysqli_fetch_assoc($tMealQuery)){
+                                $meal = $tMealQ['base'];
+                            }
+                        
+                        ?>
+                        <h1>₱ <?php echo number_format($meal,2)?></h1>
                     </div>
-                </div>
+                </div>  
+
+
                 <div class="warningMessage">
-                    <h4><span>WARNING :</span> 3 Meals not sold.</h4>
+                <?php echo $echo ?>
                 </div>
             </div>
             <div class="campoCard">

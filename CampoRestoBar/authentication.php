@@ -17,10 +17,12 @@
                     header("location:Dashboard.php");
                 }
                 else{
-        
+                    echo 'invalid account';
                     header ("location:login.php?login=incorrectpassword");
                     exit ();
                 }
+            }else{
+                header ("location:login.php");
             }
         }else{
             header ("location:login.php");

@@ -186,7 +186,7 @@
                     <div class="statusCard averageLevel">
                         <div style="background: lightgreen;">
                             <?php 
-                                $averagelevel = "Select count(ingName) as average from ingredients where ingQuantity between 10 and 51";
+                                $averagelevel = "Select count(ingName) as average from ingredients where ingQuantity between 11 and 50";
                                 $averagequery = mysqli_query($connection,$averagelevel);
                                 if(mysqli_num_rows($averagequery)>0){
                                     while($rowAve = mysqli_fetch_assoc($averagequery)){
@@ -203,7 +203,7 @@
                     <div class="statusCard lowLevel">
                         <div style="background: salmon;">
                             <?php 
-                                $lowlevel = "Select count(ingName) as low from ingredients where ingQuantity between 0 and 11";
+                                $lowlevel = "Select count(ingName) as low from ingredients where ingQuantity between 1 and 10";
                                 $lowquery = mysqli_query($connection,$lowlevel);
                                 if(mysqli_num_rows($lowquery)>0){
                                     while($rowLow = mysqli_fetch_assoc($lowquery)){
@@ -324,7 +324,7 @@
                             <td width="10%"><?php echo $quantity?> <?php echo $text ?></td>
                             <td style ="display:none"><?php echo $row['ingCost'] ?></td>
                             <td width="15%">₱ <?php echo number_format($row['ingCost'], 2) ?></td>
-                            <td width="15%">₱ <?php echo number_format($cost,2) ?>/<?php echo $row['ingUnit'] ?></td>
+                            <td width="15%">₱ <?php echo number_format($cost/$quantity,2) ?>/<?php echo $row['ingUnit'] ?></td>
                             <?php echo $level ?>
                             <td width="15%"><?php echo date('F d, Y', strtotime($row['ingListed'])) ?></td>
                             <td width="15%"><?php echo date('F d, Y', strtotime($row['ingUpdated'])) ?></td>
