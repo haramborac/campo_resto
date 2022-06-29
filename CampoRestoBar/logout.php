@@ -1,6 +1,5 @@
 <?php 
     session_start();
-
     include 'Db.php';
     
     unset($_SESSION['IS_LOGIN']);

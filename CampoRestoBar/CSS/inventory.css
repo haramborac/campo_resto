@@ -331,7 +331,7 @@ table#tableTitle thead, table#tableTitle tbody tr {
     display: flex;
     flex-flow: column;
     text-align: center;
-    text-transform: capitalize;
+    /* text-transform: capitalize; */
     height: 90%;
     width: 100%;
 }

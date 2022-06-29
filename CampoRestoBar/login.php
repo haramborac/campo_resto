@@ -2,7 +2,9 @@
 <style>
     <?php include 'CSS/login.css';?>
 </style>
-
+<script>
+    <?php include 'JS/login.js'?>
+</script>
 <section>
     <img src="IMG/CampoLogoBlack.png" alt="">
     <div class="loginCard">
@@ -30,7 +32,7 @@
                         <input type="password" id="pPassword" name="pPassword">
                     </div>
                     <div>
-                        <button type="submit" name="login">LOGIN</button>
+                        <button id="btnSubmit" type="submit" name="login">LOGIN</button>
                     </div>
                 </div>
             </div>

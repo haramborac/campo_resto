@@ -42,14 +42,14 @@
             
             $z = mysqli_query($connection, "SELECT * FROM ingredients WHERE ingName = '$restockIng_name'");
 
-            if(mysqli_num_rows(mysqli_query($connection, "SELECT * FROM ingredients WHERE ingName = '$restockIng_name'"))>0){
+            if(mysqli_num_rows($z)>0){
                 while($asd = mysqli_fetch_assoc($z)){
                     $rstckUnit = $asd['ingUnit'];
-                    
+                    $cpu = $asd['ingCostperUnit'];
                     $restockIng = "UPDATE ingredients SET 
                     ingQuantity = ingQuantity+$restockIng_quantity,
                     ingCost = ingCost+$restockIng_price,
-                    ingCostperUnit = ((ingCost+$restockIng_price)/(ingQuantity+$restockIng_quantity))+ingCostperUnit,
+                    ingCostperUnit = (ingCost+$restockIng_price)/(ingQuantity+$restockIng_quantity),
                     ingUpdated = now() 
                     WHERE ingName = '$restockIng_name' ";
                     $restockIng_query = mysqli_query($connection, $restockIng);
@@ -186,8 +186,8 @@
             if(empty($mealname) ||empty($mealserving) ||empty($mealcost)){
                 echo "<p style='color: red; font-style: italic;'>Please Input All Fields</p>";
             }else{
-                $cookmeal = "INSERT INTO meals (name, serving, base_cost, status) 
-                VALUES ('$mealname', $mealserving, $mealcost, 'cooked')";
+                $cookmeal = "INSERT INTO meals (name, serving, counter, base_cost, status) 
+                VALUES ('$mealname', $mealserving, $mealserving, $mealcost, 'cooked')";
                 mysqli_query($connection, $cookmeal);
                 header('location:Cook.php');
             }
@@ -227,11 +227,21 @@
             $serveMealServing = $_POST['availMealServing'];
             $serveMealCost = $_POST['availMealCost'];
     
-            foreach($serveMealName as $key => $n ) {
+            foreach($serveMealName as $key => $n ) {  
                 $serveMeal = "UPDATE meals SET status = 'serving' WHERE name = '$n' AND status = 'available'  ";
+                // $updatemeal = "UPDATE meals SET serving = serving + $serveMealServing, counter = counter + $serveMealServing WHERE name = '$n'";
                 mysqli_query($connection, $serveMeal);
+                // mysqli_query($connection, $updatemeal);
                 header('location:Cook.php');
             }
+
         }
     }
 ?>
+                           <!-- $mealneym = mysqli_query($connection,"SELECT * FROM meals WHERE name LIKE '$mealname' ");
+            foreach($serveMealServing as $key => $n){
+                $serveMeal2 = ""
+            }
+                if(mysqli_num_rows($mealneym)>0){
+                  
+                }else{ -->
